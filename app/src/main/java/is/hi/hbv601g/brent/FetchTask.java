@@ -26,6 +26,7 @@ public class FetchTask extends AsyncTask<String, Integer, JSONArray> {
         HttpURLConnection urlConnection = null;
         JSONArray jsonResponse = null;
         try {
+            // Replace URL!
             URL url = new URL("https://req-prototype.herokuapp.com" + path[0]);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -33,8 +34,8 @@ public class FetchTask extends AsyncTask<String, Integer, JSONArray> {
             StringBuilder stringBuilder = new StringBuilder();
             int responseCode = urlConnection.getResponseCode();
 
-            //Check to make sure we got a valid status response from the server,
-            //then get the server JSON response if we did.
+            // Check to make sure we got a valid status response from the server,
+            // then get the server JSON response if we did.
             if (responseCode == HttpURLConnection.HTTP_OK) {
 
                 //read in each line of the response to the input buffer
@@ -44,10 +45,11 @@ public class FetchTask extends AsyncTask<String, Integer, JSONArray> {
                     stringBuilder.append(line).append("\n");
                 }
 
-                bufferedReader.close(); //close out the input stream
+                bufferedReader.close(); // close out the input stream
 
                 try {
-                    //Copy the JSON response to a local JSONObject
+                    // This could possibly be an JSON object instead of JSON array
+                    // (dependant on the response)
                     jsonResponse = new JSONArray(stringBuilder.toString());
                     System.out.println(jsonResponse);
                 } catch (JSONException je) {

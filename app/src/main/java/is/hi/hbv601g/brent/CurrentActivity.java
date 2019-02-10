@@ -23,6 +23,7 @@ public abstract class CurrentActivity extends AppCompatActivity {
         connected = isConnected();
     }
 
+    // Checks whether device is connected to the internet
     public boolean isConnected() {
         ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
         RequireInternet dialogFragment = new RequireInternet();
@@ -40,8 +41,8 @@ public abstract class CurrentActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Switch on id on each menu item
         switch (item.getItemId()) {
-            case R.id.settings:
-                // TODO
+            case R.id.help:
+                // TODO?
                 return true;
             case R.id.home:
                 Intent intent = new Intent(this, AboutActivity.class);
