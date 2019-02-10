@@ -2,7 +2,7 @@
 
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.example"
+    package="is.hi.hbv601g.brent"
     >
     <!-- Allows us to get internet access, or demands it? -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,18 +10,18 @@
     <application
         android:theme="@style/NoActionBar">
         <activity
-            android:name=".AboutActivity"
-            android:parentActivityName=".MainActivity"
+            android:name="is.hi.hbv601g.brent.AboutActivity"
+            android:parentActivityName="is.hi.hbv601g.brent.MainActivity"
             android:label="About">
             <!-- Have to put this so parent activity links work
                 for older version of android -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="is.hi.hbv601g.brent.MainActivity" />
 
             </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="is.hi.hbv601g.brent.MainActivity"
             android:label="Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
