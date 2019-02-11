@@ -7,7 +7,7 @@ Example of android project
 git checkout -b nafn-a-branchi
 
 #### 2. Þegar maður er tilbúinn að pusha á branchið sitt
-git add .
+git add . \n
 git commit -m "Sutt message um hvað var gert"
 git pull origin master -> laga merge conflict ef það er til staðar
 git push origin nafn-a-branchi
