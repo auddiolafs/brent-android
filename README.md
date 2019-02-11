@@ -7,6 +7,8 @@ Example of android project
 ```
 git checkout -b nafn-a-branchi
 ```
+(sleppa -b ef farið er inn á branch sem er þegar búið að búa til)
+
 #### 2. Þegar maður er tilbúinn að pusha á branchið sitt
 ```
 git add .
