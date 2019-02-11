@@ -1,6 +1,8 @@
 # brent-android
 Example of android project
 
+### Að vinna með branches á git
+
 #### 1. Búa til nýtt branch
 git checkout -b nafn-a-branchi
 
