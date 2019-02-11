@@ -4,8 +4,9 @@ Example of android project
 ### Að vinna með branches á git
 
 #### 1. Búa til nýtt branch
+```
 git checkout -b nafn-a-branchi
-
+```
 #### 2. Þegar maður er tilbúinn að pusha á branchið sitt
 ```
 git add .
