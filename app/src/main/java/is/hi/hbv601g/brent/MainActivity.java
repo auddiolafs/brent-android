@@ -28,15 +28,14 @@ public class MainActivity extends CurrentActivity implements FetchTask.FetchTask
         // Set it as actionbar
         setSupportActionBar(toolbar);
 
-
+        new FetchTask(this).execute("/requests");
         // Remove label/projectName/title from actionbar
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
-
 
     }
 
     @Override
     public void onResultReceived(JSONArray result) {
-        //System.out.println(result);
+        System.out.println(result);
     }
 }
