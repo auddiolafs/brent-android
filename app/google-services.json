@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "595295344763",
+    "firebase_url": "https://brent-android.firebaseio.com",
+    "project_id": "brent-android",
+    "storage_bucket": "brent-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595295344763:android:586aa407bb3eef5f",
+        "android_client_info": {
+          "package_name": "is.hi.hbv601g.brent.example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595295344763-4gv24drgopuuvumr16945pc6qkrs0jia.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "is.hi.hbv601g.brent.example",
+            "certificate_hash": "92e02f269b86c2da3b49c7de551321070dfabcf8"
+          }
+        },
+        {
+          "client_id": "595295344763-p4ur53l971cqtm3fjlqq9ip95dhjgfq4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3D1l53WY4_rdSDKg8gR_iH6EWTBSWKgY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595295344763-p4ur53l971cqtm3fjlqq9ip95dhjgfq4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
