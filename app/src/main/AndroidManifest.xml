@@ -23,11 +23,20 @@
         <activity
             android:name="is.hi.hbv601g.brent.MainActivity"
             android:label="Home">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity
+            android:name="is.hi.hbv601g.brent.BikesActivity"
+            android:label="Bikes">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

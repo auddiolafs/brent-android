@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
 
@@ -31,14 +32,14 @@ public class MainActivity extends CurrentActivity implements FetchTask.FetchTask
         // Set it as actionbar
         setSupportActionBar(toolbar);
 
-        new FetchTask(this).execute("/types", "/booking");
+        //new FetchTask(this).execute("/types", "/booking");
         // Remove label/projectName/title from actionbar
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
     }
 
     @Override
-    public void onResultReceived(List <JSONObject> result) {
+    public void onResultReceived(Map<String,JSONArray> result) {
         System.out.println(result);
     }
 }

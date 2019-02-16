@@ -12,9 +12,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
-public class FetchTask extends AsyncTask<String, Integer, List<JSONObject>> {
+public class FetchTask extends AsyncTask<String, Integer, Map<String,JSONArray>> {
 
     FetchTaskCallback listener;
 
@@ -23,12 +26,12 @@ public class FetchTask extends AsyncTask<String, Integer, List<JSONObject>> {
     }
 
     @Override
-    protected List<JSONObject> doInBackground(String... routes) {
+    protected Map<String,JSONArray> doInBackground(String... routes) {
 
         InputStream in = null;
         HttpURLConnection urlConnection = null;
-        JSONObject jsonResponse = null;
-        List<JSONObject> responses = new ArrayList<>();
+        JSONObject response = null;
+        Map<String,JSONArray> responses = new HashMap<>();
         for (int i = 0; i<routes.length; i+=1) {
             String route = routes[i];
             try {
@@ -54,10 +57,22 @@ public class FetchTask extends AsyncTask<String, Integer, List<JSONObject>> {
                     bufferedReader.close(); // close out the input stream
 
                     try {
-                        // This could possibly be an JSON object instead of JSON array
-                        // (dependant on the response)
-                        jsonResponse = new JSONObject(stringBuilder.toString());
-                        responses.add(jsonResponse);
+                        response = new JSONObject(stringBuilder.toString());
+                        // Because we are possibly handling responses from multiple endpoints
+                        // It is necessary to store them as key val pairs
+                        Iterator<String> keys = response.keys();
+                        while(keys.hasNext()) {
+                            String key = keys.next();
+                            JSONArray val = null;
+                            if (response.get(key) instanceof JSONObject) {
+                                JSONObject obj = (JSONObject) response.get(key);
+                                val = new JSONArray();
+                                val.put(obj);
+                            } else if (response.get(key) instanceof JSONArray){
+                                val = (JSONArray) response.get(key);
+                            }
+                            responses.put(key, val);
+                        }
 
                     } catch (JSONException je) {
                         je.printStackTrace();
@@ -74,12 +89,12 @@ public class FetchTask extends AsyncTask<String, Integer, List<JSONObject>> {
         return responses;
     }
 
-        protected void onPostExecute(List<JSONObject> result) {
+        protected void onPostExecute(Map<String,JSONArray> result) {
         listener.onResultReceived(result);
     }
 
     public interface FetchTaskCallback {
-        void onResultReceived(List <JSONObject> result);
+        void onResultReceived(Map <String,JSONArray> result);
     }
 
 }
