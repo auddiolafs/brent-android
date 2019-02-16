@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.List;
 
 public class BikesActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
 
@@ -22,7 +25,7 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
     }
 
     @Override
-    public void onResultReceived(JSONArray result) {
-        System.out.println(result);
+    public void onResultReceived(List<JSONObject> result) {
+
     }
 }

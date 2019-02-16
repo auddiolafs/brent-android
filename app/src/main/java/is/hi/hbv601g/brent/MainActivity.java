@@ -7,6 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.List;
 
 public class MainActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
 
@@ -28,14 +31,14 @@ public class MainActivity extends CurrentActivity implements FetchTask.FetchTask
         // Set it as actionbar
         setSupportActionBar(toolbar);
 
-        new FetchTask(this).execute("/requests");
+        new FetchTask(this).execute("/types", "/booking");
         // Remove label/projectName/title from actionbar
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
     }
 
     @Override
-    public void onResultReceived(JSONArray result) {
+    public void onResultReceived(List <JSONObject> result) {
         System.out.println(result);
     }
 }
