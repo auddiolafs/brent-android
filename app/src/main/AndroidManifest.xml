@@ -23,8 +23,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="is.hi.hbv601g.brent.MainActivity" />
 
-        </activity>
-
+            </activity>
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/SplashScreenTheme">
@@ -33,8 +32,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".SignInActivity" />
         <activity android:name=".MainActivity" />
+        <activity
+            android:name="is.hi.hbv601g.brent.BikeActivity"
+            android:label="Bike">
+        </activity>
     </application>
 
 </manifest>
