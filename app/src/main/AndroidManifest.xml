@@ -37,6 +37,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="is.hi.hbv601g.brent.BikeActivity"
+            android:label="Bike">
+        </activity>
+
     </application>
 
 </manifest>

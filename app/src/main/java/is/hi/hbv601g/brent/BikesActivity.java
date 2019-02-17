@@ -1,6 +1,7 @@
 package is.hi.hbv601g.brent;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +31,8 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
     private JSONArray bikes;
     private List<String> types = new ArrayList<>();
     private List<String> sizes = new ArrayList<>();
+    private Date startDate;
+    private Date endDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,7 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
 
     @Override
     public void onResultReceived(Map<String,JSONArray> result) {
+        setContentView(R.layout.activity_bikes);
         // Get toolbar in layout (defined in xml file)
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Set it as actionbar
@@ -59,16 +65,42 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
 //        ActionBar ab = getSupportActionBar();
         // Set "go back" functionality
 //        ab.setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_bikes);
         extractFromResponse(result);
         setDatePickers();
         setSpinners();
-        
+
+        Button bikeButton = findViewById(R.id.bikeButton);
+        final Intent intent = new Intent(this, BikeActivity.class);
+        bikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                passDates(intent);
+                Date d = (Date) intent.getExtra("startDate");
+                System.out.println(d);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private void passDates(Intent intent) {
+        EditText startDateText = findViewById(R.id.startDate);
+        EditText endDateText = findViewById(R.id.endDate);
+        String[] x = startDateText.getText().toString().split("/");
+        String[] y = endDateText.getText().toString().split("/");
+        int day, month, year;
+        day = Integer.parseInt(x[0]);
+        month = Integer.parseInt(x[1]);
+        year = Integer.parseInt(x[2]);
+        Date startDate = new GregorianCalendar(year, month, day).getTime();
+        Date endDate = new GregorianCalendar(year, month, day).getTime();
+        intent.putExtra("startDate", startDate);
+        intent.putExtra("endDate", endDate);
     }
 
     private void setDatePickers() {
-        final EditText startDate = findViewById(R.id.editText);
-        final EditText endDate = findViewById(R.id.editText2);
+        final EditText startDate = findViewById(R.id.startDate);
+        final EditText endDate = findViewById(R.id.endDate);
         startDate.setInputType(InputType.TYPE_NULL);
         endDate.setInputType(InputType.TYPE_NULL);
 
@@ -84,8 +116,8 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
                         DatePickerDialog startPicker = new DatePickerDialog(BikesActivity.this,
                                 new DatePickerDialog.OnDateSetListener() {
                                     @Override
-                                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                        startDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                                        startDate.setText(day + "/" + (month + 1) + "/" + year);
                                     }
                                 }, year, month, day);
                         startPicker.show();
