@@ -17,6 +17,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.List;
 
 public class MainActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
 
@@ -53,7 +56,7 @@ public class MainActivity extends CurrentActivity implements FetchTask.FetchTask
         // Set it as actionbar
         setSupportActionBar(toolbar);
 
-//        new FetchTask(this).execute("/requests");
+        new FetchTask(this).execute("/types", "/booking");
         // Remove label/projectName/title from actionbar
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -116,7 +119,7 @@ public class MainActivity extends CurrentActivity implements FetchTask.FetchTask
     }
 
     @Override
-    public void onResultReceived(JSONArray result) {
+    public void onResultReceived(List <JSONObject> result) {
         System.out.println(result);
     }
 }
