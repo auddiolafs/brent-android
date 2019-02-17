@@ -278,7 +278,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="Booki&#9;PSI&#9;JAVA://is.hi.hbv601g.brent.Booking&#10;Fetch&#9;FILE&#9;file:///home/audunn/Desktop/brent/app/src/main/java/is/hi/hbv601g/brent/FetchTask.java&#10;settings&#9;FILE&#9;file:///home/audunn/Android/Sdk/platforms/android-28/data/res/drawable/settings_header.xml" />
+    <property name="SearchEverywhereHistoryKey" value="mani&#9;FILE&#9;file:///home/audunn/Desktop/brent/app/src/main/AndroidManifest.xml&#10;Booki&#9;PSI&#9;JAVA://is.hi.hbv601g.brent.Booking&#10;Fetch&#9;FILE&#9;file:///home/audunn/Desktop/brent/app/src/main/java/is/hi/hbv601g/brent/FetchTask.java&#10;settings&#9;FILE&#9;file:///home/audunn/Android/Sdk/platforms/android-28/data/res/drawable/settings_header.xml" />
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
     <property name="device.picker.selection" value="Nexus_5X_API_28" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -362,7 +362,7 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
