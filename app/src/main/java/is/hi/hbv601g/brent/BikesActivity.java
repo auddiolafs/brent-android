@@ -75,8 +75,6 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
             @Override
             public void onClick(View v) {
                 passDates(intent);
-                Date d = (Date) intent.getExtra("startDate");
-                System.out.println(d);
                 startActivity(intent);
             }
         });
