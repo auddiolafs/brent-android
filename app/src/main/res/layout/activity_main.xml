@@ -11,37 +11,40 @@
         android:id="@+id/logoutText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="151dp"
+        android:layout_marginBottom="44dp"
         android:text="@string/logout" />
 
     <Button
         android:id="@+id/bikeButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="122dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="129dp"
         android:text="@string/bikes" />
 
     <Button
         android:id="@+id/toursButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="128dp"
-        android:layout_marginEnd="65dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="211dp"
         android:text="@string/tours" />
 
     <Button
         android:id="@+id/routesButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="49dp"
-        android:layout_marginBottom="174dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="294dp"
         android:text="@string/routes" />
 
 
