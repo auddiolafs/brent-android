@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -52,7 +53,20 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
         // Set "go back" functionality
 //        ab.setDisplayHomeAsUpEnabled(true);
         new FetchTask(this).execute("/types", "/getall");
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -62,6 +76,10 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Set it as actionbar
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 //        ActionBar ab = getSupportActionBar();
         // Set "go back" functionality
 //        ab.setDisplayHomeAsUpEnabled(true);

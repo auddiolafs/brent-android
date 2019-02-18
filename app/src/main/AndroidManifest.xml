@@ -39,6 +39,18 @@
             android:name="is.hi.hbv601g.brent.BikeActivity"
             android:label="Bike">
         </activity>
+        <activity
+            android:name="is.hi.hbv601g.brent.BikesActivity"
+            android:label="Bikes">
+        </activity>
+        <activity
+            android:name="is.hi.hbv601g.brent.ToursActivity"
+            android:label="Tours">
+        </activity>
+        <activity
+            android:name="is.hi.hbv601g.brent.RoutesActivity"
+            android:label="Routes">
+        </activity>
     </application>
 
 </manifest>

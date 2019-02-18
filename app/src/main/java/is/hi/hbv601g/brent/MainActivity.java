@@ -34,6 +34,9 @@ public class MainActivity extends CurrentActivity implements FetchTask.FetchTask
     FirebaseAuth.AuthStateListener mAuthStateListener;
     String mDisplayName = "";
     TextView mLogoutEdit;
+    TextView mBikesButton;
+    TextView mToursButton;
+    TextView mRoutesButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +59,24 @@ public class MainActivity extends CurrentActivity implements FetchTask.FetchTask
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Set it as actionbar
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         //new FetchTask(this).execute("/types", "/booking");
         // Remove label/projectName/title from actionbar
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
 
+        return super.onOptionsItemSelected(item);
     }
 
     private void initFirebase() {
@@ -97,6 +112,9 @@ public class MainActivity extends CurrentActivity implements FetchTask.FetchTask
 
     private void initListeners() {
         mLogoutEdit = findViewById(R.id.logoutText);
+        mBikesButton = findViewById(R.id.bikeButton);
+        mToursButton = findViewById(R.id.toursButton);
+        mRoutesButton = findViewById(R.id.routesButton);
 
         mLogoutEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +122,32 @@ public class MainActivity extends CurrentActivity implements FetchTask.FetchTask
                 mAuth.signOut();
             }
         });
+
+        mBikesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent bikesIntent = new Intent(getApplicationContext(), BikesActivity.class);
+                startActivity(bikesIntent);
+            }
+        });
+
+        mToursButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toursIntent = new Intent(getApplicationContext(), ToursActivity.class);
+                startActivity(toursIntent);
+            }
+        });
+
+        mRoutesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent routesIntent = new Intent(getApplicationContext(), RoutesActivity.class);
+                startActivity(routesIntent);
+            }
+        });
+
+
     }
 
     @Override

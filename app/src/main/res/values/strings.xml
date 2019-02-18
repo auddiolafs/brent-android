@@ -11,6 +11,13 @@
     <string name="haveAccount">Have an account? Sign In</string>
     <string name="dontHaveAccount">Don’t have an account? Sign Up</string>
     <string name="login">Log In</string>
+    <string name="logout">Log Out Now!</string>
+    <string name="bikes">Bikes</string>
+    <string name="tours">Tours</string>
+    <string name="routes">Routes</string>
+    <string name="toursText">Welcome to Tours!</string>
+    <string name="routesText">Welcome to Routes!</string>
+    <string name="filter">Filter</string>
     <string name="title_activity_navigation">Navigation</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
