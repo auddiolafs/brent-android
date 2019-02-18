@@ -203,6 +203,8 @@ public class SignInActivity extends AppCompatActivity {
                             });
                 } else {
                     Log.e(TAG, "User registration reponse but failed");
+                    mProgressBar.setVisibility(View.GONE);
+                    mLoginButton.setVisibility(View.VISIBLE);
                 }
             }
         };
