@@ -10,12 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Map;
 
-public class BikeActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
+public class BikeActivity extends CurrentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +36,30 @@ public class BikeActivity extends CurrentActivity implements FetchTask.FetchTask
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Set it as actionbar
         setSupportActionBar(toolbar);
-//
-    }
-
-    @Override
-    public void onResultReceived(Map<String, JSONArray> result) {
-
+        Intent bikesActivity_intent = getIntent();
+        String s = bikesActivity_intent.getStringExtra("args");
+        Bike bike = null;
+        try {
+            JSONObject obj = new JSONObject(s);
+            bike = (Bike) obj.get("bike");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        final Bike selectedBike = bike;
+        Button selectButton = (Button)findViewById(R.id.selectButton);
+        final Intent checkoutActivity_intent = new Intent(this, CheckoutActivity.class);
+        final JSONObject args = new JSONObject();
+        selectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    args.put("bike", selectedBike);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                checkoutActivity_intent.putExtra("args", args.toString());
+                startActivity(checkoutActivity_intent);
+            }
+        });
     }
 }
