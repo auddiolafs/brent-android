@@ -8,6 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.List;
+import java.util.Map;
 
 // Check comments in MainActivity for explanation
 public class AboutActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
@@ -41,7 +45,7 @@ public class AboutActivity extends CurrentActivity implements FetchTask.FetchTas
     }
 
     @Override
-    public void onResultReceived(JSONArray result) {
+    public void onResultReceived(Map<String,JSONArray> result) {
         //System.out.println(result);
     }
 
