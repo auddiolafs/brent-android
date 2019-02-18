@@ -38,7 +38,7 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/fLayoutStartDate"
+        android:id="@+id/fLayoutEndDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -55,7 +55,7 @@
         app:layout_constraintVertical_bias="0.120000005">
 
         <EditText
-            android:id="@+id/endDate"
+            android:id="@+id/endDateText"
             android:layout_width="134dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -64,7 +64,7 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/fLayoutEndDate"
+        android:id="@+id/fLayoutStartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -79,7 +79,7 @@
         app:layout_constraintVertical_bias="0.120000005">
 
         <EditText
-            android:id="@+id/startDate"
+            android:id="@+id/startDateText"
             android:layout_width="134dp"
             android:layout_height="wrap_content"
             android:ems="10"
