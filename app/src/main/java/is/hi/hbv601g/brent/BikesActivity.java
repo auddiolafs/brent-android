@@ -31,11 +31,12 @@ import java.util.Map;
 
 public class BikesActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
 
-    private JSONArray bikes;
-    private List<String> types = new ArrayList<>();
-    private List<String> sizes = new ArrayList<>();
-    private Date startDate;
-    private Date endDate;
+    private List<Bike> mBikes = new ArrayList<>();
+    private List<String> mTypes = new ArrayList<>();
+    private List<String> mSizes = new ArrayList<>();
+    private final Calendar mStartDate = Calendar.getInstance();
+    private final Calendar mEndDate = Calendar.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,47 +83,32 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-//        ActionBar ab = getSupportActionBar();
-        // Set "go back" functionality
-//        ab.setDisplayHomeAsUpEnabled(true);
-        extractFromResponse(result);
-        setDatePickers();
-        setSpinners();
 
+        if (!result.containsKey("error")) {
+            extractFromResponse(result);
+            setDatePickers();
+            setSpinners();
+        }
         Button bikeButton = findViewById(R.id.bikeButton);
         final Intent intent = new Intent(this, BikeActivity.class);
         bikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                passDates(intent);
+                Bike bike = new Bike("brand6000", "name6000", "L", "serial6000", new Long(6000));
+                intent.putExtra("bike", bike);
                 startActivity(intent);
             }
         });
 
     }
 
-    private void passDates(Intent intent) {
-        EditText startDateText = findViewById(R.id.startDate);
-        EditText endDateText = findViewById(R.id.endDate);
-        String[] x = startDateText.getText().toString().split("/");
-        String[] y = endDateText.getText().toString().split("/");
-        int day, month, year;
-        day = Integer.parseInt(x[0]);
-        month = Integer.parseInt(x[1]);
-        year = Integer.parseInt(x[2]);
-        Date startDate = new GregorianCalendar(year, month, day).getTime();
-        Date endDate = new GregorianCalendar(year, month, day).getTime();
-        intent.putExtra("startDate", startDate);
-        intent.putExtra("endDate", endDate);
-    }
-
     private void setDatePickers() {
-        final EditText startDate = findViewById(R.id.startDate);
-        final EditText endDate = findViewById(R.id.endDate);
-        startDate.setInputType(InputType.TYPE_NULL);
-        endDate.setInputType(InputType.TYPE_NULL);
+        final EditText startDateText = findViewById(R.id.startDateText);
+        final EditText endDateText = findViewById(R.id.endDateText);
+        startDateText.setInputType(InputType.TYPE_NULL);
+        endDateText.setInputType(InputType.TYPE_NULL);
 
-        startDate.setOnClickListener(
+        startDateText.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -135,14 +121,15 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
                                 new DatePickerDialog.OnDateSetListener() {
                                     @Override
                                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                                        startDate.setText(day + "/" + (month + 1) + "/" + year);
+                                        startDateText.setText(day + "/" + (month + 1) + "/" + year);
                                     }
                                 }, year, month, day);
+                        mStartDate.setTime(new Date(year, month, day));
                         startPicker.show();
                     }
                 });
 
-        endDate.setOnClickListener(
+        endDateText.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -155,9 +142,10 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
                                 new DatePickerDialog.OnDateSetListener() {
                                     @Override
                                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                        endDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                        endDateText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                                     }
                                 }, year, month, day);
+                        mEndDate.setTime(new Date(year, month, day));
                         endPicker.show();
                     }
                 });
@@ -169,7 +157,7 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
         ArrayAdapter<String> adapter;
 
         adapter= new ArrayAdapter<String>
-                (this, android.R.layout.simple_spinner_item, this.types);
+                (this, android.R.layout.simple_spinner_item, this.mTypes);
         adapter.setDropDownViewResource(
                 android.R.layout
                         .simple_spinner_dropdown_item
@@ -177,7 +165,7 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
         types.setAdapter(adapter);
 
         adapter= new ArrayAdapter<String>
-                (this, android.R.layout.simple_spinner_item, this.sizes);
+                (this, android.R.layout.simple_spinner_item, this.mSizes);
         adapter.setDropDownViewResource(
                 android.R.layout
                         .simple_spinner_dropdown_item
@@ -197,17 +185,32 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
             keys = obj.keys();
             while(keys.hasNext()) {
                 String type = keys.next();
-                this.types.add(type);
+                mTypes.add(type);
             }
             // Extract sizes
             obj = (JSONObject) s.get(0);
             keys = obj.keys();
             while(keys.hasNext()) {
                 String type = keys.next();
-                this.sizes.add(type);
+                mSizes.add(type);
             }
 
-            this.bikes = result.get("Bikes");
+
+            JSONArray bikes = result.get("Bikes");
+            for (int i = 0; i < bikes.length(); i++) {
+                obj = bikes.getJSONObject(i);
+                String g = (String)obj.get("brand");
+                Bike bike = new Bike(
+                        (String) obj.get("brand"),
+//                        (String) obj.get("name"),
+                        "name",
+                        (String) obj.get("size"),
+                        (String) obj.get("serial"),
+//                        Long.parseLong((String) obj.get("price"))
+                        new Long(1)
+                );
+                mBikes.add(bike);
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -1,6 +1,11 @@
 package is.hi.hbv601g.brent;
 
-public class Bike {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+
+public class Bike implements Serializable {
 
     private Long id;
     private String brand;
@@ -17,6 +22,7 @@ public class Bike {
         this.price = price;
         this.id = new Long(1);
     }
+
 
     public Long getId() {
         return id;
@@ -71,6 +77,20 @@ public class Bike {
             return true;
         }
         return false;
+    }
+
+    public JSONObject toJSON() {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("brand", this.brand);
+            //obj.put("type", "asdf");
+            obj.put("size", this.size);
+            obj.put("serial", this.serial);
+            obj.put("ppd", "12345");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj;
     }
 
 

@@ -1,21 +1,18 @@
 package is.hi.hbv601g.brent;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
-import org.json.JSONArray;
 
-import java.util.Map;
+import org.json.JSONObject;
 
-public class BikeActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
+
+public class BikeActivity extends CurrentActivity implements HttpService.HttpServiceCallback  {
+
+    private HttpService httpService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +20,7 @@ public class BikeActivity extends CurrentActivity implements FetchTask.FetchTask
         if (this.connected) {
             setUp();
         }
+        httpService = new HttpService(this);
     }
 
     @Override
@@ -32,11 +30,23 @@ public class BikeActivity extends CurrentActivity implements FetchTask.FetchTask
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Set it as actionbar
         setSupportActionBar(toolbar);
-//
+        Intent bikesActivity_intent = getIntent();
+        final Bike bike = (Bike) bikesActivity_intent.getSerializableExtra("bike");
+        Button selectButton = findViewById(R.id.selectButton);
+        final Intent cartActivity_intent = new Intent(this, CartActivity.class);
+        selectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cartActivity_intent.putExtra("bike", bike);
+                startActivity(cartActivity_intent);
+
+            }
+        });
     }
 
-    @Override
-    public void onResultReceived(Map<String, JSONArray> result) {
 
+    @Override
+    public void onResultReceived(JSONObject result) {
+        System.out.println(result);
     }
 }
