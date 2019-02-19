@@ -2,7 +2,6 @@ package is.hi.hbv601g.brent;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -10,7 +9,7 @@ import org.json.JSONArray;
 
 import java.util.Map;
 
-public class RoutesActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
+public class CartActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,11 +20,12 @@ public class RoutesActivity extends CurrentActivity implements FetchTask.FetchTa
 
     @Override
     public void setUp() {
-        setContentView(R.layout.activity_routes);
+        setContentView(R.layout.activity_cart);
         // Get toolbar in layout (defined in xml file)
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Set it as actionbar
         setSupportActionBar(toolbar);
+
         /* Back arrow (Not needed with BRENT Logo)
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

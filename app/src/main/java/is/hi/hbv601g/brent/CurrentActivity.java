@@ -39,13 +39,19 @@ public abstract class CurrentActivity extends AppCompatActivity {
     // If any action happens in menu it will call this method
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         // Switch on id on each menu item
         switch (item.getItemId()) {
-            case R.id.help:
-                // TODO?
+            case R.id.cart:
+                intent = new Intent(this, CartActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.home:
-                Intent intent = new Intent(this, AboutActivity.class);
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.profile:
+                intent = new Intent(this, UserActivity.class);
                 startActivity(intent);
                 return true;
 

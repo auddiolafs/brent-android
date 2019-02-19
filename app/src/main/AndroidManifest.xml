@@ -51,6 +51,14 @@
             android:name="is.hi.hbv601g.brent.RoutesActivity"
             android:label="Routes">
         </activity>
+        <activity
+            android:name="is.hi.hbv601g.brent.UserActivity"
+            android:label="Profile">
+        </activity>
+        <activity
+            android:name="is.hi.hbv601g.brent.CartActivity"
+            android:label="Cart">
+        </activity>
     </application>
 
 </manifest>

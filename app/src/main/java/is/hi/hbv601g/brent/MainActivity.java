@@ -146,8 +146,6 @@ public class MainActivity extends CurrentActivity implements FetchTask.FetchTask
                 startActivity(routesIntent);
             }
         });
-
-
     }
 
     @Override

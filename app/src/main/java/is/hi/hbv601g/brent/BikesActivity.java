@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,19 +55,19 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
         // Set "go back" functionality
 //        ab.setDisplayHomeAsUpEnabled(true);
         new FetchTask(this).execute("/types", "/getall");
+        /* Back arrow (Not needed with BRENT Logo)
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+        }*/
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // handle arrow click here
+        Toast.makeText(this, item.getTitle(), Toast.LENGTH_LONG).show();
         if (item.getItemId() == android.R.id.home) {
             finish(); // close this activity and return to preview activity (if there is any)
         }
-
         return super.onOptionsItemSelected(item);
     }
 

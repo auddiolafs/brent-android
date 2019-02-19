@@ -6,12 +6,20 @@
     <!-- "Mark Favorite", should appear as action button if possible -->
     <item
         android:id="@+id/home"
-        android:icon="@drawable/logo"
-        android:title="@string/search"
-        app:showAsAction="ifRoom"/>
+        android:icon="@drawable/app_logo"
+        android:title="@string/home"
+        app:showAsAction="always"/>
 
-    <!-- Settings, should always be in the overflow -->
-    <item android:id="@+id/help"
-        android:title="Help"
-        app:showAsAction="never"/>
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_action_account_circle"
+        android:orderInCategory="100"
+        android:title="@string/profile"
+        app:showAsAction="always"/>
+
+
+    <item android:id="@+id/cart"
+        android:icon="@drawable/ic_launcher"
+        android:title="@string/cart"
+        app:showAsAction="always"/>
 </menu>
