@@ -63,25 +63,19 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Set it as actionbar
         setSupportActionBar(toolbar);
-//        ActionBar ab = getSupportActionBar();
-        // Set "go back" functionality
-//        ab.setDisplayHomeAsUpEnabled(true);
-        extractFromResponse(result);
-        setDatePickers();
-        setSpinners();
-
+        if (!result.containsKey("error")) {
+            extractFromResponse(result);
+            setDatePickers();
+            setSpinners();
+        }
         Button bikeButton = findViewById(R.id.bikeButton);
         final Intent intent = new Intent(this, BikeActivity.class);
         final JSONObject args = new JSONObject();
         bikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    args.put("bike", mBikes.get(0));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                intent.putExtra("args", args.toString());
+                Bike bike = new Bike("brand6000", "name6000", "L", "serial6000", new Long(6000));
+                intent.putExtra("bike", bike);
                 startActivity(intent);
             }
         });

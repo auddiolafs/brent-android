@@ -37,15 +37,16 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".BikeActivity"
-            android:label="Bike"></activity>
+            android:label="Bike">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".BikesActivity"
             android:label="Bikes">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
             </activity>
 
 

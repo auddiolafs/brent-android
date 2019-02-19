@@ -45,7 +45,7 @@ public class FetchTask extends AsyncTask<String, Integer, Map<String,JSONArray>>
 
                 // Check to make sure we got a valid status response from the server,
                 // then get the server JSON response if we did.
-                if (responseCode == HttpURLConnection.HTTP_OK) {
+                if (responseCode >= 200 && responseCode < 300) {
 
                     //read in each line of the response to the input buffer
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "utf-8"));
@@ -56,31 +56,34 @@ public class FetchTask extends AsyncTask<String, Integer, Map<String,JSONArray>>
 
                     bufferedReader.close(); // close out the input stream
 
-                    try {
-                        response = new JSONObject(stringBuilder.toString());
-                        // Because we are possibly handling responses from multiple endpoints
-                        // It is necessary to store them as key val pairs
-                        Iterator<String> keys = response.keys();
-                        while(keys.hasNext()) {
-                            String key = keys.next();
-                            JSONArray val = null;
-                            if (response.get(key) instanceof JSONObject) {
-                                JSONObject obj = (JSONObject) response.get(key);
-                                val = new JSONArray();
-                                val.put(obj);
-                            } else if (response.get(key) instanceof JSONArray){
-                                val = (JSONArray) response.get(key);
-                            }
-                            responses.put(key, val);
+                    response = new JSONObject(stringBuilder.toString());
+                    // Because we are possibly handling responses from multiple endpoints
+                    // It is necessary to store them as key val pairs
+                    Iterator<String> keys = response.keys();
+                    while(keys.hasNext()) {
+                        String key = keys.next();
+                        JSONArray val = null;
+                        if (response.get(key) instanceof JSONObject) {
+                            JSONObject obj = (JSONObject) response.get(key);
+                            val = new JSONArray();
+                            val.put(obj);
+                        } else if (response.get(key) instanceof JSONArray){
+                            val = (JSONArray) response.get(key);
                         }
-
-                    } catch (JSONException je) {
-                        je.printStackTrace();
+                        responses.put(key, val);
                     }
+                }
+                else  {
+                    JSONArray arr = new JSONArray();
+                    arr.put("Server responded with response code " + responseCode);
+                    responses.put("error", arr);
                 }
             } catch (IOException e) {
 
-            } finally {
+            } catch (JSONException je) {
+                je.printStackTrace();
+            }
+            finally {
                 urlConnection.disconnect();
             }
 
