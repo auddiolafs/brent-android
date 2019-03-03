@@ -11,6 +11,8 @@ public class Tour {
     private Date startDate;
     private Date endDate;
 
+    public Tour() { }
+
     public Tour(String name, String location, Long price, Date startDate, Date endDate) {
         this.name = name;
         this.location = location;

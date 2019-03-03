@@ -7,28 +7,30 @@ import java.io.Serializable;
 
 public class Bike implements Serializable {
 
-    private Long id;
+    private String id;
     private String brand;
     private String name;
     private String size;
     private String serial;
     private Long price;
 
-    public Bike(String brand, String name, String size, String serial, Long price) {
+    public Bike() { }
+
+    public Bike(String brand, String name, String size, String serial, Long price, String id) {
         this.brand = brand;
         this.name = name;
         this.size = size;
         this.serial = serial;
         this.price = price;
-        this.id = new Long(1);
+        this.id = id;
     }
 
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

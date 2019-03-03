@@ -2,12 +2,10 @@ package is.hi.hbv601g.brent;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,6 +15,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +29,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +40,8 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
     private List<String> mSizes = new ArrayList<>();
     private final Calendar mStartDate = Calendar.getInstance();
     private final Calendar mEndDate = Calendar.getInstance();
+    private static final String TAG = "BikesActivity";
+    private static final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +61,11 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
 //        ActionBar ab = getSupportActionBar();
         // Set "go back" functionality
 //        ab.setDisplayHomeAsUpEnabled(true);
+
         new FetchTask(this).execute("/types", "/getall");
+
+        fetchBikesFirestore();
+
         /* Back arrow (Not needed with BRENT Logo)
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -94,12 +104,56 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
         bikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bike bike = new Bike("brand6000", "name6000", "L", "serial6000", new Long(6000));
+                Bike bike = new Bike("brand6000", "name6000", "L", "serial6000", new Long(10900), "AS97ikocUK");
                 intent.putExtra("bike", bike);
                 startActivity(intent);
             }
         });
+    }
 
+    private void fetchBikesFirestore() {
+        final List<Bike> bikes = new ArrayList<>();
+        final Task<QuerySnapshot> task = db.collection("bikes")
+                .get();
+
+        task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    bikes.add(toEntity(document.getData()));
+                    Log.d(TAG, document.getId() + " => " + document.getData());
+                }
+
+                mBikes = bikes;
+                setBikes();
+            }
+        });
+
+        task.addOnFailureListener(new OnFailureListener() {
+            public void onFailure(Exception e) {
+                Log.d(TAG, "error");
+            }
+        });
+    }
+
+    private static Bike toEntity(Map<String, Object> bikeMap) {
+        Bike b = new Bike();
+        try {
+            b.setBrand(bikeMap.get("brand").toString());
+            b.setName(bikeMap.get("name").toString());
+            b.setSize(bikeMap.get("size").toString());
+            b.setSerial(bikeMap.get("serial").toString());
+            b.setPrice(Long.parseLong( bikeMap.get("ppd").toString()));
+            return b;
+        } catch (Exception e) {
+            Log.d(TAG, "error");
+            return null;
+        }
+    }
+
+    private void setBikes() {
+        Log.d(TAG, mBikes.get(0).getName());
+        // TODO: create cards
     }
 
     private void setDatePickers() {
@@ -195,7 +249,7 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
                 mSizes.add(type);
             }
 
-
+            /*
             JSONArray bikes = result.get("Bikes");
             for (int i = 0; i < bikes.length(); i++) {
                 obj = bikes.getJSONObject(i);
@@ -211,6 +265,7 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
                 );
                 mBikes.add(bike);
             }
+            */
 
         } catch (JSONException e) {
             e.printStackTrace();
