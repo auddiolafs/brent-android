@@ -80,7 +80,7 @@ public class ToursActivity extends CurrentActivity implements FetchTask.FetchTas
         try {
             t.setName(tourMap.get("name").toString());
             t.setLocation(tourMap.get("location").toString());
-            t.setPrice(Long.parseLong(tourMap.get("ppd").toString()));
+            t.setPrice(Long.parseLong(tourMap.get("price").toString()));
             // TODO: set dates
             return t;
         } catch (Exception e) {
