@@ -59,7 +59,7 @@ public class ToursActivity extends CurrentActivity implements FetchTask.FetchTas
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    tours.add(toEntity(document.getData()));
+                    tours.add(toEntity(document.getId(), document.getData()));
                     Log.d(TAG, document.getId() + " => " + document.getData());
                 }
 
@@ -75,12 +75,13 @@ public class ToursActivity extends CurrentActivity implements FetchTask.FetchTas
         });
     }
 
-    private static Tour toEntity(Map<String, Object> tourMap) {
+    private static Tour toEntity(String tourId, Map<String, Object> tourData) {
         Tour t = new Tour();
         try {
-            t.setName(tourMap.get("name").toString());
-            t.setLocation(tourMap.get("location").toString());
-            t.setPrice(Long.parseLong(tourMap.get("price").toString()));
+            t.setId(tourId);
+            t.setName(tourData.get("name").toString());
+            t.setLocation(tourData.get("location").toString());
+            t.setPrice(Long.parseLong(tourData.get("price").toString()));
             // TODO: set dates
             return t;
         } catch (Exception e) {
@@ -90,7 +91,7 @@ public class ToursActivity extends CurrentActivity implements FetchTask.FetchTas
     }
 
     private void setTours() {
-        Log.d(TAG, mTours.get(0).getName());
+        // Log.d(TAG, mTours.get(0).getName());
         // TODO: create cards
     }
 

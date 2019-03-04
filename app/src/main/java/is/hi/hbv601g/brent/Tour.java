@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Tour {
 
-    private Long id;
+    private String id;
     private String name;
     private String location;
     private Long price;
@@ -21,11 +21,11 @@ public class Tour {
         this.endDate = endDate;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

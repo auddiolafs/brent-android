@@ -120,7 +120,7 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    bikes.add(toEntity(document.getData()));
+                    bikes.add(toEntity(document.getId(), document.getData()));
                     Log.d(TAG, document.getId() + " => " + document.getData());
                 }
 
@@ -136,14 +136,15 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
         });
     }
 
-    private static Bike toEntity(Map<String, Object> bikeMap) {
+    private static Bike toEntity(String bikeId, Map<String, Object> bikeData) {
         Bike b = new Bike();
         try {
-            b.setBrand(bikeMap.get("brand").toString());
-            b.setName(bikeMap.get("name").toString());
-            b.setSize(bikeMap.get("size").toString());
-            b.setSerial(bikeMap.get("serial").toString());
-            b.setPrice(Long.parseLong( bikeMap.get("ppd").toString()));
+            b.setId(bikeId);
+            b.setBrand(bikeData.get("brand").toString());
+            b.setName(bikeData.get("name").toString());
+            b.setSize(bikeData.get("size").toString());
+            b.setSerial(bikeData.get("serial").toString());
+            b.setPrice(Long.parseLong( bikeData.get("ppd").toString()));
             return b;
         } catch (Exception e) {
             Log.d(TAG, "error");
@@ -152,7 +153,7 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
     }
 
     private void setBikes() {
-        Log.d(TAG, mBikes.get(0).getName());
+        // Log.d(TAG, mBikes.get(0).getName());
         // TODO: create cards
     }
 
