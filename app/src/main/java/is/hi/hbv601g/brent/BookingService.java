@@ -19,6 +19,7 @@ public class BookingService {
         mApp = FirebaseApp.getInstance();
         mAuth = FirebaseAuth.getInstance(mApp);
         FirebaseUser user = mAuth.getCurrentUser();
+
     }
 
     public void saveBooking(List<Bike> bikes, List<Accessory> accessories, List<Tour> tours,
