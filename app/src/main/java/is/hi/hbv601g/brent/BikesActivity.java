@@ -137,6 +137,7 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
     }
 
     private static Bike toEntity(String bikeId, Map<String, Object> bikeData) {
+        // TODO: make this a helper function
         Bike b = new Bike();
         try {
             b.setId(bikeId);
