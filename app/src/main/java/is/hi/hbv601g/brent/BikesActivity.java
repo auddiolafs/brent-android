@@ -1,8 +1,10 @@
 package is.hi.hbv601g.brent;
 
 import android.app.DatePickerDialog;
+import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -98,6 +101,7 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
             extractFromResponse(result);
             setDatePickers();
             setSpinners();
+            setBikeList();
         }
         Button bikeButton = findViewById(R.id.bikeButton);
         final Intent intent = new Intent(this, BikeActivity.class);
@@ -109,6 +113,12 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
                 startActivity(intent);
             }
         });
+    }
+
+    private void setBikeList() {
+        BikeListFragment bikeListFragment = new BikeListFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().add(R.id.bikeListContainer, bikeListFragment).commit();
     }
 
     private void fetchBikesFirestore() {
