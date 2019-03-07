@@ -13,7 +13,8 @@ public class Tour {
 
     public Tour() { }
 
-    public Tour(String name, String location, Long price, Date startDate, Date endDate) {
+    public Tour(String id, String name, String location, Long price, Date startDate, Date endDate) {
+        this.id = id;
         this.name = name;
         this.location = location;
         this.price = price;

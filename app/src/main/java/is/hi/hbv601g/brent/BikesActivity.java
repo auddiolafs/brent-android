@@ -66,6 +66,14 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
 
         fetchBikesFirestore();
 
+        List<Bike> bikes = new ArrayList<>();
+        bikes.add(new Bike("Trek", "Venge", "M", "JH4NA12641T940293", new Long(9900), "n3b48QKTjPvJleUawXJm"));
+        bikes.add(new Bike("Specialized", "Madone", "L", "WBSDX9C59CE293468", new Long(11900), "lKG6wY3NUTK8ahbxckzF"));
+
+        List<Tour> tours = new ArrayList<>();
+        tours.add(new Tour("bcvgy3GhRnbz379TkA82", "Capital area biking", "Reykjavík", new Long(9900), new Date(), new Date()));
+
+        new BookingService().saveBooking(bikes, null, tours, new Date(), new Date(), "Reykjavík");
         /* Back arrow (Not needed with BRENT Logo)
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
