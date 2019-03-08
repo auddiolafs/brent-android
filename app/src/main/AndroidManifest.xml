@@ -5,6 +5,7 @@
     <!-- Allows us to get internet access, or demands it? -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,6 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Activities.LoginActivity"></activity>
+        <activity android:name=".Activities.RegisterActivity" />
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/SplashScreenTheme">
@@ -25,29 +28,23 @@
         <activity android:name=".SignInActivity" />
         <activity android:name=".MainActivity" />
         <activity
-            android:name="is.hi.hbv601g.brent.BikeActivity"
-            android:label="Bike">
-        </activity>
+            android:name=".BikeActivity"
+            android:label="Bike" />
         <activity
-            android:name="is.hi.hbv601g.brent.BikesActivity"
-            android:label="Bikes">
-        </activity>
+            android:name=".BikesActivity"
+            android:label="Bikes" />
         <activity
-            android:name="is.hi.hbv601g.brent.ToursActivity"
-            android:label="Tours">
-        </activity>
+            android:name=".ToursActivity"
+            android:label="Tours" />
         <activity
-            android:name="is.hi.hbv601g.brent.RoutesActivity"
-            android:label="Routes">
-        </activity>
+            android:name=".RoutesActivity"
+            android:label="Routes" />
         <activity
-            android:name="is.hi.hbv601g.brent.UserActivity"
-            android:label="Profile">
-        </activity>
+            android:name=".UserActivity"
+            android:label="Profile" />
         <activity
-            android:name="is.hi.hbv601g.brent.CartActivity"
-            android:label="Cart">
-        </activity>
+            android:name=".CartActivity"
+            android:label="Cart" />
     </application>
 
 </manifest>

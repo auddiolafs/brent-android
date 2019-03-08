@@ -25,7 +25,7 @@ import java.util.Map;
 public class MainActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
 
 
-    String TAG = "ChatApp >> ";
+    String TAG = "MainActivity >> ";
 
     FirebaseApp mApp;
     FirebaseDatabase mDatabase;
@@ -102,7 +102,7 @@ public class MainActivity extends CurrentActivity implements FetchTask.FetchTask
                     Log.e(TAG, "AUTH STATE UPDATE : No user logged in");
                     mDisplayName = "No valid user";
 
-                    Intent signInIntent = new Intent(getApplicationContext(), SignInActivity.class);
+                    Intent signInIntent = new Intent(getApplicationContext(), is.hi.hbv601g.brent.Activities.LoginActivity.class);
                     startActivityForResult(signInIntent, 101);
                 }
             }
