@@ -2,23 +2,21 @@ package is.hi.hbv601g.brent;
 
 public class Accessory {
 
-    private Long id;
+    private String  id;
     private String type;
     private String name;
     private Long price;
 
-    public Accessory(String type, String name, Long price) {
+    public Accessory(String type, String name, Long price, String id) {
         this.type = type;
         this.name = name;
         this.price = price;
-        this.id = new Long(1);
+        this.id = id;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
