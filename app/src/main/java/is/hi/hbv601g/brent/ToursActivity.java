@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ToursActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
+public class ToursActivity extends CurrentActivity {
 
     private List<Tour> mTours = new ArrayList<>();
     private static final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -108,10 +108,5 @@ public class ToursActivity extends CurrentActivity implements FetchTask.FetchTas
 
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public void onResultReceived(Map<String, JSONArray> result) {
-
     }
 }

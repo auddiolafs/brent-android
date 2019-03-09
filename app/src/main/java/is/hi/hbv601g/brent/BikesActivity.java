@@ -36,7 +36,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class BikesActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
+public class BikesActivity extends CurrentActivity {
 
     private List<Bike> mBikes = new ArrayList<>();
     private List<String> mTypes = new ArrayList<>();
@@ -65,8 +65,6 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
         // Set "go back" functionality
 //        ab.setDisplayHomeAsUpEnabled(true);
 
-        new FetchTask(this).execute("/types", "/getall");
-
         fetchBikesFirestore();
 
         /* Back arrow (Not needed with BRENT Logo)
@@ -85,42 +83,6 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onResultReceived(Map<String,JSONArray> result) {
-        setContentView(R.layout.activity_bikes);
-        // Get toolbar in layout (defined in xml file)
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Set it as actionbar
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-
-        if (!result.containsKey("error")) {
-            extractFromResponse(result);
-            setDatePickers();
-            setSpinners();
-            setBikeList();
-        }
-        Button bikeButton = findViewById(R.id.bikeButton);
-        final Intent intent = new Intent(this, BikeActivity.class);
-        bikeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bike bike = new Bike("brand6000", "name6000", "L", "serial6000", new Long(10900), "AS97ikocUK");
-                intent.putExtra("bike", bike);
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void setBikeList() {
-        BikeListFragment bikeListFragment = new BikeListFragment();
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().add(R.id.bikeListContainer, bikeListFragment).commit();
-    }
-
     private void fetchBikesFirestore() {
         final List<Bike> bikes = new ArrayList<>();
         final Task<QuerySnapshot> task = db.collection("bikes")
@@ -129,13 +91,24 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
         task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                setContentView(R.layout.activity_bikes);
+                // Get toolbar in layout (defined in xml file)
+                Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+                // Set it as actionbar
+                setSupportActionBar(toolbar);
+                if (getSupportActionBar() != null){
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    getSupportActionBar().setDisplayShowHomeEnabled(true);
+                }
+
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     bikes.add(toEntity(document.getId(), document.getData()));
                     Log.d(TAG, document.getId() + " => " + document.getData());
                 }
 
                 mBikes = bikes;
-                setBikes();
+                setBikeList();
             }
         });
 
@@ -144,6 +117,12 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
                 Log.d(TAG, "error");
             }
         });
+    }
+
+    private void setBikeList() {
+        BikeListFragment bikeListFragment = new BikeListFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().add(R.id.bikeListContainer, bikeListFragment).commit();
     }
 
     private static Bike toEntity(String bikeId, Map<String, Object> bikeData) {
@@ -162,10 +141,6 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
         }
     }
 
-    private void setBikes() {
-        // Log.d(TAG, mBikes.get(0).getName());
-        // TODO: create cards
-    }
 
     private void setDatePickers() {
         final EditText startDateText = findViewById(R.id.startDateText);

@@ -5,11 +5,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-
-import java.util.Map;
-
-public class UserActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
+public class UserActivity extends CurrentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +35,5 @@ public class UserActivity extends CurrentActivity implements FetchTask.FetchTask
             finish(); // close this activity and return to preview activity (if there is any)
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onResultReceived(Map<String, JSONArray> result) {
-
     }
 }

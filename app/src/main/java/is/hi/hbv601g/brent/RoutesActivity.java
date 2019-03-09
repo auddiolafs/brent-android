@@ -6,11 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-
-import java.util.Map;
-
-public class RoutesActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
+public class RoutesActivity extends CurrentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +38,4 @@ public class RoutesActivity extends CurrentActivity implements FetchTask.FetchTa
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onResultReceived(Map<String, JSONArray> result) {
-
-    }
 }

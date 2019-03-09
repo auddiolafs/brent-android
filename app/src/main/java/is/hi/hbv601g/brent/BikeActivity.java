@@ -10,9 +10,7 @@ import android.widget.Button;
 import org.json.JSONObject;
 
 
-public class BikeActivity extends CurrentActivity implements HttpService.HttpServiceCallback  {
-
-    private HttpService httpService;
+public class BikeActivity extends CurrentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +18,6 @@ public class BikeActivity extends CurrentActivity implements HttpService.HttpSer
         if (this.connected) {
             setUp();
         }
-        httpService = new HttpService(this);
     }
 
     @Override
@@ -42,11 +39,5 @@ public class BikeActivity extends CurrentActivity implements HttpService.HttpSer
 
             }
         });
-    }
-
-
-    @Override
-    public void onResultReceived(JSONObject result) {
-        System.out.println(result);
     }
 }
