@@ -2,7 +2,6 @@ package is.hi.hbv601g.brent;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -12,8 +11,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,18 +33,9 @@ public class ToursActivity extends CurrentActivity {
     @Override
     public void setUp() {
         setContentView(R.layout.activity_tours);
-        // Get toolbar in layout (defined in xml file)
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Set it as actionbar
-        setSupportActionBar(toolbar);
+
 
         fetchToursFirestore();
-
-        /* Back arrow (Not needed with BRENT Logo)
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }*/
     }
 
     private void fetchToursFirestore() {

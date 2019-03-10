@@ -49,31 +49,11 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     @Override
     public void setUp() {
         setContentView(R.layout.activity_loading);
-        // Get toolbar in layout (defined in xml file)
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Set it as actionbar
-        setSupportActionBar(toolbar);
-//        ActionBar ab = getSupportActionBar();
-        // Set "go back" functionality
-//        ab.setDisplayHomeAsUpEnabled(true);
 
         fetchBikesFirestore();
 
-        /* Back arrow (Not needed with BRENT Logo)
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }*/
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(this, item.getTitle(), Toast.LENGTH_LONG).show();
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     private void fetchBikesFirestore() {
         final ArrayList<Bike> bikes = new ArrayList<>();
@@ -84,15 +64,6 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 setContentView(R.layout.activity_bikes);
-                // Get toolbar in layout (defined in xml file)
-                Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-                // Set it as actionbar
-                setSupportActionBar(toolbar);
-                if (getSupportActionBar() != null){
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                    getSupportActionBar().setDisplayShowHomeEnabled(true);
-                }
 
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     bikes.add(toEntity(document.getId(), document.getData()));

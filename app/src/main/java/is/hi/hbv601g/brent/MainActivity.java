@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.firebase.FirebaseApp;
@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends CurrentActivity {
 
 
-    String TAG = "ChatApp >> ";
+    String TAG = "MainActivity >> ";
 
     FirebaseApp mApp;
     FirebaseDatabase mDatabase;
@@ -30,6 +30,10 @@ public class MainActivity extends CurrentActivity {
     TextView mBikesButton;
     TextView mToursButton;
     TextView mRoutesButton;
+
+    ImageButton toolbarProfile;
+    ImageButton toolbarHome;
+    ImageButton toolbarCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +51,31 @@ public class MainActivity extends CurrentActivity {
     }
 
     public void setUp() {
+        toolbarProfile = findViewById(R.id.toolbar_profile);
+        toolbarProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent userIntent = new Intent(getApplicationContext(), UserActivity.class);
+                startActivity(userIntent);
+            }
+        });
+        toolbarHome = findViewById(R.id.toolbar_home);
+        toolbarHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent home = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(home);
+            }
+        });
+        toolbarCart = findViewById(R.id.toolbar_cart);
+        toolbarCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cart = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(cart);
+            }
+        });
 
-        // Get toolbar in layout (defined in xml file)
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Set it as actionbar
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-
-        //new FetchTask(this).execute("/types", "/booking");
-        // Remove label/projectName/title from actionbar
-        //getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override
@@ -95,7 +111,7 @@ public class MainActivity extends CurrentActivity {
                     Log.e(TAG, "AUTH STATE UPDATE : No user logged in");
                     mDisplayName = "No valid user";
 
-                    Intent signInIntent = new Intent(getApplicationContext(), SignInActivity.class);
+                    Intent signInIntent = new Intent(getApplicationContext(), is.hi.hbv601g.brent.Activities.LoginActivity.class);
                     startActivityForResult(signInIntent, 101);
                 }
             }

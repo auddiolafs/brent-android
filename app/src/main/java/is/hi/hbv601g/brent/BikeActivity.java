@@ -2,13 +2,8 @@ package is.hi.hbv601g.brent;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-
-
-import org.json.JSONObject;
-
 
 public class BikeActivity extends CurrentActivity {
 
@@ -24,9 +19,6 @@ public class BikeActivity extends CurrentActivity {
     public void setUp() {
         setContentView(R.layout.activity_bike);
         // Get toolbar in layout (defined in xml file)
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        // Set it as actionbar
-        setSupportActionBar(toolbar);
         Intent bikesActivity_intent = getIntent();
         final Bike bike = bikesActivity_intent.getParcelableExtra("bike");
         Button bookButton= findViewById(R.id.bookButton);
