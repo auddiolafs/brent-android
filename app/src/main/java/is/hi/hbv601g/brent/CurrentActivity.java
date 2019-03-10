@@ -36,32 +36,32 @@ public abstract class CurrentActivity extends AppCompatActivity {
 
     }
 
-    // If any action happens in menu it will call this method
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
-        // Switch on id on each menu item
-        switch (item.getItemId()) {
-            case R.id.cart:
-                intent = new Intent(this, CartActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.home:
-                intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.profile:
-                intent = new Intent(this, UserActivity.class);
-                startActivity(intent);
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
+//    // If any action happens in menu it will call this method
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        Intent intent;
+//        // Switch on id on each menu item
+//        switch (item.getItemId()) {
+//            case R.id.cart:
+//                intent = new Intent(this, CartActivity.class);
+//                startActivity(intent);
+//                return true;
+//            case R.id.home:
+//                intent = new Intent(this, MainActivity.class);
+//                startActivity(intent);
+//                return true;
+//            case R.id.profile:
+//                intent = new Intent(this, UserActivity.class);
+//                startActivity(intent);
+//                return true;
+//
+//            default:
+//                // If we got here, the user's action was not recognized.
+//                // Invoke the superclass to handle it.
+//                return super.onOptionsItemSelected(item);
+//
+//        }
+//    }
 
     // Overide method in AppCompatActivity, which allows us
     //          set menu defined in res/menu/main_menu.xml into actionbar

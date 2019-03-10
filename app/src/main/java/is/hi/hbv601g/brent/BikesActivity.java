@@ -54,45 +54,17 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
     @Override
     public void setUp() {
         setContentView(R.layout.activity_loading);
-        // Get toolbar in layout (defined in xml file)
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Set it as actionbar
-        setSupportActionBar(toolbar);
-//        ActionBar ab = getSupportActionBar();
-        // Set "go back" functionality
-//        ab.setDisplayHomeAsUpEnabled(true);
 
         new FetchTask(this).execute("/types", "/getall");
 
         fetchBikesFirestore();
 
-        /* Back arrow (Not needed with BRENT Logo)
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }*/
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(this, item.getTitle(), Toast.LENGTH_LONG).show();
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onResultReceived(Map<String,JSONArray> result) {
         setContentView(R.layout.activity_bikes);
-        // Get toolbar in layout (defined in xml file)
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Set it as actionbar
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
 
         if (!result.containsKey("error")) {
             extractFromResponse(result);

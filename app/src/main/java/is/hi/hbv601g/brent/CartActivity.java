@@ -22,15 +22,7 @@ public class CartActivity extends CurrentActivity implements FetchTask.FetchTask
     public void setUp() {
         setContentView(R.layout.activity_cart);
         // Get toolbar in layout (defined in xml file)
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Set it as actionbar
-        setSupportActionBar(toolbar);
 
-        /* Back arrow (Not needed with BRENT Logo)
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }*/
     }
 
     @Override

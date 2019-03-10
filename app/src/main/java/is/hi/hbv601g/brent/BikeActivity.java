@@ -27,9 +27,7 @@ public class BikeActivity extends CurrentActivity implements HttpService.HttpSer
     public void setUp() {
         setContentView(R.layout.activity_bike);
         // Get toolbar in layout (defined in xml file)
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Set it as actionbar
-        setSupportActionBar(toolbar);
+
         Intent bikesActivity_intent = getIntent();
         final Bike bike = (Bike) bikesActivity_intent.getSerializableExtra("bike");
         Button selectButton = findViewById(R.id.selectButton);
