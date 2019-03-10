@@ -2,6 +2,7 @@ package is.hi.hbv601g.brent;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -9,7 +10,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -23,22 +23,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class BikesActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
+public class BikesActivity extends CurrentActivity implements BikeListFragment.SelectionListener {
 
-    private List<Bike> mBikes = new ArrayList<>();
-    private List<String> mTypes = new ArrayList<>();
-    private List<String> mSizes = new ArrayList<>();
+    private ArrayList<Bike> mBikes = new ArrayList<>();
+    private ArrayList<String> mTypes = new ArrayList<>();
+    private ArrayList<String> mSizes = new ArrayList<>();
     private final Calendar mStartDate = Calendar.getInstance();
     private final Calendar mEndDate = Calendar.getInstance();
     private static final String TAG = "BikesActivity";
@@ -59,8 +54,6 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
     @Override
     public void setUp() {
         setContentView(R.layout.activity_loading);
-
-        new FetchTask(this).execute("/types", "/getall");
 
         fetchBikesFirestore();
 
@@ -92,42 +85,25 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
     }
 
 
-    @Override
-    public void onResultReceived(Map<String,JSONArray> result) {
-        setContentView(R.layout.activity_bikes);
-
-        if (!result.containsKey("error")) {
-            extractFromResponse(result);
-            setDatePickers();
-            setSpinners();
-        }
-        Button bikeButton = findViewById(R.id.bikeButton);
-        final Intent intent = new Intent(this, BikeActivity.class);
-        bikeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bike bike = new Bike("brand6000", "name6000", "L", "serial6000", new Long(10900), "AS97ikocUK");
-                intent.putExtra("bike", bike);
-                startActivity(intent);
-            }
-        });
-    }
-
     private void fetchBikesFirestore() {
-        final List<Bike> bikes = new ArrayList<>();
+        final ArrayList<Bike> bikes = new ArrayList<>();
         final Task<QuerySnapshot> task = db.collection("bikes")
                 .get();
 
         task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                setContentView(R.layout.activity_bikes);
+
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     bikes.add(toEntity(document.getId(), document.getData()));
                     Log.d(TAG, document.getId() + " => " + document.getData());
                 }
 
                 mBikes = bikes;
-                setBikes();
+                setSpinners();
+                setDatePickers();
+                setBikeList();
             }
         });
 
@@ -136,6 +112,15 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
                 Log.d(TAG, "error");
             }
         });
+    }
+
+    private void setBikeList() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("bikes", mBikes);
+        BikeListFragment bikeListFragment = new BikeListFragment();
+        bikeListFragment.setArguments(bundle);
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().add(R.id.bikeListContainer, bikeListFragment).commit();
     }
 
     private static Bike toEntity(String bikeId, Map<String, Object> bikeData) {
@@ -154,10 +139,6 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
         }
     }
 
-    private void setBikes() {
-        // Log.d(TAG, mBikes.get(0).getName());
-        // TODO: create cards
-    }
 
     private void setDatePickers() {
         final EditText startDateText = findViewById(R.id.startDateText);
@@ -230,49 +211,11 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
         sizes.setAdapter(adapter);
     }
 
-    private void extractFromResponse(Map<String,JSONArray> result) {
-        JSONArray t = result.get("Types");
-        JSONArray s = result.get("Sizes");
-        try {
-
-            JSONObject obj = null;
-            Iterator<String> keys;
-            // Extract types
-            obj = (JSONObject) t.get(0);
-            keys = obj.keys();
-            while(keys.hasNext()) {
-                String type = keys.next();
-                mTypes.add(type);
-            }
-            // Extract sizes
-            obj = (JSONObject) s.get(0);
-            keys = obj.keys();
-            while(keys.hasNext()) {
-                String type = keys.next();
-                mSizes.add(type);
-            }
-
-            /*
-            JSONArray bikes = result.get("Bikes");
-            for (int i = 0; i < bikes.length(); i++) {
-                obj = bikes.getJSONObject(i);
-                String g = (String)obj.get("brand");
-                Bike bike = new Bike(
-                        (String) obj.get("brand"),
-//                        (String) obj.get("name"),
-                        "name",
-                        (String) obj.get("size"),
-                        (String) obj.get("serial"),
-//                        Long.parseLong((String) obj.get("price"))
-                        new Long(1)
-                );
-                mBikes.add(bike);
-            }
-            */
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void onBikeSelected(Bike bike) {
+        Intent intent = new Intent(getApplicationContext(),
+                BikeActivity.class);
+        intent.putExtra("bike", bike);
+        startActivity(intent);
     }
-
 }

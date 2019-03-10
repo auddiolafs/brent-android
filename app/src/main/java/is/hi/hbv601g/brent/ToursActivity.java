@@ -2,7 +2,6 @@ package is.hi.hbv601g.brent;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,13 +14,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.json.JSONArray;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ToursActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
+public class ToursActivity extends CurrentActivity {
 
     private List<Tour> mTours = new ArrayList<>();
     private static final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -42,6 +39,7 @@ public class ToursActivity extends CurrentActivity implements FetchTask.FetchTas
     @Override
     public void setUp() {
         setContentView(R.layout.activity_tours);
+
         // Get toolbar in layout (defined in xml file)
         toolbarProfile = findViewById(R.id.toolbar_profile);
         toolbarProfile.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +65,7 @@ public class ToursActivity extends CurrentActivity implements FetchTask.FetchTas
                 startActivity(cart);
             }
         });
+
 
         fetchToursFirestore();
     }
@@ -129,10 +128,5 @@ public class ToursActivity extends CurrentActivity implements FetchTask.FetchTas
 
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public void onResultReceived(Map<String, JSONArray> result) {
-
     }
 }

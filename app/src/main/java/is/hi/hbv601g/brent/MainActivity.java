@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,13 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.List;
-import java.util.Map;
-
-public class MainActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
+public class MainActivity extends CurrentActivity {
 
 
     String TAG = "MainActivity >> ";
@@ -176,10 +168,5 @@ public class MainActivity extends CurrentActivity implements FetchTask.FetchTask
             mAuth.addAuthStateListener(mAuthStateListener);
 
         }
-    }
-
-    @Override
-    public void onResultReceived(Map<String,JSONArray> result) {
-        System.out.println(result);
     }
 }

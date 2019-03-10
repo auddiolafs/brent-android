@@ -2,7 +2,6 @@ package is.hi.hbv601g.brent;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,6 +16,7 @@ public class UserActivity extends CurrentActivity implements FetchTask.FetchTask
     ImageButton toolbarProfile;
     ImageButton toolbarHome;
     ImageButton toolbarCart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +63,5 @@ public class UserActivity extends CurrentActivity implements FetchTask.FetchTask
             finish(); // close this activity and return to preview activity (if there is any)
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onResultReceived(Map<String, JSONArray> result) {
-
     }
 }

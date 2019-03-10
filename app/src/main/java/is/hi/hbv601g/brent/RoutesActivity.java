@@ -2,12 +2,11 @@ package is.hi.hbv601g.brent;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
 
 import org.json.JSONArray;
 
@@ -67,8 +66,4 @@ public class RoutesActivity extends CurrentActivity implements FetchTask.FetchTa
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onResultReceived(Map<String, JSONArray> result) {
-
-    }
 }

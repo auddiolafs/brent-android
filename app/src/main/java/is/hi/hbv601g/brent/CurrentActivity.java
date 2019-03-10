@@ -10,8 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 public abstract class CurrentActivity extends AppCompatActivity {
 
+    public static Cart mCart = new Cart();
     private static DialogFragment dialogFragment;
     public boolean connected;
 

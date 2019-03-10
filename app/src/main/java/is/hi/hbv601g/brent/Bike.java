@@ -1,11 +1,14 @@
 package is.hi.hbv601g.brent;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class Bike implements Serializable {
+public class Bike implements Parcelable {
 
     private String id;
     private String brand;
@@ -25,6 +28,31 @@ public class Bike implements Serializable {
         this.id = id;
     }
 
+
+    protected Bike(Parcel in) {
+        id = in.readString();
+        brand = in.readString();
+        name = in.readString();
+        size = in.readString();
+        serial = in.readString();
+        if (in.readByte() == 0) {
+            price = null;
+        } else {
+            price = in.readLong();
+        }
+    }
+
+    public static final Creator<Bike> CREATOR = new Creator<Bike>() {
+        @Override
+        public Bike createFromParcel(Parcel in) {
+            return new Bike(in);
+        }
+
+        @Override
+        public Bike[] newArray(int size) {
+            return new Bike[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -96,4 +124,23 @@ public class Bike implements Serializable {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(brand);
+        dest.writeString(name);
+        dest.writeString(size);
+        dest.writeString(serial);
+        if (price == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(price);
+        }
+    }
 }
