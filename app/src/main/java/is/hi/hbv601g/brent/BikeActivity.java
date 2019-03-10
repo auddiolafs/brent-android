@@ -24,19 +24,18 @@ public class BikeActivity extends CurrentActivity {
     public void setUp() {
         setContentView(R.layout.activity_bike);
         // Get toolbar in layout (defined in xml file)
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         // Set it as actionbar
         setSupportActionBar(toolbar);
         Intent bikesActivity_intent = getIntent();
-        final Bike bike = (Bike) bikesActivity_intent.getSerializableExtra("bike");
-        Button selectButton = findViewById(R.id.selectButton);
+        final Bike bike = bikesActivity_intent.getParcelableExtra("bike");
+        Button bookButton= findViewById(R.id.bookButton);
         final Intent cartActivity_intent = new Intent(this, CartActivity.class);
-        selectButton.setOnClickListener(new View.OnClickListener() {
+        bookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cartActivity_intent.putExtra("bike", bike);
                 startActivity(cartActivity_intent);
-
             }
         });
     }
