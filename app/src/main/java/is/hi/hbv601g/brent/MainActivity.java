@@ -26,10 +26,11 @@ public class MainActivity extends CurrentActivity {
 
     FirebaseAuth.AuthStateListener mAuthStateListener;
     String mDisplayName = "";
-    TextView mLogoutEdit;
-    TextView mBikesButton;
-    TextView mToursButton;
-    TextView mRoutesButton;
+//    TextView mBikesButton;
+ImageButton mToursButton;
+    ImageButton mRoutesButton;
+
+    ImageButton mBikesButton;
 
     ImageButton toolbarProfile;
     ImageButton toolbarHome;
@@ -120,17 +121,10 @@ public class MainActivity extends CurrentActivity {
     }
 
     private void initListeners() {
-        mLogoutEdit = findViewById(R.id.logoutText);
         mBikesButton = findViewById(R.id.bikeButton);
         mToursButton = findViewById(R.id.toursButton);
         mRoutesButton = findViewById(R.id.routesButton);
 
-        mLogoutEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-            }
-        });
 
         mBikesButton.setOnClickListener(new View.OnClickListener() {
             @Override

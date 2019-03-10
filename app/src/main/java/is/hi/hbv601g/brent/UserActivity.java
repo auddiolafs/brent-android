@@ -5,7 +5,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 
@@ -17,6 +22,10 @@ public class UserActivity extends CurrentActivity {
     ImageButton toolbarHome;
     ImageButton toolbarCart;
 
+    TextView mLogoutEdit;
+
+    FirebaseAuth mAuth;
+    FirebaseApp mApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +38,10 @@ public class UserActivity extends CurrentActivity {
     @Override
     public void setUp() {
         setContentView(R.layout.activity_user);
+
+
+        mApp = FirebaseApp.getInstance();
+        mAuth = FirebaseAuth.getInstance(mApp);
         // Get toolbar in layout (defined in xml file
         toolbarProfile = findViewById(R.id.toolbar_profile);
         toolbarProfile.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +65,15 @@ public class UserActivity extends CurrentActivity {
             public void onClick(View v) {
                 Intent cart = new Intent(getApplicationContext(), CartActivity.class);
                 startActivity(cart);
+            }
+        });
+
+        mLogoutEdit = findViewById(R.id.logoutText);
+
+        mLogoutEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
             }
         });
     }
