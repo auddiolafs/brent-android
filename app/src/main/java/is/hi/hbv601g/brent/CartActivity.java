@@ -11,7 +11,7 @@ import org.json.JSONArray;
 
 import java.util.Map;
 
-public class CartActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
+public class CartActivity extends CurrentActivity {
     ImageButton toolbarProfile;
     ImageButton toolbarHome;
     ImageButton toolbarCart;

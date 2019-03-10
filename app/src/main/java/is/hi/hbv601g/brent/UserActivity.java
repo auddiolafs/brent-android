@@ -11,7 +11,7 @@ import org.json.JSONArray;
 
 import java.util.Map;
 
-public class UserActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
+public class UserActivity extends CurrentActivity {
 
     ImageButton toolbarProfile;
     ImageButton toolbarHome;

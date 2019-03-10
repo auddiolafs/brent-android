@@ -12,7 +12,7 @@ import org.json.JSONArray;
 
 import java.util.Map;
 
-public class RoutesActivity extends CurrentActivity implements FetchTask.FetchTaskCallback {
+public class RoutesActivity extends CurrentActivity {
 
     ImageButton toolbarProfile;
     ImageButton toolbarHome;
