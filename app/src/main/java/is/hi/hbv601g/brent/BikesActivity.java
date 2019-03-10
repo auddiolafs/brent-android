@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -43,6 +44,10 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
     private static final String TAG = "BikesActivity";
     private static final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    ImageButton toolbarProfile;
+    ImageButton toolbarHome;
+    ImageButton toolbarCart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +63,31 @@ public class BikesActivity extends CurrentActivity implements FetchTask.FetchTas
         new FetchTask(this).execute("/types", "/getall");
 
         fetchBikesFirestore();
+
+        toolbarProfile = findViewById(R.id.toolbar_profile);
+        toolbarProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent userIntent = new Intent(getApplicationContext(), UserActivity.class);
+                startActivity(userIntent);
+            }
+        });
+        toolbarHome = findViewById(R.id.toolbar_home);
+        toolbarHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent home = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(home);
+            }
+        });
+        toolbarCart = findViewById(R.id.toolbar_cart);
+        toolbarCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cart = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(cart);
+            }
+        });
 
     }
 
