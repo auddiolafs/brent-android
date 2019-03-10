@@ -4,8 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class BikeActivity extends CurrentActivity {
+
+    ImageButton toolbarProfile;
+    ImageButton toolbarHome;
+    ImageButton toolbarCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +24,32 @@ public class BikeActivity extends CurrentActivity {
     public void setUp() {
         setContentView(R.layout.activity_bike);
         // Get toolbar in layout (defined in xml file)
+        toolbarProfile = findViewById(R.id.toolbar_profile);
+        toolbarProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent userIntent = new Intent(getApplicationContext(), UserActivity.class);
+                startActivity(userIntent);
+            }
+        });
+        toolbarHome = findViewById(R.id.toolbar_home);
+        toolbarHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent home = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(home);
+            }
+        });
+        toolbarCart = findViewById(R.id.toolbar_cart);
+        toolbarCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cart = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(cart);
+            }
+        });
+
+
         Intent bikesActivity_intent = getIntent();
         final Bike bike = bikesActivity_intent.getParcelableExtra("bike");
         Button bookButton= findViewById(R.id.bookButton);
