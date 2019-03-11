@@ -7,15 +7,12 @@
     android:layout_height="match_parent">
 
     <FrameLayout
+        android:id="@+id/frameLayout3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fLayoutTypes">
@@ -23,14 +20,20 @@
         <Button
             android:id="@+id/bikeButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/filter" />
+            android:layout_height="40dp"
+            android:background="@drawable/reg_btn_style"
+            android:text="@string/search"
+            android:textColor="@android:color/white" />
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/frameLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <include
             android:id="@+id/toolbar"
@@ -41,68 +44,51 @@
         android:id="@+id/fLayoutEndDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.83"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
-        app:layout_constraintVertical_bias="0.120000005">
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
 
         <EditText
             android:id="@+id/endDateText"
-            android:layout_width="134dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/bikes_btn_date"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="End date" />
+            android:text="End date"
+            android:textSize="12sp"
+            android:textStyle="bold" />
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/fLayoutStartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.17"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
-        app:layout_constraintVertical_bias="0.120000005">
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
 
         <EditText
             android:id="@+id/startDateText"
-            android:layout_width="134dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/bikes_btn_date"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Start date" />
+            android:text="Start date"
+            android:textSize="12sp"
+            android:textStyle="bold" />
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/fLayoutSizes"
         android:layout_width="134dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.83"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
-        app:layout_constraintVertical_bias="0.26">
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
 
         <Spinner
             android:id="@+id/sizes"
@@ -114,16 +100,10 @@
         android:id="@+id/fLayoutTypes"
         android:layout_width="134dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.17"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
-        app:layout_constraintVertical_bias="0.26">
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
 
 
         <Spinner
@@ -133,6 +113,61 @@
             android:spinnerMode="dropdown"
             android:visibility="visible" />
     </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/bikeListContainer"
+        android:layout_width="395dp"
+        android:layout_height="380dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Dates"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:text="Type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fLayoutStartDate" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="Size"
+        app:layout_constraintStart_toStartOf="@+id/fLayoutEndDate"
+        app:layout_constraintTop_toBottomOf="@+id/fLayoutEndDate" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout3"
+        app:srcCompat="@drawable/divider_large" />
 
 
 </android.support.constraint.ConstraintLayout>
