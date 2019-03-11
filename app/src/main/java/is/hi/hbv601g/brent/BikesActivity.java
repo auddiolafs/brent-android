@@ -4,17 +4,14 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,7 +23,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 public class BikesActivity extends CurrentActivity implements BikeListFragment.SelectionListener {
@@ -55,7 +51,8 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     public void setUp() {
         setContentView(R.layout.activity_loading);
 
-        fetchBikesFirestore();
+        setSizes();
+        fetchData();
 
         toolbarProfile = findViewById(R.id.toolbar_profile);
         toolbarProfile.setOnClickListener(new View.OnClickListener() {
@@ -84,8 +81,36 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
 
     }
 
+    private void fetchData() {
+        final ArrayList<String> types = new ArrayList<>();
+        final Task<QuerySnapshot> task = db.collection("types").get();
 
-    private void fetchBikesFirestore() {
+        // Fetch types first and then bikes, both are asynchronous calls so both need to finish
+        // before setting the content view
+        task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    types.add(document.getData().get("type").toString());
+                    Log.d(TAG, document.getId() + " => " + document.getData());
+                }
+
+                mTypes = types;
+
+                fetchBikes();
+            }
+        });
+
+        task.addOnFailureListener(new OnFailureListener() {
+            public void onFailure(Exception e) {
+                Log.d(TAG, "Error fetching types");
+            }
+        });
+    }
+
+
+    private void fetchBikes() {
         final ArrayList<Bike> bikes = new ArrayList<>();
         final Task<QuerySnapshot> task = db.collection("bikes")
                 .get();
@@ -96,7 +121,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
                 setContentView(R.layout.activity_bikes);
 
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    bikes.add(toEntity(document.getId(), document.getData()));
+                    bikes.add(bikeToEntity(document.getId(), document.getData()));
                     Log.d(TAG, document.getId() + " => " + document.getData());
                 }
 
@@ -109,7 +134,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
 
         task.addOnFailureListener(new OnFailureListener() {
             public void onFailure(Exception e) {
-                Log.d(TAG, "error");
+                Log.d(TAG, "Error fetching bikes");
             }
         });
     }
@@ -123,7 +148,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
         fm.beginTransaction().add(R.id.bikeListContainer, bikeListFragment).commit();
     }
 
-    private static Bike toEntity(String bikeId, Map<String, Object> bikeData) {
+    private static Bike bikeToEntity(String bikeId, Map<String, Object> bikeData) {
         Bike b = new Bike();
         try {
             b.setId(bikeId);
@@ -138,7 +163,6 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
             return null;
         }
     }
-
 
     private void setDatePickers() {
         final EditText startDateText = findViewById(R.id.startDateText);
@@ -193,6 +217,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
         Spinner types = findViewById(R.id.types);
         Spinner sizes = findViewById(R.id.sizes);
         ArrayAdapter<String> adapter;
+        Log.d(TAG, mTypes.get(0));
 
         adapter= new ArrayAdapter<String>
                 (this, android.R.layout.simple_spinner_item, this.mTypes);
@@ -201,6 +226,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
                         .simple_spinner_dropdown_item
         );
         types.setAdapter(adapter);
+        types.setSelection(adapter.getPosition("All"));
 
         adapter= new ArrayAdapter<String>
                 (this, android.R.layout.simple_spinner_item, this.mSizes);
@@ -209,6 +235,14 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
                         .simple_spinner_dropdown_item
         );
         sizes.setAdapter(adapter);
+        sizes.setSelection(adapter.getPosition("All"));
+    }
+
+    private void setSizes() {
+        mSizes.add("All");
+        mSizes.add("S");
+        mSizes.add("M");
+        mSizes.add("L");
     }
 
     @Override
