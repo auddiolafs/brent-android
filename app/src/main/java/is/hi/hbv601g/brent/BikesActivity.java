@@ -37,7 +37,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     private final Calendar mStartDate = Calendar.getInstance();
     private final Calendar mEndDate = Calendar.getInstance();
     private static final String TAG = "BikesActivity";
-    private static final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
 
     ImageButton toolbarProfile;
     ImageButton toolbarHome;
@@ -54,7 +54,6 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     @Override
     public void setUp() {
         setContentView(R.layout.activity_loading);
-
         fetchBikesFirestore();
 
         toolbarProfile = findViewById(R.id.toolbar_profile);
@@ -87,26 +86,28 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
 
     private void fetchBikesFirestore() {
         final ArrayList<Bike> bikes = new ArrayList<>();
-        final Task<QuerySnapshot> task = db.collection("bikes")
+        final Task<QuerySnapshot> task = mDB.collection("bikes")
                 .get();
 
         task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 setContentView(R.layout.activity_bikes);
-
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    bikes.add(toEntity(document.getId(), document.getData()));
-                    Log.d(TAG, document.getId() + " => " + document.getData());
+                    Bike bike = Bike.toEntity(document.getId(), document.getData());
+                    if (bike == null) {
+                        Log.d(TAG, "error");
+                    } else {
+                        bikes.add(bike);
+                        Log.d(TAG, document.getId() + " => " + document.getData());
+                    }
                 }
-
                 mBikes = bikes;
                 setSpinners();
                 setDatePickers();
                 setBikeList();
             }
         });
-
         task.addOnFailureListener(new OnFailureListener() {
             public void onFailure(Exception e) {
                 Log.d(TAG, "error");
@@ -121,22 +122,6 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
         bikeListFragment.setArguments(bundle);
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().add(R.id.bikeListContainer, bikeListFragment).commit();
-    }
-
-    private static Bike toEntity(String bikeId, Map<String, Object> bikeData) {
-        Bike b = new Bike();
-        try {
-            b.setId(bikeId);
-            b.setBrand(bikeData.get("brand").toString());
-            b.setName(bikeData.get("name").toString());
-            b.setSize(bikeData.get("size").toString());
-            b.setSerial(bikeData.get("serial").toString());
-            b.setPrice(Long.parseLong( bikeData.get("ppd").toString()));
-            return b;
-        } catch (Exception e) {
-            Log.d(TAG, "error");
-            return null;
-        }
     }
 
 
@@ -216,6 +201,8 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
         Intent intent = new Intent(getApplicationContext(),
                 BikeActivity.class);
         intent.putExtra("bike", bike);
+        intent.putExtra("startDate", mStartDate.getTime());
+        intent.putExtra("endDate", mEndDate.getTime());
         startActivity(intent);
     }
 }

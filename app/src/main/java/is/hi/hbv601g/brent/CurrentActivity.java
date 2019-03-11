@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public abstract class CurrentActivity extends AppCompatActivity {
 
-    public static Cart mCart = new Cart();
     private static DialogFragment dialogFragment;
     public boolean connected;
 
