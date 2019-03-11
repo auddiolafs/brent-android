@@ -10,32 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="457f790c-9a51-4bd9-ae86-7f250cb73f24" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Activities/LoginActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Activities/RegisterActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_brent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_shopping_cart_black_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_tag_faces_black_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Bike.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Bike.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/BikeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/BikeActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/BikesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/BikesActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Booking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Cart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/CartActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/CartActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/CurrentActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/CurrentActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/RoutesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/RoutesActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/SignInActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/SignInActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/ToursActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/ToursActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/UserActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/UserActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/reg_btn_style.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/reg_btn_style.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/reg_edittext_style.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/reg_edittext_style.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_bikes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_bikes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/toolbar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/toolbar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_cart.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_cart.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,28 +48,28 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="gradle" value="3" />
-          <entry key="java" value="39" />
-          <entry key="xml" value="21" />
+          <entry key="java" value="52" />
+          <entry key="xml" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Groovy" value="3" />
-          <entry key="JAVA" value="39" />
-          <entry key="XML" value="21" />
+          <entry key="JAVA" value="52" />
+          <entry key="XML" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="3969" />
-          <entry key="txt" value="141" />
+          <entry key="java" value="6378" />
+          <entry key="txt" value="183" />
           <entry key="xml" value="113" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3969" />
-          <entry key="PLAIN_TEXT" value="141" />
+          <entry key="JAVA" value="6378" />
+          <entry key="PLAIN_TEXT" value="183" />
           <entry key="XML" value="113" />
         </counts>
       </usages-collector>
@@ -149,37 +132,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/BikesActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/BikeListFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
+            <state relative-caret-position="465">
+              <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Bike.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="990">
-              <caret line="98" column="5" selection-start-line="98" selection-start-column="5" selection-end-line="98" selection-end-column="5" />
-              <folding>
-                <element signature="e#1116#1117#0" expanded="true" />
-                <element signature="e#1159#1160#0" expanded="true" />
-                <element signature="e#1221#1222#0" expanded="true" />
-                <element signature="e#1266#1267#0" expanded="true" />
+                <element signature="e#1991#2791#0" expanded="true" />
+                <element signature="e#2790#2791#0" expanded="true" />
+                <element signature="e#2829#2964#0" expanded="true" />
+                <element signature="e#2963#2964#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -188,21 +151,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/BikeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="38" lean-forward="true" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
+            <state relative-caret-position="433">
+              <caret line="36" column="37" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1034#1402#0" expanded="true" />
+                <element signature="e#1401#1402#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_bike.xml">
-          <provider selected="true" editor-type-id="android-designer2" />
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="39" selection-start-line="14" selection-start-column="8" selection-end-line="16" selection-end-column="39" />
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Bike.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="298">
+              <caret line="68" column="31" selection-start-line="68" selection-start-column="31" selection-end-line="68" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -210,11 +174,23 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/CartActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="7" column="49" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="49" />
+            <state relative-caret-position="390">
+              <caret line="26" column="28" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#660#798#0" expanded="true" />
+                <element signature="e#797#798#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_cart.xml">
+          <provider selected="true" editor-type-id="android-designer2" />
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="31" selection-start-line="31" selection-end-line="31" />
             </state>
           </provider>
         </entry>
@@ -222,26 +198,38 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/CurrentActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+            <state relative-caret-position="210">
+              <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Cart.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="28" selection-start-line="28" selection-end-line="28" />
+            <state relative-caret-position="208">
+              <caret line="78" column="27" selection-start-line="78" selection-start-column="27" selection-end-line="78" selection-end-column="27" />
+              <folding>
+                <element signature="e#286#287#0" expanded="true" />
+                <element signature="e#326#327#0" expanded="true" />
+                <element signature="e#397#398#0" expanded="true" />
+                <element signature="e#424#425#0" expanded="true" />
+                <element signature="e#576#577#0" expanded="true" />
+                <element signature="e#609#610#0" expanded="true" />
+                <element signature="e#2850#3451#0" expanded="true" />
+                <element signature="e#3450#3451#0" expanded="true" />
+                <element signature="e#3491#3716#0" expanded="true" />
+                <element signature="e#3715#3716#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/BookingService.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/SignInActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="22" column="56" selection-start-line="22" selection-start-column="56" selection-end-line="22" selection-end-column="56" />
+            <state relative-caret-position="405">
+              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -250,11 +238,14 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_bikes.xml">
-          <provider editor-type-id="android-designer2" />
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Booking.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1995">
-              <caret line="137" column="16" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="16" />
+            <state relative-caret-position="583">
+              <caret line="58" column="5" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
+              <folding>
+                <element signature="e#2271#2272#0" expanded="true" />
+                <element signature="e#2298#2299#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -277,19 +268,47 @@
       <find>routes</find>
       <find>JSONArray</find>
       <find>mlogout</find>
-      <find>bikes</find>
       <find>toolbar</find>
       <find>mlayout</find>
       <find>fetchBikesFirestore</find>
       <find>setBikes</find>
       <find>selectButton</find>
       <find>set</find>
+      <find>Accessories</find>
+      <find>Bikes</find>
+      <find>StartEnd</find>
+      <find>mStartDate</find>
+      <find>startDate</find>
+      <find>endDate</find>
+      <find>bikes</find>
+      <find>accessories</find>
+      <find>tours</find>
+      <find>pickupLocation</find>
+      <find>id</find>
+      <find>mId</find>
+      <find>db</find>
+      <find>data1</find>
     </findStrings>
     <replaceStrings>
       <replace>route</replace>
       <replace>JSONObject</replace>
       <replace>mLayout</replace>
       <replace>bookButton</replace>
+      <replace>Accessory</replace>
+      <replace>Bikes</replace>
+      <replace>Bike</replace>
+      <replace>startDate</replace>
+      <replace>StartDate</replace>
+      <replace>mStartDate</replace>
+      <replace>mEndDate</replace>
+      <replace>mBikes</replace>
+      <replace>mAccessories</replace>
+      <replace>mTours</replace>
+      <replace>mPickupLocation</replace>
+      <replace>mId</replace>
+      <replace>mUUID</replace>
+      <replace>mDB</replace>
+      <replace>data</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -303,36 +322,36 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_about.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/toolbar.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/RequireInternet.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Booking.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/FetchTask.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/AboutActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/SignInActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_routes.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/options_menu.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/main_menu.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_tours.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_user.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_cart.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_bikelist.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/viewholder_bike.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/CartActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/RoutesActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/ToursActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/UserActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_bikes.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Bike.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/BikeListFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_bike.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/RoutesActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/SignInActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/ToursActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/UserActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/CurrentActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Cart.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/BikeActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_cart.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/CartActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Bike.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/BikesActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Booking.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Cart.java" />
       </list>
     </option>
   </component>
@@ -455,9 +474,10 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="activity_bike&#9;FILE&#9;file:///home/audunn/Desktop/brent/app/src/main/res/layout/activity_bike.xml&#10;manifest&#9;FILE&#9;file:///home/audunn/Desktop/brent/app/src/main/AndroidManifest.xml&#10;appcom&#9;PSI&#9;JAVA://android.support.v7.app.AppCompatActivity&#10;app&#9;PSI&#9;JAVA://android.support.v7.app.AppCompatActivity&#10;mani&#9;FILE&#9;file:///home/audunn/Desktop/brent/app/src/main/AndroidManifest.xml&#10;Booki&#9;PSI&#9;JAVA://is.hi.hbv601g.brent.Booking&#10;Fetch&#9;FILE&#9;file:///home/audunn/Desktop/brent/app/src/main/java/is/hi/hbv601g/brent/FetchTask.java&#10;settings&#9;FILE&#9;file:///home/audunn/Android/Sdk/platforms/android-28/data/res/drawable/settings_header.xml" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///home/audunn/Desktop/brent/app/src/main/java/is/hi/hbv601g/brent/Booking.java&#10;activity_bike&#9;FILE&#9;file:///home/audunn/Desktop/brent/app/src/main/res/layout/activity_bike.xml&#10;manifest&#9;FILE&#9;file:///home/audunn/Desktop/brent/app/src/main/AndroidManifest.xml&#10;appcom&#9;PSI&#9;JAVA://android.support.v7.app.AppCompatActivity&#10;app&#9;PSI&#9;JAVA://android.support.v7.app.AppCompatActivity&#10;mani&#9;FILE&#9;file:///home/audunn/Desktop/brent/app/src/main/AndroidManifest.xml&#10;Booki&#9;PSI&#9;JAVA://is.hi.hbv601g.brent.Booking&#10;Fetch&#9;FILE&#9;file:///home/audunn/Desktop/brent/app/src/main/java/is/hi/hbv601g/brent/FetchTask.java&#10;settings&#9;FILE&#9;file:///home/audunn/Android/Sdk/platforms/android-28/data/res/drawable/settings_header.xml" />
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
     <property name="device.picker.selection" value="Nexus_5X_API_28" />
+    <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
@@ -629,6 +649,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.255119" />
       <window_info id="Structure" order="1" side_tool="true" />
@@ -640,7 +661,7 @@
       <window_info id="Captures" order="7" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Logcat" order="0" sideWeight="0.49928468" weight="0.3286517" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32972974" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32972974" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32972974" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Version Control" order="4" weight="0.32972974" />
       <window_info anchor="bottom" id="Android Profiler" order="5" show_stripe_button="false" />
@@ -688,13 +709,6 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$USER_HOME$/Android/Sdk/platforms/android-28/data/res/drawable/settings_header.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Booking.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/FetchTask.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/AboutActivity.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash_screen.xml">
@@ -793,14 +807,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_cart.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="38" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
@@ -870,79 +876,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
-          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/RoutesActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/SignInActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1907">
-          <caret line="32" selection-start-line="32" selection-end-line="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/ToursActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="110" column="5" selection-start-line="110" selection-start-column="5" selection-end-line="110" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/UserActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/SplashScreenActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="14" column="36" selection-start-line="13" selection-start-column="8" selection-end-line="14" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/BikeListFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Bike.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="98" column="5" selection-start-line="98" selection-start-column="5" selection-end-line="98" selection-end-column="5" />
-          <folding>
-            <element signature="e#1116#1117#0" expanded="true" />
-            <element signature="e#1159#1160#0" expanded="true" />
-            <element signature="e#1221#1222#0" expanded="true" />
-            <element signature="e#1266#1267#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -955,20 +894,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/CartActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_bikes.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="49" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/CurrentActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+        <state relative-caret-position="1995">
+          <caret line="137" column="16" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -982,35 +912,151 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_bikes.xml">
-      <provider editor-type-id="android-designer2" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1995">
-          <caret line="137" column="16" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="16" />
+        <state relative-caret-position="90">
+          <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Cart.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/SplashScreenActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="180">
+          <caret line="14" column="36" selection-start-line="13" selection-start-column="8" selection-end-line="14" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/BikeActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/ToursActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="38" lean-forward="true" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
+        <state relative-caret-position="300">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/UserActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="29" lean-forward="true" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#389#390#0" expanded="true" />
+            <element signature="e#443#444#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/RoutesActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#391#392#0" expanded="true" />
+            <element signature="e#447#448#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_cart.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Bike.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="68" column="31" selection-start-line="68" selection-start-column="31" selection-end-line="68" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/BikeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="36" column="37" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1034#1402#0" expanded="true" />
+            <element signature="e#1401#1402#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/CurrentActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/CartActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="28" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#660#798#0" expanded="true" />
+            <element signature="e#797#798#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Booking.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="583">
+          <caret line="58" column="5" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
+          <folding>
+            <element signature="e#2271#2272#0" expanded="true" />
+            <element signature="e#2298#2299#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/BikesActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+        <state relative-caret-position="465">
+          <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1991#2791#0" expanded="true" />
+            <element signature="e#2790#2791#0" expanded="true" />
+            <element signature="e#2829#2964#0" expanded="true" />
+            <element signature="e#2963#2964#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/SignInActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/is/hi/hbv601g/brent/Cart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="78" column="27" selection-start-line="78" selection-start-column="27" selection-end-line="78" selection-end-column="27" />
+          <folding>
+            <element signature="e#286#287#0" expanded="true" />
+            <element signature="e#326#327#0" expanded="true" />
+            <element signature="e#397#398#0" expanded="true" />
+            <element signature="e#424#425#0" expanded="true" />
+            <element signature="e#576#577#0" expanded="true" />
+            <element signature="e#609#610#0" expanded="true" />
+            <element signature="e#2850#3451#0" expanded="true" />
+            <element signature="e#3450#3451#0" expanded="true" />
+            <element signature="e#3491#3716#0" expanded="true" />
+            <element signature="e#3715#3716#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

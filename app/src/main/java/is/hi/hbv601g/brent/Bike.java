@@ -2,11 +2,13 @@ package is.hi.hbv601g.brent;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.Map;
 
 public class Bike implements Parcelable {
 
@@ -53,6 +55,21 @@ public class Bike implements Parcelable {
             return new Bike[size];
         }
     };
+
+    public static Bike toEntity(String bikeId, Map<String, Object> bikeData) {
+        Bike b = new Bike();
+        try {
+            b.setId(bikeId);
+            b.setBrand(bikeData.get("brand").toString());
+            b.setName(bikeData.get("name").toString());
+            b.setSize(bikeData.get("size").toString());
+            b.setSerial(bikeData.get("serial").toString());
+            b.setPrice(Long.parseLong( bikeData.get("ppd").toString()));
+            return b;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     public String getId() {
         return id;
