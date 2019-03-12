@@ -1,13 +1,11 @@
-package is.hi.hbv601g.brent;
+package is.hi.hbv601g.brent.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.Map;
 
 public class Bike implements Parcelable {
@@ -18,15 +16,18 @@ public class Bike implements Parcelable {
     private String size;
     private String serial;
     private Long price;
+    private String type;
 
     public Bike() { }
 
-    public Bike(String brand, String name, String size, String serial, Long price, String id) {
+    public Bike(String brand, String name, String size, String serial, Long price, String type,
+                String id) {
         this.brand = brand;
         this.name = name;
         this.size = size;
         this.serial = serial;
         this.price = price;
+        this.type = type;
         this.id = id;
     }
 
@@ -118,6 +119,10 @@ public class Bike implements Parcelable {
     public void setPrice(Long price) {
         this.price = price;
     }
+
+    public String getType() { return type; }
+
+    public void setType(String type) { this.type = type; }
 
     public boolean isEmpty() {
         if (this.id == null) {

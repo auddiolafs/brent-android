@@ -14,10 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.LoginActivity"></activity>
-        <activity android:name=".Activities.RegisterActivity" />
+        <activity android:name=".activities.LoginActivity"></activity>
+        <activity android:name=".activities.authentication.RegisterActivity" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".activities.SplashScreenActivity"
             android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,25 +25,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".activities.authentication.SignInActivity" />
+        <activity android:name=".activities.MainActivity" />
         <activity
-            android:name=".BikeActivity"
+            android:name=".activities.BikeActivity"
             android:label="Bike" />
         <activity
-            android:name=".BikesActivity"
+            android:name=".activities.BikesActivity"
             android:label="Bikes" />
         <activity
-            android:name=".ToursActivity"
+            android:name=".activities.ToursActivity"
             android:label="Tours" />
         <activity
-            android:name=".RoutesActivity"
+            android:name=".activities.RoutesActivity"
             android:label="Routes" />
         <activity
-            android:name=".UserActivity"
+            android:name=".activities.UserActivity"
             android:label="Profile" />
         <activity
-            android:name=".CartActivity"
+            android:name=".activities.CartActivity"
             android:label="Cart" />
     </application>
 

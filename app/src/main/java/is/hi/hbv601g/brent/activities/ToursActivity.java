@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent;
+package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.models.Tour;
 
 public class ToursActivity extends CurrentActivity {
 

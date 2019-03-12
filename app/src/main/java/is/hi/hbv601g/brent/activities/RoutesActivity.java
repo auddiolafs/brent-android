@@ -1,19 +1,21 @@
-package is.hi.hbv601g.brent;
+package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class CartActivity extends CurrentActivity {
+
+import is.hi.hbv601g.brent.R;
+
+public class RoutesActivity extends CurrentActivity {
+
     ImageButton toolbarProfile;
     ImageButton toolbarHome;
     ImageButton toolbarCart;
 
-    private Cart mCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,9 +26,9 @@ public class CartActivity extends CurrentActivity {
 
     @Override
     public void setUp() {
-        mCart = Cart.getCart();
-        setContentView(R.layout.activity_cart);
+        setContentView(R.layout.activity_routes);
         // Get toolbar in layout (defined in xml file)
+
         toolbarProfile = findViewById(R.id.toolbar_profile);
         toolbarProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,14 +53,6 @@ public class CartActivity extends CurrentActivity {
                 startActivity(cart);
             }
         });
-
-        Button saveCartButton = findViewById(R.id.saveCartButton);
-        saveCartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCart.saveCart();
-            }
-        });
     }
 
     @Override
@@ -69,4 +63,5 @@ public class CartActivity extends CurrentActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

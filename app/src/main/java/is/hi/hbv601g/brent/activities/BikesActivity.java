@@ -1,20 +1,18 @@
-package is.hi.hbv601g.brent;
+package is.hi.hbv601g.brent.activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,12 +24,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
+
+import is.hi.hbv601g.brent.models.Bike;
+import is.hi.hbv601g.brent.fragments.BikeListFragment;
+import is.hi.hbv601g.brent.R;
 
 public class BikesActivity extends CurrentActivity implements BikeListFragment.SelectionListener {
 
     private ArrayList<Bike> mBikes = new ArrayList<>();
+    private ArrayList<Bike> bikesUnfiltered = new ArrayList<>();
     private ArrayList<String> mTypes = new ArrayList<>();
     private ArrayList<String> mSizes = new ArrayList<>();
     private final Calendar mStartDate = Calendar.getInstance();
@@ -54,7 +56,9 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     @Override
     public void setUp() {
         setContentView(R.layout.activity_loading);
-        fetchBikesFirestore();
+
+        setSizes();
+        fetchData();
 
         toolbarProfile = findViewById(R.id.toolbar_profile);
         toolbarProfile.setOnClickListener(new View.OnClickListener() {
@@ -83,8 +87,36 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
 
     }
 
+    private void fetchData() {
+        final ArrayList<String> types = new ArrayList<>();
+        final Task<QuerySnapshot> task = mDB.collection("types").get();
 
-    private void fetchBikesFirestore() {
+        // Fetch types first and then bikes, both are asynchronous calls so both need to finish
+        // before setting the content view
+        task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    types.add(document.getData().get("type").toString());
+                    Log.d(TAG, document.getId() + " => " + document.getData());
+                }
+
+                mTypes = types;
+
+                fetchBikes();
+            }
+        });
+
+        task.addOnFailureListener(new OnFailureListener() {
+            public void onFailure(Exception e) {
+                Log.d(TAG, "Error fetching types");
+            }
+        });
+    }
+
+
+    private void fetchBikes() {
         final ArrayList<Bike> bikes = new ArrayList<>();
         final Task<QuerySnapshot> task = mDB.collection("bikes")
                 .get();
@@ -94,6 +126,10 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 setContentView(R.layout.activity_bikes);
                 for (QueryDocumentSnapshot document : task.getResult()) {
+
+                    bikes.add(bikeToEntity(document.getId(), document.getData()));
+                    Log.d(TAG, document.getId() + " => " + document.getData());
+
                     Bike bike = Bike.toEntity(document.getId(), document.getData());
                     if (bike == null) {
                         Log.d(TAG, "error");
@@ -103,6 +139,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
                     }
                 }
                 mBikes = bikes;
+                bikesUnfiltered = bikes;
                 setSpinners();
                 setDatePickers();
                 setBikeList();
@@ -110,7 +147,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
         });
         task.addOnFailureListener(new OnFailureListener() {
             public void onFailure(Exception e) {
-                Log.d(TAG, "error");
+                Log.d(TAG, "Error fetching bikes");
             }
         });
     }
@@ -124,6 +161,22 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
         fm.beginTransaction().add(R.id.bikeListContainer, bikeListFragment).commit();
     }
 
+    private static Bike bikeToEntity(String bikeId, Map<String, Object> bikeData) {
+        Bike b = new Bike();
+        try {
+            b.setId(bikeId);
+            b.setBrand(bikeData.get("brand").toString());
+            b.setName(bikeData.get("name").toString());
+            b.setSize(bikeData.get("size").toString());
+            b.setSerial(bikeData.get("serial").toString());
+            b.setPrice(Long.parseLong( bikeData.get("ppd").toString()));
+            b.setType(bikeData.get("type").toString());
+            return b;
+        } catch (Exception e) {
+            Log.d(TAG, "error");
+            return null;
+        }
+    }
 
     private void setDatePickers() {
         final EditText startDateText = findViewById(R.id.startDateText);
@@ -175,9 +228,10 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     }
 
     private void setSpinners() {
-        Spinner types = findViewById(R.id.types);
-        Spinner sizes = findViewById(R.id.sizes);
+        final Spinner types = findViewById(R.id.types);
+        final Spinner sizes = findViewById(R.id.sizes);
         ArrayAdapter<String> adapter;
+        Log.d(TAG, mTypes.get(0));
 
         adapter= new ArrayAdapter<String>
                 (this, android.R.layout.simple_spinner_item, this.mTypes);
@@ -186,6 +240,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
                         .simple_spinner_dropdown_item
         );
         types.setAdapter(adapter);
+        types.setSelection(adapter.getPosition("All"));
 
         adapter= new ArrayAdapter<String>
                 (this, android.R.layout.simple_spinner_item, this.mSizes);
@@ -194,6 +249,64 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
                         .simple_spinner_dropdown_item
         );
         sizes.setAdapter(adapter);
+        sizes.setSelection(adapter.getPosition("All"));
+
+        // On item selected listeners for spinners
+        types.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedType = types.getSelectedItem().toString();
+                String selectedSize = sizes.getSelectedItem().toString();
+
+                filterBikes(selectedType, selectedSize);
+                // setBikeList();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO: on nothing selected
+            }
+        });
+
+        sizes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedType = types.getSelectedItem().toString();
+                String selectedSize = sizes.getSelectedItem().toString();
+
+                filterBikes(selectedType, selectedSize);
+                // setBikeList();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO: on nothing selected
+            }
+        });
+    }
+
+    private void filterBikes(String selectedType, String selectedSize) {
+        mBikes = new ArrayList<>();
+        for (Bike bike : bikesUnfiltered) {
+            if (bike.getType() != null &&
+                    (bike.getType().equals(selectedType) && bike.getSize().equals(selectedSize))) {
+                mBikes.add(bike);
+            } else if (bike.getType() != null &&
+                    (bike.getType().equals(selectedType) && selectedSize.equals("All"))) {
+                mBikes.add(bike);
+            } else if (selectedType.equals("All") && bike.getSize().equals(selectedSize)) {
+                mBikes.add(bike);
+            } else if (selectedType.equals("All") && selectedSize.equals("All")) {
+                mBikes.add(bike);
+            }
+        }
+    }
+
+    private void setSizes() {
+        mSizes.add("All");
+        mSizes.add("S");
+        mSizes.add("M");
+        mSizes.add("L");
     }
 
     @Override

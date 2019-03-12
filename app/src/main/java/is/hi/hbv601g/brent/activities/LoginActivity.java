@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent.Activities;
+package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -18,6 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import is.hi.hbv601g.brent.activities.authentication.RegisterActivity;
 import is.hi.hbv601g.brent.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        HomeActivity = new Intent(this, is.hi.hbv601g.brent.MainActivity.class);
+        HomeActivity = new Intent(this, MainActivity.class);
 
         mRegisterText.setOnClickListener(new View.OnClickListener() {
             @Override

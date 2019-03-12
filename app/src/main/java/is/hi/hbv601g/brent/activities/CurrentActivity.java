@@ -1,16 +1,15 @@
-package is.hi.hbv601g.brent;
+package is.hi.hbv601g.brent.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.MenuItem;
 
-import java.util.ArrayList;
+import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.utils.RequireInternet;
 
 public abstract class CurrentActivity extends AppCompatActivity {
 

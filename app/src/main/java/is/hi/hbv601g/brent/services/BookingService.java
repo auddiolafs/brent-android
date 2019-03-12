@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent;
+package is.hi.hbv601g.brent.services;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -16,6 +16,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import is.hi.hbv601g.brent.models.Accessory;
+import is.hi.hbv601g.brent.models.Bike;
+import is.hi.hbv601g.brent.models.Tour;
 
 public class BookingService {
 
