@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ import java.util.Map;
 public class BikesActivity extends CurrentActivity implements BikeListFragment.SelectionListener {
 
     private ArrayList<Bike> mBikes = new ArrayList<>();
+    private ArrayList<Bike> bikesUnfiltered = new ArrayList<>();
     private ArrayList<String> mTypes = new ArrayList<>();
     private ArrayList<String> mSizes = new ArrayList<>();
     private final Calendar mStartDate = Calendar.getInstance();
@@ -126,6 +128,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
                 }
 
                 mBikes = bikes;
+                bikesUnfiltered = bikes;
                 setSpinners();
                 setDatePickers();
                 setBikeList();
@@ -157,6 +160,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
             b.setSize(bikeData.get("size").toString());
             b.setSerial(bikeData.get("serial").toString());
             b.setPrice(Long.parseLong( bikeData.get("ppd").toString()));
+            b.setType(bikeData.get("type").toString());
             return b;
         } catch (Exception e) {
             Log.d(TAG, "error");
@@ -214,8 +218,8 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     }
 
     private void setSpinners() {
-        Spinner types = findViewById(R.id.types);
-        Spinner sizes = findViewById(R.id.sizes);
+        final Spinner types = findViewById(R.id.types);
+        final Spinner sizes = findViewById(R.id.sizes);
         ArrayAdapter<String> adapter;
         Log.d(TAG, mTypes.get(0));
 
@@ -236,6 +240,54 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
         );
         sizes.setAdapter(adapter);
         sizes.setSelection(adapter.getPosition("All"));
+
+        // On item selected listeners for spinners
+        types.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedType = types.getSelectedItem().toString();
+                String selectedSize = sizes.getSelectedItem().toString();
+
+                filterBikes(selectedType, selectedSize);
+                setBikeList();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        sizes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedType = types.getSelectedItem().toString();
+                String selectedSize = sizes.getSelectedItem().toString();
+
+                filterBikes(selectedType, selectedSize);
+                setBikeList();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void filterBikes(String selectedType, String selectedSize) {
+        mBikes = new ArrayList<>();
+        for (Bike bike : bikesUnfiltered) {
+            if (bike.getType().equals(selectedType) && bike.getSize().equals(selectedSize)) {
+                mBikes.add(bike);
+            } else if (bike.getType().equals(selectedType) && selectedSize.equals("All")) {
+                mBikes.add(bike);
+            } else if (selectedType.equals("All") && bike.getSize().equals(selectedSize)) {
+                mBikes.add(bike);
+            } else if (selectedType.equals("All") && selectedSize.equals("All")) {
+                mBikes.add(bike);
+            }
+        }
     }
 
     private void setSizes() {
