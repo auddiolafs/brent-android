@@ -4,18 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
-import org.json.JSONArray;
-
-import java.util.Map;
 
 public class CartActivity extends CurrentActivity {
     ImageButton toolbarProfile;
     ImageButton toolbarHome;
     ImageButton toolbarCart;
 
+    private Cart mCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +24,7 @@ public class CartActivity extends CurrentActivity {
 
     @Override
     public void setUp() {
+        mCart = Cart.getCart();
         setContentView(R.layout.activity_cart);
         // Get toolbar in layout (defined in xml file)
         toolbarProfile = findViewById(R.id.toolbar_profile);
@@ -53,6 +52,13 @@ public class CartActivity extends CurrentActivity {
             }
         });
 
+        Button saveCartButton = findViewById(R.id.saveCartButton);
+        saveCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCart.saveCart();
+            }
+        });
     }
 
     @Override
