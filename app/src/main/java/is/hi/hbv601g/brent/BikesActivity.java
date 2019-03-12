@@ -284,9 +284,11 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     private void filterBikes(String selectedType, String selectedSize) {
         mBikes = new ArrayList<>();
         for (Bike bike : bikesUnfiltered) {
-            if (bike.getType() != null && (bike.getType().equals(selectedType) && bike.getSize().equals(selectedSize))) {
+            if (bike.getType() != null &&
+                    (bike.getType().equals(selectedType) && bike.getSize().equals(selectedSize))) {
                 mBikes.add(bike);
-            } else if (bike.getType() != null && (bike.getType().equals(selectedType) && selectedSize.equals("All"))) {
+            } else if (bike.getType() != null &&
+                    (bike.getType().equals(selectedType) && selectedSize.equals("All"))) {
                 mBikes.add(bike);
             } else if (selectedType.equals("All") && bike.getSize().equals(selectedSize)) {
                 mBikes.add(bike);
