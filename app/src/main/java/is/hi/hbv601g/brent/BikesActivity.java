@@ -255,12 +255,12 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
                 String selectedSize = sizes.getSelectedItem().toString();
 
                 filterBikes(selectedType, selectedSize);
-                setBikeList();
+                // setBikeList();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                // TODO: on nothing selected
             }
         });
 
@@ -271,12 +271,12 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
                 String selectedSize = sizes.getSelectedItem().toString();
 
                 filterBikes(selectedType, selectedSize);
-                setBikeList();
+                // setBikeList();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                // TODO: on nothing selected
             }
         });
     }
