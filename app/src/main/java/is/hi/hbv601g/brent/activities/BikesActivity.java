@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent;
+package is.hi.hbv601g.brent.activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -25,6 +25,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+
+import is.hi.hbv601g.brent.models.Bike;
+import is.hi.hbv601g.brent.fragments.BikeListFragment;
+import is.hi.hbv601g.brent.R;
 
 public class BikesActivity extends CurrentActivity implements BikeListFragment.SelectionListener {
 

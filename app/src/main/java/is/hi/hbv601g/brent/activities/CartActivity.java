@@ -1,32 +1,22 @@
-package is.hi.hbv601g.brent;
+package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
+import is.hi.hbv601g.brent.Cart;
+import is.hi.hbv601g.brent.R;
 
-import org.json.JSONArray;
-
-import java.util.Map;
-
-public class UserActivity extends CurrentActivity {
-
+public class CartActivity extends CurrentActivity {
     ImageButton toolbarProfile;
     ImageButton toolbarHome;
     ImageButton toolbarCart;
 
-    TextView mLogoutEdit;
-
-    FirebaseAuth mAuth;
-    FirebaseApp mApp;
-
+    private Cart mCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +27,9 @@ public class UserActivity extends CurrentActivity {
 
     @Override
     public void setUp() {
-        setContentView(R.layout.activity_user);
-
-
-        mApp = FirebaseApp.getInstance();
-        mAuth = FirebaseAuth.getInstance(mApp);
-        // Get toolbar in layout (defined in xml file
+        mCart = Cart.getCart();
+        setContentView(R.layout.activity_cart);
+        // Get toolbar in layout (defined in xml file)
         toolbarProfile = findViewById(R.id.toolbar_profile);
         toolbarProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,12 +55,11 @@ public class UserActivity extends CurrentActivity {
             }
         });
 
-        mLogoutEdit = findViewById(R.id.logoutText);
-
-        mLogoutEdit.setOnClickListener(new View.OnClickListener() {
+        Button saveCartButton = findViewById(R.id.saveCartButton);
+        saveCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signOut();
+                mCart.saveCart();
             }
         });
     }

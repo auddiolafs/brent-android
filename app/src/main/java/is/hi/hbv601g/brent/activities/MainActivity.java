@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent;
+package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,12 +8,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+
+import is.hi.hbv601g.brent.R;
 
 public class MainActivity extends CurrentActivity {
 
@@ -112,7 +113,7 @@ ImageButton mToursButton;
                     Log.e(TAG, "AUTH STATE UPDATE : No user logged in");
                     mDisplayName = "No valid user";
 
-                    Intent signInIntent = new Intent(getApplicationContext(), is.hi.hbv601g.brent.Activities.LoginActivity.class);
+                    Intent signInIntent = new Intent(getApplicationContext(), is.hi.hbv601g.brent.activities.LoginActivity.class);
                     startActivityForResult(signInIntent, 101);
                 }
             }

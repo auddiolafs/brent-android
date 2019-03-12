@@ -1,13 +1,11 @@
-package is.hi.hbv601g.brent;
+package is.hi.hbv601g.brent.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.Map;
 
 public class Bike implements Parcelable {

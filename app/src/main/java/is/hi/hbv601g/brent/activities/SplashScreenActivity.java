@@ -1,8 +1,10 @@
-package is.hi.hbv601g.brent;
+package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import is.hi.hbv601g.brent.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

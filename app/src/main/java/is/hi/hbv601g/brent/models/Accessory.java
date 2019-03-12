@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent;
+package is.hi.hbv601g.brent.models;
 
 public class Accessory {
 

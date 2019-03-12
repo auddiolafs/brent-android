@@ -1,13 +1,17 @@
-package is.hi.hbv601g.brent;
+package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
 import java.util.Date;
+
+import is.hi.hbv601g.brent.models.Bike;
+import is.hi.hbv601g.brent.models.Booking;
+import is.hi.hbv601g.brent.Cart;
+import is.hi.hbv601g.brent.R;
 
 public class BikeActivity extends CurrentActivity {
 

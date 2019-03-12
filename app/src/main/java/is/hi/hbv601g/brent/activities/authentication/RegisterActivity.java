@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent.Activities;
+package is.hi.hbv601g.brent.activities.authentication;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -24,7 +24,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-import is.hi.hbv601g.brent.MainActivity;
+import is.hi.hbv601g.brent.activities.LoginActivity;
+import is.hi.hbv601g.brent.activities.MainActivity;
 import is.hi.hbv601g.brent.R;
 
 public class RegisterActivity extends AppCompatActivity {
