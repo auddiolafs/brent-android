@@ -2,6 +2,7 @@ package is.hi.hbv601g.brent;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -56,6 +57,7 @@ public class BikeActivity extends CurrentActivity {
         final Bike bike = bikesActivity_intent.getParcelableExtra("bike");
         final Date startDate = (Date) bikesActivity_intent.getSerializableExtra("startDate");
         final Date endDate = (Date) bikesActivity_intent.getSerializableExtra("endDate");
+
         Button bookButton= findViewById(R.id.bookButton);
         final Intent cartActivity_intent = new Intent(this, CartActivity.class);
         bookButton.setOnClickListener(new View.OnClickListener() {
