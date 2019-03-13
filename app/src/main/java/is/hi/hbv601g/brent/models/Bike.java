@@ -131,20 +131,12 @@ public class Bike implements Parcelable {
         return false;
     }
 
-    public JSONObject toJSON() {
-        JSONObject obj = new JSONObject();
-        try {
-            obj.put("brand", this.brand);
-            //obj.put("type", "asdf");
-            obj.put("size", this.size);
-            obj.put("serial", this.serial);
-            obj.put("ppd", "12345");
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public boolean equals(Bike bike) {
+        if (bike.serial == serial) {
+            return true;
         }
-        return obj;
+        return false;
     }
-
 
     @Override
     public int describeContents() {

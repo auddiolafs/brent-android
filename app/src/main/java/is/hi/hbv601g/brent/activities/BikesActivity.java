@@ -33,9 +33,9 @@ import is.hi.hbv601g.brent.R;
 public class BikesActivity extends CurrentActivity implements BikeListFragment.SelectionListener {
 
     private ArrayList<Bike> mBikes = new ArrayList<>();
-    private ArrayList<Bike> bikesUnfiltered = new ArrayList<>();
     private ArrayList<String> mTypes = new ArrayList<>();
     private ArrayList<String> mSizes = new ArrayList<>();
+    private BikeListFragment mBikeListFragment;
     private final Calendar mStartDate = Calendar.getInstance();
     private final Calendar mEndDate = Calendar.getInstance();
     private static final String TAG = "BikesActivity";
@@ -126,10 +126,6 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 setContentView(R.layout.activity_bikes);
                 for (QueryDocumentSnapshot document : task.getResult()) {
-
-                    bikes.add(bikeToEntity(document.getId(), document.getData()));
-                    Log.d(TAG, document.getId() + " => " + document.getData());
-
                     Bike bike = Bike.toEntity(document.getId(), document.getData());
                     if (bike == null) {
                         Log.d(TAG, "error");
@@ -139,7 +135,6 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
                     }
                 }
                 mBikes = bikes;
-                bikesUnfiltered = bikes;
                 setSpinners();
                 setDatePickers();
                 setBikeList();
@@ -155,28 +150,12 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     private void setBikeList() {
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("bikes", mBikes);
-        BikeListFragment bikeListFragment = new BikeListFragment();
-        bikeListFragment.setArguments(bundle);
+        mBikeListFragment = new BikeListFragment();
+        mBikeListFragment.setArguments(bundle);
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().add(R.id.bikeListContainer, bikeListFragment).commit();
+        fm.beginTransaction().add(R.id.bikeListContainer, mBikeListFragment).commit();
     }
 
-    private static Bike bikeToEntity(String bikeId, Map<String, Object> bikeData) {
-        Bike b = new Bike();
-        try {
-            b.setId(bikeId);
-            b.setBrand(bikeData.get("brand").toString());
-            b.setName(bikeData.get("name").toString());
-            b.setSize(bikeData.get("size").toString());
-            b.setSerial(bikeData.get("serial").toString());
-            b.setPrice(Long.parseLong( bikeData.get("ppd").toString()));
-            b.setType(bikeData.get("type").toString());
-            return b;
-        } catch (Exception e) {
-            Log.d(TAG, "error");
-            return null;
-        }
-    }
 
     private void setDatePickers() {
         final EditText startDateText = findViewById(R.id.startDateText);
@@ -257,9 +236,11 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedType = types.getSelectedItem().toString();
                 String selectedSize = sizes.getSelectedItem().toString();
-
-                filterBikes(selectedType, selectedSize);
-                // setBikeList();
+                try {
+                    mBikeListFragment.filterBikes(selectedType, selectedSize);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -273,9 +254,11 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedType = types.getSelectedItem().toString();
                 String selectedSize = sizes.getSelectedItem().toString();
-
-                filterBikes(selectedType, selectedSize);
-                // setBikeList();
+                try {
+                    mBikeListFragment.filterBikes(selectedType, selectedSize);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -285,22 +268,6 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
         });
     }
 
-    private void filterBikes(String selectedType, String selectedSize) {
-        mBikes = new ArrayList<>();
-        for (Bike bike : bikesUnfiltered) {
-            if (bike.getType() != null &&
-                    (bike.getType().equals(selectedType) && bike.getSize().equals(selectedSize))) {
-                mBikes.add(bike);
-            } else if (bike.getType() != null &&
-                    (bike.getType().equals(selectedType) && selectedSize.equals("All"))) {
-                mBikes.add(bike);
-            } else if (selectedType.equals("All") && bike.getSize().equals(selectedSize)) {
-                mBikes.add(bike);
-            } else if (selectedType.equals("All") && selectedSize.equals("All")) {
-                mBikes.add(bike);
-            }
-        }
-    }
 
     private void setSizes() {
         mSizes.add("All");
