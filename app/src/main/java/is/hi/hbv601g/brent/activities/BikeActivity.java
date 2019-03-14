@@ -2,9 +2,11 @@ package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.Date;
 
@@ -18,6 +20,12 @@ public class BikeActivity extends CurrentActivity {
     ImageButton toolbarProfile;
     ImageButton toolbarHome;
     ImageButton toolbarCart;
+
+    TextView mBrand;
+    TextView mFrame;
+    TextView mWeight;
+    TextView mType;
+    TextView mPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +70,15 @@ public class BikeActivity extends CurrentActivity {
         final Date startDate = (Date) bikesActivity_intent.getSerializableExtra("startDate");
         final Date endDate = (Date) bikesActivity_intent.getSerializableExtra("endDate");
 
-        Button bookButton= findViewById(R.id.bookButton);
+        mBrand = findViewById(R.id.bike_brand_id);
+        mPrice = findViewById(R.id.bike_price_id);
+        mBrand.setText(bike.getBrand());
+        mPrice.setText(Long.toString(bike.getPrice()));
+        // mPrice.setText(Long.toString(bike.getPrice()));
+
+        TextView bookButton= findViewById(R.id.buttonBooking);
         final Intent cartActivity_intent = new Intent(this, CartActivity.class);
+        Log.d("BikeAct", bike.getBrand());
         bookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
