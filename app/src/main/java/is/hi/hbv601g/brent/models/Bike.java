@@ -64,6 +64,7 @@ public class Bike implements Parcelable {
             b.setBrand(bikeData.get("brand").toString());
             b.setName(bikeData.get("name").toString());
             b.setSize(bikeData.get("size").toString());
+            b.setType(bikeData.get("type").toString());
             b.setSerial(bikeData.get("serial").toString());
             b.setPrice(Long.parseLong( bikeData.get("ppd").toString()));
             return b;
@@ -149,6 +150,7 @@ public class Bike implements Parcelable {
         dest.writeString(brand);
         dest.writeString(name);
         dest.writeString(size);
+        dest.writeString(type);
         dest.writeString(serial);
         if (price == null) {
             dest.writeByte((byte) 0);

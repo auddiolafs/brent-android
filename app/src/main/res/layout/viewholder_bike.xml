@@ -1,47 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="120dp"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
+    android:elevation="13dp"
+    android:clickable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <FrameLayout
-            android:id="@+id/frameLayout1"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            app:layout_constraintStart_toStartOf="parent">
+        <ImageView
+            android:id="@+id/card_image_id"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/colorWhite"
+            android:contentDescription="@string/card_bike"
+            android:scaleType="centerInside"
+            android:src="@drawable/img_bike_mbk" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/card_title_id"
+                style="@style/BodyText1HighCotrastLeft"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="TextView"
-                android:textAlignment="center" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/frameLayout2"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            app:layout_constraintEnd_toEndOf="parent">
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/card_bike"
+                android:fontFamily="@font/open_sans_bold" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/card_info_id"
+                style="@style/BodyText1HighCotrastLeft"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="TextView"
-                android:textAlignment="center" />
-        </FrameLayout>
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans"
+                android:text="" />
+            <TextView
+                android:id="@+id/card_info2_id"
+                style="@style/BodyText1HighCotrastLeft"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""/>
+            <TextView
+                android:id="@+id/card_info3_id"
+                style="@style/BodyText1HighCotrastLeft"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""/>
+
+        </LinearLayout>
+
+
+
     </LinearLayout>
 
-</FrameLayout>
+</android.support.v7.widget.CardView>

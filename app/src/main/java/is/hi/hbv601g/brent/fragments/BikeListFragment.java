@@ -7,10 +7,12 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,14 +31,15 @@ public class BikeListFragment extends Fragment {
     private SelectionListener mListener;
     private ArrayList<Bike> mBikes;
     private ArrayList<Bike> mBikesUnfiltered;
-    private int MarginLeftAndRight = 25;
-    private int MarginTopAndBot = 25;
+    private int MarginLeftAndRight = 0;
+    private int MarginTopAndBot = 0;
     private BikeListAdapter mAdapter;
 
 
     public void filterBikes(String selectedType, String selectedSize) throws InterruptedException {
         ArrayList<Bike> res = new ArrayList<>();
         for (Bike bike : mBikesUnfiltered) {
+            Log.d("BikeListFrag", "Bike added");
             if (bike.getType() != null &&
                     (bike.getType().equals(selectedType) && bike.getSize().equals(selectedSize))) {
                 res.add(bike);
@@ -90,7 +93,7 @@ public class BikeListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bikelist, container, false);
         mRecycleView = view.findViewById(R.id.bike_recycle_view);
-        mRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        mRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         mListener = (SelectionListener) getActivity();
         Bundle bundle = getArguments();
         ArrayList<Bike> bikes = bundle.getParcelableArrayList("bikes");
@@ -131,9 +134,8 @@ public class BikeListFragment extends Fragment {
         public void onBindViewHolder(@NonNull BikeListFragment.BikeHolder bikeHolder, int i) {
             Bike bike = mBikes.get(i);
             bikeHolder.mBike = bike;
-            bikeHolder.mTextView1.setText(bike.getName());
-            bikeHolder.mTextView2.setText(bike.getName());
-            bikeHolder.mLayout.setBackgroundColor(getResources().getColor(R.color.baby_purple));
+            bikeHolder.mCardTitle.setText(bike.getName());
+            bikeHolder.mCardPrice.setText(Long.toString(bike.getPrice()));
         }
 
         @Override
@@ -143,8 +145,9 @@ public class BikeListFragment extends Fragment {
     }
 
     private class BikeHolder extends RecyclerView.ViewHolder {
-        TextView mTextView1;
-        TextView mTextView2;
+        TextView mCardTitle;
+        TextView mCardPrice;
+        ImageView mBikeImage;
         FrameLayout mLayout;
         Bike mBike;
         public BikeHolder(@NonNull View itemView, int parentHeight) {
@@ -153,8 +156,9 @@ public class BikeListFragment extends Fragment {
             GridLayoutManager.LayoutParams params = (GridLayoutManager.LayoutParams) mLayout.getLayoutParams();
             params.height = parentHeight/3;
             mLayout.setLayoutParams(params);
-            mTextView1 = mLayout.findViewById(R.id.textView1);
-            mTextView2 = mLayout.findViewById(R.id.textView2);
+            mCardTitle = mLayout.findViewById(R.id.card_title_id);
+            mBikeImage = mLayout.findViewById(R.id.card_image_id);
+            mCardPrice = mLayout.findViewById(R.id.card_info3_id);
             mLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
