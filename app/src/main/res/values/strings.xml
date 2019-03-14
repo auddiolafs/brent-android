@@ -10,7 +10,7 @@
     <string name="haveAccount">Have an account? Sign In</string>
     <string name="dontHaveAccount">Don’t have an account? Sign Up</string>
     <string name="login">Log In</string>
-    <string name="logout">Log Out Now!</string>
+    <string name="logout">Log Out</string>
     <string name="profile">Profile</string>
     <string name="cart">Cart</string>
     <string name="home">Home</string>
