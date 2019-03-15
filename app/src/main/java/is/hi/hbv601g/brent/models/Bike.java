@@ -38,6 +38,7 @@ public class Bike implements Parcelable {
         name = in.readString();
         size = in.readString();
         serial = in.readString();
+        price = in.readLong();
         if (in.readByte() == 0) {
             price = null;
         } else {
@@ -152,6 +153,7 @@ public class Bike implements Parcelable {
         dest.writeString(size);
         dest.writeString(type);
         dest.writeString(serial);
+        dest.writeLong(price);
         if (price == null) {
             dest.writeByte((byte) 0);
         } else {

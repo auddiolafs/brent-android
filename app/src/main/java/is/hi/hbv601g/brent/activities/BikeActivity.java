@@ -69,12 +69,13 @@ public class BikeActivity extends CurrentActivity {
         final Bike bike = bikesActivity_intent.getParcelableExtra("bike");
         final Date startDate = (Date) bikesActivity_intent.getSerializableExtra("startDate");
         final Date endDate = (Date) bikesActivity_intent.getSerializableExtra("endDate");
+        // final Long price = bikesActivity_intent.getParcelableExtra("price");
 
         mBrand = findViewById(R.id.bike_brand_id);
         mPrice = findViewById(R.id.bike_price_id);
         mBrand.setText(bike.getBrand());
+        //mPrice.setText(Long.toString(price));
         mPrice.setText(Long.toString(bike.getPrice()));
-        // mPrice.setText(Long.toString(bike.getPrice()));
 
         TextView bookButton= findViewById(R.id.buttonBooking);
         final Intent cartActivity_intent = new Intent(this, CartActivity.class);
