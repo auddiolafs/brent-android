@@ -2,6 +2,7 @@ package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,8 @@ public class UserActivity extends CurrentActivity {
     ImageButton toolbarCart;
 
     Button mLogoutButton;
+
+    TextView mDisplayname;
 
     FirebaseAuth mAuth;
     FirebaseApp mApp;
@@ -66,7 +69,11 @@ public class UserActivity extends CurrentActivity {
             }
         });
 
+        Log.d("UserAc", mAuth.getCurrentUser().getDisplayName());
+
         mLogoutButton = findViewById(R.id.logoutButton);
+        mDisplayname = findViewById(R.id.user_name_text);
+        mDisplayname.setText(mAuth.getCurrentUser().getDisplayName());
 
         mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
