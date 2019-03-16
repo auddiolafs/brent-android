@@ -23,12 +23,21 @@ import is.hi.hbv601g.brent.models.Tour;
 
 public class BookingService {
 
-    FirebaseApp mApp = FirebaseApp.getInstance();
-    FirebaseAuth mAuth = FirebaseAuth.getInstance(mApp);
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String userId = mAuth.getCurrentUser().getUid();
-    private static final String TAG = "BookingService";
+    private FirebaseApp mApp = FirebaseApp.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance(mApp);
+    private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
+    private String mUserId = mAuth.getCurrentUser().getUid();
+    private static final String mTAG = "BookingService";
 
+    /**
+     * Saves a booking by adding it to the Firestore db.
+     * @param bikes
+     * @param accessories
+     * @param tours
+     * @param startDate
+     * @param endDate
+     * @param pickupLocation
+     */
     public void saveBooking(final List<Bike> bikes, final List<Accessory> accessories, final List<Tour> tours,
                             Date startDate, Date endDate, String pickupLocation) {
 
@@ -36,35 +45,35 @@ public class BookingService {
         Timestamp startDateTimestamp = new Timestamp(startDate);
         Timestamp endDateTimestamp = new Timestamp(endDate);
 
-        booking.put("userId", userId);
+        booking.put("userId", mUserId);
         booking.put("startDate", startDateTimestamp);
         booking.put("endDate", endDateTimestamp);
         booking.put("pickupLocation", pickupLocation);
 
-        Task<DocumentReference> bookingTask =  db.collection("bookings").add(booking);
+        Task<DocumentReference> bookingTask =  mDB.collection("bookings").add(booking);
 
         bookingTask.addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                Log.d(TAG, "ID:" + documentReference.getId());
+                Log.d(mTAG, "ID:" + documentReference.getId());
 
                 Map<String, Object> exists = new HashMap<>();
                 exists.put("exists", true);
 
                 for (Bike bike : bikes) {
-                    db.collection("bookings").document(documentReference.getId())
+                    mDB.collection("bookings").document(documentReference.getId())
                             .collection("bikes").document(bike.getId())
                             .set(exists);
                 }
 
                 for (Tour tour : tours) {
-                    db.collection("bookings").document(documentReference.getId())
+                    mDB.collection("bookings").document(documentReference.getId())
                             .collection("tours").document(tour.getId())
                             .set(exists);
                 }
 
                 for (Accessory accessory : accessories) {
-                    db.collection("bookings").document(documentReference.getId())
+                    mDB.collection("bookings").document(documentReference.getId())
                             .collection("accessories").document(accessory.getId())
                             .set(exists);
                 }
@@ -74,12 +83,8 @@ public class BookingService {
         bookingTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "Error posting booking");
+                Log.d(mTAG, "Error posting booking");
             }
         });
-    }
-
-    public void cancelBooking(String bookingId) {
-
     }
 }

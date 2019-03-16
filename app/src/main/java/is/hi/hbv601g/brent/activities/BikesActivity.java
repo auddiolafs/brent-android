@@ -36,7 +36,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     private BikeListFragment mBikeListFragment;
     private final Calendar mStartDate = Calendar.getInstance();
     private final Calendar mEndDate = Calendar.getInstance();
-    private static final String TAG = "BikesActivity";
+    private static final String mTAG = "BikesActivity";
     private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private boolean mDataFetched = false;
 
@@ -47,7 +47,10 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
             setUp();
         }
     }
-    
+
+    /**
+     * Fetches all the data if it hasn't already been fetched.
+     */
     @Override
     public void setUp() {
         if (!mDataFetched) {
@@ -68,8 +71,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
      */
     @Override
     public void onBikeSelected(Bike bike) {
-        Intent intent = new Intent(getApplicationContext(),
-                BikeActivity.class);
+        Intent intent = new Intent(getApplicationContext(), BikeActivity.class);
         intent.putExtra("bike", bike);
         intent.putExtra("startDate", mStartDate.getTime());
         intent.putExtra("endDate", mEndDate.getTime());
@@ -232,7 +234,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
 
         task.addOnFailureListener(new OnFailureListener() {
             public void onFailure(Exception e) {
-                Log.d(TAG, "Error fetching types");
+                Log.d(mTAG, "Error fetching types");
             }
         });
     }
@@ -253,7 +255,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Bike bike = Bike.toEntity(document.getId(), document.getData());
                     if (bike == null) {
-                        Log.d(TAG, "error");
+                        Log.d(mTAG, "error");
                     } else {
                         bikes.add(bike);
                     }
@@ -268,7 +270,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
             public void onFailure(Exception e) {
                 mDataFetched = true;
                 setUp();
-                Log.d(TAG, "Error fetching bikes");
+                Log.d(mTAG, "Error fetching bikes");
             }
         });
     }

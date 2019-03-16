@@ -36,12 +36,18 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView mRegisterText;
     private ProgressBar mLoadingProgress;
     private Button mRegBtn;
+    private Map<String, Object> mUser = new HashMap<>();
 
-    private Map<String, Object> user = new HashMap<>();
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
-    private String TAG = "Register >>";
+    private String mTAG = "Register >>";
 
+    /**
+     * Initializes instance variables.
+     * Sets onClick listener for register button with input validations checks.
+     * Sets onClick listener for the register text which starts the login activity.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,9 +62,6 @@ public class RegisterActivity extends AppCompatActivity {
         mRegBtn = findViewById(R.id.loginButton);
         mLoadingProgress.setVisibility(View.INVISIBLE);
 
-
-        mAuth = FirebaseAuth.getInstance();
-
         mRegBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (email.isEmpty() || name.isEmpty() || password.isEmpty() || password2.isEmpty()
                 || !password.equals(password2)) {
-                    showMessage("Checl fields");
+                    showMessage("Check fields");
                     mRegBtn.setVisibility(View.VISIBLE);
                     mLoadingProgress.setVisibility(View.INVISIBLE);
                 } else {
@@ -90,6 +93,12 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Registers a user - saves the email, name and password in the Firebase db.
+     * @param email
+     * @param name
+     * @param password
+     */
     private void CreateUserAccount(String email, final String name, String password) {
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -108,6 +117,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Updates the name of the currently logged in user
+     * @param name
+     * @param currentUser
+     */
     private void updateUserInfo(String name, FirebaseUser currentUser) {
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(name)
@@ -118,26 +132,31 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "SUCCESS");
+                            Log.d(mTAG, "SUCCESS");
                             updateUI();
                         }
                     }
                 });
 
-        Log.e(TAG, "User registration successful");
-        user.put("email", currentUser.getEmail());
-        user.put("displayName", name);
-        mDB.collection("users").document(currentUser.getUid())
-                .set(user);
+        Log.e(mTAG, "User registration successful");
+        mUser.put("email", currentUser.getEmail());
+        mUser.put("displayName", name);
+        mDB.collection("users").document(currentUser.getUid()).set(mUser);
     }
 
+    /**
+     * Starts the home activity - redirects the user to the menu.
+     */
     private void updateUI() {
-
         Intent homeActivity = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(homeActivity);
         finish();
     }
 
+    /**
+     * Creates a toast message.
+     * @param message
+     */
     private void showMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }

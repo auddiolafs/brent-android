@@ -31,7 +31,7 @@ public class SignInActivity extends AppCompatActivity {
     final String TAG = "SignIn";
 
     private FirebaseApp mApp;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
@@ -118,19 +118,14 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void initListeners() {
-
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 if (mLoginInProgress) {
                     String email = mEmailEdit.getText().toString();
                     String password = mPassword.getText().toString();
 
                     loginUser(email, password);
-
-
                 } else {
                     String email = mEmailEdit.getText().toString();
                     String password = mPassword.getText().toString();
@@ -147,8 +142,6 @@ public class SignInActivity extends AppCompatActivity {
         mRegisterText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if (!mRegisterInProgress) {
 
                     mEmailEdit.setVisibility(View.VISIBLE);
@@ -174,7 +167,6 @@ public class SignInActivity extends AppCompatActivity {
                     mRegisterInProgress = false;
                     mLoginInProgress = true;
                 }
-
             }
         });
     }
@@ -189,7 +181,7 @@ public class SignInActivity extends AppCompatActivity {
                     Log.e(TAG, "User registration successful");
                     user.put("email", email);
                     user.put("displayName", displayName);
-                    db.collection("users").document(tmp.getUid())
+                    mDB.collection("users").document(tmp.getUid())
                             .set(user);
                 } else {
                     Log.e(TAG, "User registration reponse but failed");

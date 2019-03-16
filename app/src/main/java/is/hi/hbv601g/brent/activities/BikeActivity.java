@@ -2,7 +2,6 @@ package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,9 +14,9 @@ import is.hi.hbv601g.brent.R;
 
 public class BikeActivity extends CurrentActivity {
 
-    TextView mBrand;
-    TextView mType;
-    TextView mPrice;
+    private TextView mBrand;
+    private TextView mType;
+    private TextView mPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +26,10 @@ public class BikeActivity extends CurrentActivity {
         }
     }
 
+    /**
+     * Sets the information for selected bike and displays the bike details.
+     * Sets onClick listener for the button to book the bike.
+     */
     @Override
     public void setUp() {
         setContentView(R.layout.activity_bike);
@@ -41,12 +44,11 @@ public class BikeActivity extends CurrentActivity {
         mPrice = findViewById(R.id.bike_price_id);
         mBrand.setText(bike.getBrand());
         mPrice.setText(Long.toString(bike.getPrice()));
-//        Currently not working, gives error
-//        mType.setText(bike.getType());
+//      Currently not working, gives error
+//      mType.setText(bike.getType());
 
         TextView bookButton= findViewById(R.id.buttonBooking);
         final Intent cartActivity_intent = CartActivity.newIntent(this);
-        Log.d("BikeAct", bike.getBrand());
         bookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

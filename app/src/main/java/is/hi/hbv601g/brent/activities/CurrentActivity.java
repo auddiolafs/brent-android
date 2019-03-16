@@ -16,22 +16,28 @@ import is.hi.hbv601g.brent.utils.RequireInternet;
 
 public abstract class CurrentActivity extends AppCompatActivity {
 
-    private static DialogFragment dialogFragment;
+    private static DialogFragment mDialogFragment;
     public boolean connected;
 
-    ImageButton toolbarProfile;
-    ImageButton toolbarHome;
-    ImageButton toolbarCart;
+    private ImageButton mToolbarProfile;
+    private ImageButton mToolbarHome;
+    private ImageButton mToolbarCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empty);
-        this.dialogFragment = new RequireInternet();
+        this.mDialogFragment = new RequireInternet();
         connected = isConnected();
     }
 
-    // Checks whether device is connected to the internet
+    public void setUp() {
+        setToolbar();
+    }
+
+    /**
+     * Checks whether device is connected to the internet
+     */
     public boolean isConnected() {
         ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
         RequireInternet dialogFragment = new RequireInternet();
@@ -41,34 +47,30 @@ public abstract class CurrentActivity extends AppCompatActivity {
             return false;
         }
         return true;
-
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    public void setUp() {
-        toolbarProfile = findViewById(R.id.toolbar_profile);
-        toolbarProfile.setOnClickListener(new View.OnClickListener() {
+    /**
+     * Sets the toolbar for the current activity with a button for profile, home and cart.
+     */
+    public void setToolbar() {
+        mToolbarProfile = findViewById(R.id.toolbar_profile);
+        mToolbarProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent userIntent = new Intent(getApplicationContext(), UserActivity.class);
                 startActivity(userIntent);
             }
         });
-        toolbarHome = findViewById(R.id.toolbar_home);
-        toolbarHome.setOnClickListener(new View.OnClickListener() {
+        mToolbarHome = findViewById(R.id.toolbar_home);
+        mToolbarHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent home = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(home);
             }
         });
-        toolbarCart = findViewById(R.id.toolbar_cart);
-        toolbarCart.setOnClickListener(new View.OnClickListener() {
+        mToolbarCart = findViewById(R.id.toolbar_cart);
+        mToolbarCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent cart = new Intent(getApplicationContext(), CartActivity.class);
@@ -77,8 +79,10 @@ public abstract class CurrentActivity extends AppCompatActivity {
         });
     }
 
-    public void setToolbar() {
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
     }
 
 }
