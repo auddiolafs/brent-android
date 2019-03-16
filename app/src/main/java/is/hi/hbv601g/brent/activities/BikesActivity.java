@@ -52,7 +52,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
             setUp();
         }
     }
-
+    
     @Override
     public void setUp() {
         setContentView(R.layout.activity_loading);
@@ -84,69 +84,25 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
                 startActivity(cart);
             }
         });
-
     }
 
-    private void fetchData() {
-        final ArrayList<String> types = new ArrayList<>();
-        final Task<QuerySnapshot> task = mDB.collection("types").get();
-
-        // Fetch types first and then bikes, both are asynchronous calls so both need to finish
-        // before setting the content view
-        task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    types.add(document.getData().get("type").toString());
-                    Log.d(TAG, document.getId() + " => " + document.getData());
-                }
-
-                mTypes = types;
-
-                fetchBikes();
-            }
-        });
-
-        task.addOnFailureListener(new OnFailureListener() {
-            public void onFailure(Exception e) {
-                Log.d(TAG, "Error fetching types");
-            }
-        });
+    /**
+     * Start the BikeActivity to see bike details for the selected bike and/or book the bike.
+     * @param bike - The selected Bike to see more details for and/or book.
+     */
+    @Override
+    public void onBikeSelected(Bike bike) {
+        Intent intent = new Intent(getApplicationContext(),
+                BikeActivity.class);
+        intent.putExtra("bike", bike);
+        intent.putExtra("startDate", mStartDate.getTime());
+        intent.putExtra("endDate", mEndDate.getTime());
+        startActivity(intent);
     }
 
-
-    private void fetchBikes() {
-        final ArrayList<Bike> bikes = new ArrayList<>();
-        final Task<QuerySnapshot> task = mDB.collection("bikes")
-                .get();
-
-        task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                setContentView(R.layout.activity_bikes);
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    Bike bike = Bike.toEntity(document.getId(), document.getData());
-                    if (bike == null) {
-                        Log.d(TAG, "error");
-                    } else {
-                        bikes.add(bike);
-                        Log.d(TAG, document.getId() + " => " + document.getData());
-                    }
-                }
-                mBikes = bikes;
-                setSpinners();
-                setDatePickers();
-                setBikeList();
-            }
-        });
-        task.addOnFailureListener(new OnFailureListener() {
-            public void onFailure(Exception e) {
-                Log.d(TAG, "Error fetching bikes");
-            }
-        });
-    }
-
+    /**
+     * Creates the fragment for the list of bikes.
+     */
     private void setBikeList() {
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("bikes", mBikes);
@@ -157,6 +113,10 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     }
 
 
+    /**
+     * Creates the datepickers.
+     * Sets an onClickListener for both datepickers - startDate and endDate.
+     */
     private void setDatePickers() {
         final EditText startDateText = findViewById(R.id.startDateText);
         final EditText endDateText = findViewById(R.id.endDateText);
@@ -206,11 +166,16 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
                 });
     }
 
+
+    /**
+     * Set spinner data for both types spinner and sizes spinner.
+     * Sets default selection to "All".
+     * Adds an onItemSelectedListener for both spinners.
+     */
     private void setSpinners() {
         final Spinner types = findViewById(R.id.types);
         final Spinner sizes = findViewById(R.id.sizes);
         ArrayAdapter<String> adapter;
-        Log.d(TAG, mTypes.get(0));
 
         adapter= new ArrayAdapter<String>
                 (this, android.R.layout.simple_spinner_item, this.mTypes);
@@ -268,21 +233,76 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
         });
     }
 
+    /**
+     * Fetches types from Firestore and calls the function to fetch bikes.
+     */
+    private void fetchData() {
+        final ArrayList<String> types = new ArrayList<>();
+        final Task<QuerySnapshot> task = mDB.collection("types").get();
 
+        // Fetch types first and then bikes, both are asynchronous calls so both need to finish
+        // before setting the content view
+        task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    types.add(document.getData().get("type").toString());
+                }
+
+                mTypes = types;
+                fetchBikes();
+            }
+        });
+
+        task.addOnFailureListener(new OnFailureListener() {
+            public void onFailure(Exception e) {
+                Log.d(TAG, "Error fetching types");
+            }
+        });
+    }
+
+    /**
+     * Fetches all bikes from Firestore db, to be displayed in the bikes list.
+     */
+    private void fetchBikes() {
+        final ArrayList<Bike> bikes = new ArrayList<>();
+        final Task<QuerySnapshot> task = mDB.collection("bikes")
+                .get();
+
+        task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                setContentView(R.layout.activity_bikes);
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Bike bike = Bike.toEntity(document.getId(), document.getData());
+                    if (bike == null) {
+                        Log.d(TAG, "error");
+                    } else {
+                        bikes.add(bike);
+                    }
+                }
+                mBikes = bikes;
+                setSpinners();
+                setDatePickers();
+                setBikeList();
+            }
+        });
+        task.addOnFailureListener(new OnFailureListener() {
+            public void onFailure(Exception e) {
+                Log.d(TAG, "Error fetching bikes");
+            }
+        });
+    }
+
+
+    /**
+     * Set sizes for the dropdown spinner used to filter by size.
+     */
     private void setSizes() {
         mSizes.add("All");
         mSizes.add("S");
         mSizes.add("M");
         mSizes.add("L");
-    }
-
-    @Override
-    public void onBikeSelected(Bike bike) {
-        Intent intent = new Intent(getApplicationContext(),
-                BikeActivity.class);
-        intent.putExtra("bike", bike);
-        intent.putExtra("startDate", mStartDate.getTime());
-        intent.putExtra("endDate", mEndDate.getTime());
-        startActivity(intent);
     }
 }
