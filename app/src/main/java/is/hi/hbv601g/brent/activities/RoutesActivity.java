@@ -40,8 +40,6 @@ public class RoutesActivity extends CurrentActivity implements RoutesFragment.Se
 
     private ArrayList<Route> mRoutes = new ArrayList<>();
     private RoutesFragment mRouteFragment;
-    private final Calendar mStartDate = Calendar.getInstance();
-    private final Calendar mEndDate = Calendar.getInstance();
     private static final String TAG = "RoutesActivity";
     private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
 

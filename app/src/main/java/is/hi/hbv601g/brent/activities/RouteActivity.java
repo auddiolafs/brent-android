@@ -67,7 +67,6 @@ public class RouteActivity extends CurrentActivity {
 
         Intent routesActivity_intent = getIntent();
         final Route route = routesActivity_intent.getParcelableExtra("route");
-        // final Long price = bikesActivity_intent.getParcelableExtra("price");
 
         mTitle = findViewById(R.id.place_location);
         mLength = findViewById(R.id.place_info_1);
@@ -77,10 +76,6 @@ public class RouteActivity extends CurrentActivity {
         mLength.setText(route.getLength());
         mDescription.setText(route.getDescription());
         mLikes.setText(route.getLikes());
-//        mPrice.setText(route.getLength());
 
-//        TextView bookButton = findViewById(R.id.buttonBooking);
-//        final Intent cartActivity_intent = new Intent(this, CartActivity.class);
-//        Log.d("BikeAct", route.getLocation());
     }
 }

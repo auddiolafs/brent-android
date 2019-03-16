@@ -45,55 +45,7 @@ public class RoutesFragment extends Fragment {
     private int MarginLeftAndRight = 0;
     private int MarginTopAndBot = 0;
     private RoutesFragment.RouteListAdapter mAdapter;
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public void filterRoutes(String selectedType, String selectedSize) throws InterruptedException {
-        ArrayList<Route> res = new ArrayList<>();
-        for (Route Route : mRoutesUnfiltered) {
-            Log.d("RouteListFrag", "Route added");
-            res.add(Route);
-        }
-        String[] initVals = new String[mRoutes.size()];
-        for (int i = 0; i < initVals.length; i += 1) {
-            initVals[i] = "false";
-        }
-        ArrayBlockingQueue<String> shouldBeInList = new ArrayBlockingQueue<>(mRoutesUnfiltered.size(), true, Arrays.asList(initVals));
-        int n = res.size() - 1;
-        while (!(n < 0)) {
-            Route RouteInRes = res.get(n);
-            boolean RoutePresent = false;
-            for (int i = 0; i<mRoutes.size(); i += 1) {
-                Route Route = mRoutes.get(i);
-                if (Route == RouteInRes) {
-                    RoutePresent = true;
-                    Object[] array = shouldBeInList.toArray();
-                    String[] vals  = Arrays.copyOf(array, array.length, String[].class);
-                    vals[i] = "true";
-                    shouldBeInList = new ArrayBlockingQueue<>(mRoutesUnfiltered.size(), true, Arrays.asList(vals));
-                    break;
-                }
-            }
-            if (!RoutePresent) {
-                mRoutes.add(RouteInRes);
-                shouldBeInList.add("true");
-            }
-            n -= 1;
-        }
-        n = 0;
-        while (shouldBeInList.size() != 0) {
-            if (shouldBeInList.take() == "false") {
-                mRoutes.remove(n);
-            } else {
-                n += 1;
-            }
-        }
-        mAdapter.notifyDataSetChanged();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
