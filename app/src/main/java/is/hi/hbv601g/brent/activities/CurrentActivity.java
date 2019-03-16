@@ -1,12 +1,15 @@
 package is.hi.hbv601g.brent.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ImageButton;
 
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.utils.RequireInternet;
@@ -15,6 +18,10 @@ public abstract class CurrentActivity extends AppCompatActivity {
 
     private static DialogFragment dialogFragment;
     public boolean connected;
+
+    ImageButton toolbarProfile;
+    ImageButton toolbarHome;
+    ImageButton toolbarCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,41 +44,41 @@ public abstract class CurrentActivity extends AppCompatActivity {
 
     }
 
-//    // If any action happens in menu it will call this method
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        Intent intent;
-//        // Switch on id on each menu item
-//        switch (item.getItemId()) {
-//            case R.id.cart:
-//                intent = new Intent(this, CartActivity.class);
-//                startActivity(intent);
-//                return true;
-//            case R.id.home:
-//                intent = new Intent(this, MainActivity.class);
-//                startActivity(intent);
-//                return true;
-//            case R.id.profile:
-//                intent = new Intent(this, UserActivity.class);
-//                startActivity(intent);
-//                return true;
-//
-//            default:
-//                // If we got here, the user's action was not recognized.
-//                // Invoke the superclass to handle it.
-//                return super.onOptionsItemSelected(item);
-//
-//        }
-//    }
-
-    // Overide method in AppCompatActivity, which allows us
-    //          set menu defined in res/menu/main_menu.xml into actionbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
-    public abstract void setUp();
+    public void setUp() {
+        toolbarProfile = findViewById(R.id.toolbar_profile);
+        toolbarProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent userIntent = new Intent(getApplicationContext(), UserActivity.class);
+                startActivity(userIntent);
+            }
+        });
+        toolbarHome = findViewById(R.id.toolbar_home);
+        toolbarHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent home = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(home);
+            }
+        });
+        toolbarCart = findViewById(R.id.toolbar_cart);
+        toolbarCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cart = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(cart);
+            }
+        });
+    }
+
+    public void setToolbar() {
+
+    }
 
 }

@@ -2,50 +2,50 @@ package is.hi.hbv601g.brent.models;
 
 public class Accessory {
 
-    private String  id;
-    private String type;
-    private String name;
-    private Long price;
+    private String mID;
+    private String mType;
+    private String mName;
+    private Long mPrice;
 
     public Accessory(String type, String name, Long price, String id) {
-        this.type = type;
-        this.name = name;
-        this.price = price;
-        this.id = id;
+        mType = type;
+        mName = name;
+        mPrice = price;
+        mID = id;
     }
 
-    public String getId() { return id; }
+    public String getId() { return mID; }
 
     public void setId(String id) {
-        this.id = id;
+        mID = id;
     }
 
     public String getType() {
-        return type;
+        return mType;
     }
 
     public void setType(String type) {
-        this.type = type;
+        mType = type;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        mName = name;
     }
 
     public Long getPrice() {
-        return price;
+        return mPrice;
     }
 
     public void setPrice(Long price) {
-        this.price = price;
+        mPrice = price;
     }
 
     public boolean isEmpty() {
-        if (this.id == null) {
+        if (mID == null) {
             return true;
         }
         return false;

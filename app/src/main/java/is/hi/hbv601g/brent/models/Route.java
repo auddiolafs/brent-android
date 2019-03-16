@@ -1,26 +1,26 @@
 package is.hi.hbv601g.brent.models;
 
 public class Route {
-    private Long id;
-    private String location;
+    private Long mID;
+    private String mLocation;
 
     public Route(String location) {
-        this.location = location;
+        mLocation = location;
     }
 
     public Long getId() {
-        return id;
+        return mID;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        mID = id;
     }
 
     public String getLocation() {
-        return location;
+        return mLocation;
     }
 
     public void setLocation(String location) {
-        this.location = location;
+        mLocation = location;
     }
 }

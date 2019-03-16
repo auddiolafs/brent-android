@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -24,7 +23,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
 
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.fragments.BikeListFragment;
@@ -40,10 +38,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     private final Calendar mEndDate = Calendar.getInstance();
     private static final String TAG = "BikesActivity";
     private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
-
-    ImageButton toolbarProfile;
-    ImageButton toolbarHome;
-    ImageButton toolbarCart;
+    private boolean mDataFetched = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,35 +50,19 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     
     @Override
     public void setUp() {
-        setContentView(R.layout.activity_loading);
-
         setSizes();
         fetchData();
 
-        toolbarProfile = findViewById(R.id.toolbar_profile);
-        toolbarProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent userIntent = new Intent(getApplicationContext(), UserActivity.class);
-                startActivity(userIntent);
-            }
-        });
-        toolbarHome = findViewById(R.id.toolbar_home);
-        toolbarHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent home = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(home);
-            }
-        });
-        toolbarCart = findViewById(R.id.toolbar_cart);
-        toolbarCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cart = new Intent(getApplicationContext(), CartActivity.class);
-                startActivity(cart);
-            }
-        });
+        if (!mDataFetched) {
+            setContentView(R.layout.activity_loading);
+            super.setUp();
+            setSizes();
+            fetchData();
+        }
+        else {
+            setContentView(R.layout.activity_bikes);
+            super.setUp();
+        }
     }
 
     /**
@@ -105,7 +84,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
      */
     private void setBikeList() {
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("bikes", mBikes);
+        bundle.putParcelableArrayList(BikeListFragment.BIKES_KEY, mBikes);
         mBikeListFragment = new BikeListFragment();
         mBikeListFragment.setArguments(bundle);
         FragmentManager fm = getSupportFragmentManager();
@@ -248,8 +227,8 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
 
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     types.add(document.getData().get("type").toString());
+                    Log.d(TAG, document.getId() + " => " + document.getData());
                 }
-
                 mTypes = types;
                 fetchBikes();
             }
@@ -273,13 +252,15 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
         task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                setContentView(R.layout.activity_bikes);
+                mDataFetched = true;
+                setUp();
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Bike bike = Bike.toEntity(document.getId(), document.getData());
                     if (bike == null) {
                         Log.d(TAG, "error");
                     } else {
                         bikes.add(bike);
+                        Log.d(TAG, document.getId() + " => " + document.getData());
                     }
                 }
                 mBikes = bikes;
@@ -290,6 +271,8 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
         });
         task.addOnFailureListener(new OnFailureListener() {
             public void onFailure(Exception e) {
+                mDataFetched = true;
+                setUp();
                 Log.d(TAG, "Error fetching bikes");
             }
         });
