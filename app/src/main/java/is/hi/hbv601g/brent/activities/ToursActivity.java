@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,10 +24,7 @@ public class ToursActivity extends CurrentActivity {
     private List<Tour> mTours = new ArrayList<>();
     private static final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "ToursActivity";
-
-    ImageButton toolbarProfile;
-    ImageButton toolbarHome;
-    ImageButton toolbarCart;
+    private boolean mDataFetched = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,36 +36,14 @@ public class ToursActivity extends CurrentActivity {
 
     @Override
     public void setUp() {
-        setContentView(R.layout.activity_tours);
-
-        // Get toolbar in layout (defined in xml file)
-        toolbarProfile = findViewById(R.id.toolbar_profile);
-        toolbarProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent userIntent = new Intent(getApplicationContext(), UserActivity.class);
-                startActivity(userIntent);
-            }
-        });
-        toolbarHome = findViewById(R.id.toolbar_home);
-        toolbarHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent home = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(home);
-            }
-        });
-        toolbarCart = findViewById(R.id.toolbar_cart);
-        toolbarCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cart = new Intent(getApplicationContext(), CartActivity.class);
-                startActivity(cart);
-            }
-        });
-
-
-        fetchToursFirestore();
+        if (!mDataFetched) {
+            setContentView(R.layout.activity_loading);
+            super.setUp();
+            fetchToursFirestore();
+        } else {
+            setContentView(R.layout.activity_tours);
+            super.setUp();
+        }
     }
 
     private void fetchToursFirestore() {
@@ -81,6 +54,8 @@ public class ToursActivity extends CurrentActivity {
         task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                mDataFetched = true;
+                setUp();
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     tours.add(toEntity(document.getId(), document.getData()));
                     Log.d(TAG, document.getId() + " => " + document.getData());
@@ -93,6 +68,8 @@ public class ToursActivity extends CurrentActivity {
 
         task.addOnFailureListener(new OnFailureListener() {
             public void onFailure(Exception e) {
+                mDataFetched = true;
+                setUp();
                 Log.d(TAG, "error");
             }
         });

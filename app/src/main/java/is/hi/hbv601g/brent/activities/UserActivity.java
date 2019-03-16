@@ -1,12 +1,10 @@
 package is.hi.hbv601g.brent.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,10 +14,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import is.hi.hbv601g.brent.R;
 
 public class UserActivity extends CurrentActivity {
-
-    ImageButton toolbarProfile;
-    ImageButton toolbarHome;
-    ImageButton toolbarCart;
 
     Button mLogoutButton;
 
@@ -39,35 +33,11 @@ public class UserActivity extends CurrentActivity {
     @Override
     public void setUp() {
         setContentView(R.layout.activity_user);
-
+        super.setUp();
 
         mApp = FirebaseApp.getInstance();
         mAuth = FirebaseAuth.getInstance(mApp);
         // Get toolbar in layout (defined in xml file
-        toolbarProfile = findViewById(R.id.toolbar_profile);
-        toolbarProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent userIntent = new Intent(getApplicationContext(), UserActivity.class);
-                startActivity(userIntent);
-            }
-        });
-        toolbarHome = findViewById(R.id.toolbar_home);
-        toolbarHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent home = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(home);
-            }
-        });
-        toolbarCart = findViewById(R.id.toolbar_cart);
-        toolbarCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cart = new Intent(getApplicationContext(), CartActivity.class);
-                startActivity(cart);
-            }
-        });
 
         Log.d("UserAc", mAuth.getCurrentUser().getDisplayName());
 

@@ -4,69 +4,69 @@ import java.util.Date;
 
 public class Tour {
 
-    private String id;
-    private String name;
-    private String location;
-    private Long price;
-    private Date startDate;
-    private Date endDate;
+    private String mID;
+    private String mName;
+    private String mLocation;
+    private Long mPrice;
+    private Date mStartDate;
+    private Date mEndDate;
 
     public Tour() { }
 
     public Tour(String id, String name, String location, Long price, Date startDate, Date endDate) {
-        this.id = id;
-        this.name = name;
-        this.location = location;
-        this.price = price;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        mID = id;
+        mName = name;
+        mLocation = location;
+        mPrice = price;
+        mStartDate = startDate;
+        mEndDate = endDate;
     }
 
     public String getId() {
-        return id;
+        return mID;
     }
 
     public void setId(String id) {
-        this.id = id;
+        mID = id;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        mName = name;
     }
 
     public String getLocation() {
-        return location;
+        return mLocation;
     }
 
     public void setLocation(String location) {
-        this.location = location;
+        mLocation = location;
     }
 
     public Long getPrice() {
-        return price;
+        return mPrice;
     }
 
     public void setPrice(Long price) {
-        this.price = price;
+        mPrice = price;
     }
 
     public Date getStartDate() {
-        return startDate;
+        return mStartDate;
     }
 
     public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+        mStartDate = startDate;
     }
 
     public Date getEndDate() {
-        return endDate;
+        return mEndDate;
     }
 
     public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+        mEndDate = endDate;
     }
 }
