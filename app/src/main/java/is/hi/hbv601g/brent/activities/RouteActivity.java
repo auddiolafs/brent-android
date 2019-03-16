@@ -1,30 +1,31 @@
 package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.Date;
 
-import is.hi.hbv601g.brent.models.Bike;
-import is.hi.hbv601g.brent.models.Booking;
 import is.hi.hbv601g.brent.Cart;
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.models.Bike;
+import is.hi.hbv601g.brent.models.Booking;
+import is.hi.hbv601g.brent.models.Route;
 
-public class BikeActivity extends CurrentActivity {
+public class RouteActivity extends CurrentActivity {
 
     ImageButton toolbarProfile;
     ImageButton toolbarHome;
     ImageButton toolbarCart;
 
-    TextView mBrand;
-    TextView mFrame;
-    TextView mWeight;
-    TextView mType;
+    TextView mTitle;
+    TextView mLength;
+    TextView mLikes;
+    TextView mDescription;
     TextView mPrice;
 
     @Override
@@ -37,7 +38,7 @@ public class BikeActivity extends CurrentActivity {
 
     @Override
     public void setUp() {
-        setContentView(R.layout.activity_bike);
+        setContentView(R.layout.activity_route);
         // Get toolbar in layout (defined in xml file)
         toolbarProfile = findViewById(R.id.toolbar_profile);
         toolbarProfile.setOnClickListener(new View.OnClickListener() {
@@ -64,33 +65,17 @@ public class BikeActivity extends CurrentActivity {
             }
         });
 
+        Intent routesActivity_intent = getIntent();
+        final Route route = routesActivity_intent.getParcelableExtra("route");
 
-        Intent bikesActivity_intent = getIntent();
-        final Bike bike = bikesActivity_intent.getParcelableExtra("bike");
-        final Date startDate = (Date) bikesActivity_intent.getSerializableExtra("startDate");
-        final Date endDate = (Date) bikesActivity_intent.getSerializableExtra("endDate");
-        // final Long price = bikesActivity_intent.getParcelableExtra("price");
+        mTitle = findViewById(R.id.place_location);
+        mLength = findViewById(R.id.place_info_1);
+        mLikes = findViewById(R.id.place_info_2);
+        mDescription = findViewById(R.id.place_description);
+        mTitle.setText(route.getLocation());
+        mLength.setText(route.getLength());
+        mDescription.setText(route.getDescription());
+        mLikes.setText(route.getLikes());
 
-        mBrand = findViewById(R.id.bike_brand_id);
-        mPrice = findViewById(R.id.bike_price_id);
-        mBrand.setText(bike.getBrand());
-        //mPrice.setText(Long.toString(price));
-        mPrice.setText(Long.toString(bike.getPrice()));
-
-        TextView bookButton= findViewById(R.id.buttonBooking);
-        final Intent cartActivity_intent = new Intent(this, CartActivity.class);
-        Log.d("BikeAct", bike.getBrand());
-        bookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Cart cart = Cart.getCart();
-                if (!cart.contains(startDate, endDate)) {
-                    Booking booking = new Booking(startDate, endDate);
-                    booking.addBike(bike);
-                    cart.putBooking(booking);
-                }
-                startActivity(cartActivity_intent);
-            }
-        });
     }
 }

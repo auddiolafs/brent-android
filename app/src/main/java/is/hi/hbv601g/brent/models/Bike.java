@@ -38,6 +38,7 @@ public class Bike implements Parcelable {
         name = in.readString();
         size = in.readString();
         serial = in.readString();
+        price = in.readLong();
         if (in.readByte() == 0) {
             price = null;
         } else {
@@ -64,6 +65,7 @@ public class Bike implements Parcelable {
             b.setBrand(bikeData.get("brand").toString());
             b.setName(bikeData.get("name").toString());
             b.setSize(bikeData.get("size").toString());
+            b.setType(bikeData.get("type").toString());
             b.setSerial(bikeData.get("serial").toString());
             b.setPrice(Long.parseLong( bikeData.get("ppd").toString()));
             return b;
@@ -131,20 +133,12 @@ public class Bike implements Parcelable {
         return false;
     }
 
-    public JSONObject toJSON() {
-        JSONObject obj = new JSONObject();
-        try {
-            obj.put("brand", this.brand);
-            //obj.put("type", "asdf");
-            obj.put("size", this.size);
-            obj.put("serial", this.serial);
-            obj.put("ppd", "12345");
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public boolean equals(Bike bike) {
+        if (bike.serial == serial) {
+            return true;
         }
-        return obj;
+        return false;
     }
-
 
     @Override
     public int describeContents() {
@@ -157,7 +151,9 @@ public class Bike implements Parcelable {
         dest.writeString(brand);
         dest.writeString(name);
         dest.writeString(size);
+        dest.writeString(type);
         dest.writeString(serial);
+        dest.writeLong(price);
         if (price == null) {
             dest.writeByte((byte) 0);
         } else {

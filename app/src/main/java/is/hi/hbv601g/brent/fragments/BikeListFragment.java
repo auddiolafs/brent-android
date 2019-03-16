@@ -3,18 +3,25 @@ package is.hi.hbv601g.brent.fragments;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.R;
@@ -22,87 +29,78 @@ import is.hi.hbv601g.brent.R;
 public class BikeListFragment extends Fragment {
     private RecyclerView mRecycleView = null;
     private SelectionListener mListener;
-    private int counter = 0;
-    private Long GapWidth = null;
-    private Long MarginTopAndBot = new Long(25);
+    private ArrayList<Bike> mBikes;
+    private ArrayList<Bike> mBikesUnfiltered;
+    private int MarginLeftAndRight = 0;
+    private int MarginTopAndBot = 0;
+    private BikeListAdapter mAdapter;
 
-    private class Tuple<K,V> {
-        private K mX;
-        private V mY;
 
-        public Tuple(K x, V y) {
-            mX = x;
-            mY = y;
+    public void filterBikes(String selectedType, String selectedSize) throws InterruptedException {
+        ArrayList<Bike> res = new ArrayList<>();
+        for (Bike bike : mBikesUnfiltered) {
+            Log.d("BikeListFrag", "Bike added");
+            if (bike.getType() != null &&
+                    (bike.getType().equals(selectedType) && bike.getSize().equals(selectedSize))) {
+                res.add(bike);
+            } else if (bike.getType() != null &&
+                    (bike.getType().equals(selectedType) && selectedSize.equals("All"))) {
+                res.add(bike);
+            } else if (selectedType.equals("All") && bike.getSize().equals(selectedSize)) {
+                res.add(bike);
+            } else if (selectedType.equals("All") && selectedSize.equals("All")) {
+                res.add(bike);
+            }
         }
-
-        public K getFirstItem() {
-            return mX;
+        String[] initVals = new String[mBikes.size()];
+        for (int i = 0; i < initVals.length; i += 1) {
+            initVals[i] = "false";
         }
-
-        public V getSecondItem() {
-            return mY;
-        }
-    }
-
-    private class MultiMap<K,V> implements Iterable{
-        private ArrayList<K> mKeys;
-        private ArrayList<V> mValues;
-
-        public MultiMap() {
-            mKeys = new ArrayList<>();
-            mValues = new ArrayList<>();
-        }
-        public void put(K key, V value) {
-            mKeys.add(key);
-            mValues.add(value);
-        }
-        public Tuple<K,V> get(int index) {
-            return new Tuple<>(mKeys.get(index), mValues.get(index));
-        }
-        public int size() {
-            return mKeys.size();
-        }
-        @Override
-        public Iterator iterator() {
-            return new Iterator() {
-                @Override
-                public boolean hasNext() {
-                    if (counter == mKeys.size()) {
-                        counter = 0;
-                        return false;
-                    }
-                    return true;
+        ArrayBlockingQueue<String> shouldBeInList = new ArrayBlockingQueue<>(mBikesUnfiltered.size(), true, Arrays.asList(initVals));
+        int n = res.size() - 1;
+        while (!(n < 0)) {
+            Bike bikeInRes = res.get(n);
+            boolean bikePresent = false;
+            for (int i = 0; i<mBikes.size(); i += 1) {
+                Bike bike = mBikes.get(i);
+                if (bike == bikeInRes) {
+                    bikePresent = true;
+                    Object[] array = shouldBeInList.toArray();
+                    String[] vals  = Arrays.copyOf(array, array.length, String[].class);
+                    vals[i] = "true";
+                    shouldBeInList = new ArrayBlockingQueue<>(mBikesUnfiltered.size(), true, Arrays.asList(vals));
+                    break;
                 }
-                @Override
-                public Tuple<K,V> next() {
-                    counter += 1;
-                    return new Tuple<>(mKeys.get(counter), mValues.get(counter));
-                }
-            };
+            }
+            if (!bikePresent) {
+                mBikes.add(bikeInRes);
+                shouldBeInList.add("true");
+            }
+            n -= 1;
         }
+        n = 0;
+        while (shouldBeInList.size() != 0) {
+            if (shouldBeInList.take() == "false") {
+                mBikes.remove(n);
+            } else {
+                n += 1;
+            }
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bikelist, container, false);
         mRecycleView = view.findViewById(R.id.bike_recycle_view);
-        mRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        System.out.println("GapWidth: " + GapWidth);
+        mRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         mListener = (SelectionListener) getActivity();
         Bundle bundle = getArguments();
         ArrayList<Bike> bikes = bundle.getParcelableArrayList("bikes");
-        System.out.println("Number of bikes: " + bikes.size());
-        MultiMap<String, String> data = new MultiMap<>();
-        String color;
-        for (int i = 0; i<bikes.size(); i += 1) {
-            if (i % 2 == 0) {
-                color = "baby_purple";
-            } else {
-                color = "colorAccent";
-            }
-            data.put(bikes.get(i).getName(), color);
-        }
-        mRecycleView.setAdapter(new BikeListAdapter(data, bikes));
+        mBikes = bikes;
+        mBikesUnfiltered = (ArrayList<Bike>) bikes.clone();
+        mAdapter = new BikeListAdapter();
+        mRecycleView.setAdapter(mAdapter);
         mRecycleView.addItemDecoration(new SpacesItemDecoration());
         return view;
     }
@@ -110,75 +108,57 @@ public class BikeListFragment extends Fragment {
     private class SpacesItemDecoration extends RecyclerView.ItemDecoration {
 
         @Override
-        public void getItemOffsets(Rect outRect, int position,
-                                   RecyclerView parent) {
-            if (position == 1) {
-                outRect.right = GapWidth.intValue()/3;
-                outRect.left = GapWidth.intValue()/6;
-            } else {
-                outRect.right = GapWidth.intValue()/6;
-                outRect.left = GapWidth.intValue()/3;
-            }
-            outRect.bottom = MarginTopAndBot.intValue();
-            outRect.top = MarginTopAndBot.intValue();
+        public void getItemOffsets(Rect outRect, View view,
+                                   RecyclerView parent, RecyclerView.State state) {
+            outRect.right = MarginLeftAndRight;
+            outRect.left = MarginLeftAndRight;
+            outRect.bottom = MarginTopAndBot;
+            outRect.top = MarginTopAndBot;
         }
     }
 
     private class BikeListAdapter extends RecyclerView.Adapter<BikeListFragment.BikeHolder> {
-        private MultiMap<String, String> mData;
-        private ArrayList<Bike> mBikes;
-        public BikeListAdapter(MultiMap<String,String> data, ArrayList<Bike> bikes) {
+        public BikeListAdapter() {
             super();
-            mData = data;
-            mBikes = bikes;
         }
         @NonNull
         @Override
         public BikeListFragment.BikeHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             FrameLayout layout = (FrameLayout) LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.viewholder_bike, viewGroup, false);
-            if (GapWidth == null) {
-                GapWidth = new Long(viewGroup.getMeasuredWidth()/8);
-            }
-            BikeHolder bikeHolder = new BikeHolder(layout, viewGroup.getMeasuredWidth(), viewGroup.getMeasuredHeight());
+            BikeHolder bikeHolder = new BikeHolder(layout, viewGroup.getMeasuredHeight());
             return bikeHolder;
         }
 
         @Override
         public void onBindViewHolder(@NonNull BikeListFragment.BikeHolder bikeHolder, int i) {
-            Tuple<String,String> tuple = mData.get(i);
-            String dataString = tuple.getFirstItem();
-            String color = tuple.getSecondItem();
-            LinearLayout.LayoutParams layoutParams = bikeHolder.mParams;
-            bikeHolder.mLayout.setLayoutParams(layoutParams);
-            bikeHolder.mBike = mBikes.get(i);
-            bikeHolder.mTextView1.setText(dataString);
-            bikeHolder.mTextView2.setText(dataString);
-            if (color == "baby_purple") {
-                bikeHolder.mLayout.setBackgroundColor(getResources().getColor(R.color.baby_purple));
-            } else {
-                bikeHolder.mLayout.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-            }
+            Bike bike = mBikes.get(i);
+            bikeHolder.mBike = bike;
+            bikeHolder.mCardTitle.setText(bike.getName());
+            bikeHolder.mCardPrice.setText(Long.toString(bike.getPrice()));
         }
 
         @Override
         public int getItemCount() {
-            return mData.size();
+            return mBikes.size();
         }
     }
 
     private class BikeHolder extends RecyclerView.ViewHolder {
-        TextView mTextView1;
-        TextView mTextView2;
+        TextView mCardTitle;
+        TextView mCardPrice;
+        ImageView mBikeImage;
         FrameLayout mLayout;
         Bike mBike;
-        LinearLayout.LayoutParams mParams;
-        public BikeHolder(@NonNull View itemView, int parentWidth, int parentHeight) {
+        public BikeHolder(@NonNull View itemView, int parentHeight) {
             super(itemView);
             mLayout = (FrameLayout) itemView;
-            mParams = new LinearLayout.LayoutParams((parentWidth/2)-GapWidth.intValue(),parentHeight/3);
-            mTextView1 = mLayout.findViewById(R.id.textView1);
-            mTextView2 = mLayout.findViewById(R.id.textView2);
+            GridLayoutManager.LayoutParams params = (GridLayoutManager.LayoutParams) mLayout.getLayoutParams();
+            params.height = parentHeight/3;
+            mLayout.setLayoutParams(params);
+            mCardTitle = mLayout.findViewById(R.id.card_title_id);
+            mBikeImage = mLayout.findViewById(R.id.card_image_id);
+            mCardPrice = mLayout.findViewById(R.id.card_info3_id);
             mLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
