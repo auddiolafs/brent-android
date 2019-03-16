@@ -14,7 +14,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.models.Tour;
@@ -22,8 +21,8 @@ import is.hi.hbv601g.brent.models.Tour;
 public class ToursActivity extends CurrentActivity {
 
     private List<Tour> mTours = new ArrayList<>();
-    private static final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private static final String TAG = "ToursActivity";
+    private static final FirebaseFirestore mDB = FirebaseFirestore.getInstance();
+    private static final String mTAG = "ToursActivity";
     private boolean mDataFetched = false;
 
     @Override
@@ -34,22 +33,27 @@ public class ToursActivity extends CurrentActivity {
         }
     }
 
+    /**
+     * Fetches the data if it hasn't already been fetched.
+     */
     @Override
     public void setUp() {
         if (!mDataFetched) {
             setContentView(R.layout.activity_loading);
             super.setUp();
-            fetchToursFirestore();
+            fetchTours();
         } else {
             setContentView(R.layout.activity_tours);
             super.setUp();
         }
     }
 
-    private void fetchToursFirestore() {
+    /**
+     * Fetches all tours from Firestore db, to be displayed in the tours list.
+     */
+    private void fetchTours() {
         final List<Tour> tours = new ArrayList<>();
-        final Task<QuerySnapshot> task = db.collection("tours")
-                .get();
+        final Task<QuerySnapshot> task = mDB.collection("tours").get();
 
         task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -57,42 +61,20 @@ public class ToursActivity extends CurrentActivity {
                 mDataFetched = true;
                 setUp();
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    tours.add(toEntity(document.getId(), document.getData()));
-                    Log.d(TAG, document.getId() + " => " + document.getData());
+                    tours.add(Tour.toEntity(document.getId(), document.getData()));
                 }
 
                 mTours = tours;
-                setTours();
+                // setTours();
             }
         });
 
         task.addOnFailureListener(new OnFailureListener() {
             public void onFailure(Exception e) {
-                mDataFetched = true;
                 setUp();
-                Log.d(TAG, "error");
+                Log.d(mTAG, "error");
             }
         });
-    }
-
-    private static Tour toEntity(String tourId, Map<String, Object> tourData) {
-        Tour t = new Tour();
-        try {
-            t.setId(tourId);
-            t.setName(tourData.get("name").toString());
-            t.setLocation(tourData.get("location").toString());
-            t.setPrice(Long.parseLong(tourData.get("price").toString()));
-            // TODO: set dates
-            return t;
-        } catch (Exception e) {
-            Log.d(TAG, "error");
-            return null;
-        }
-    }
-
-    private void setTours() {
-        // Log.d(TAG, mTours.get(0).getName());
-        // TODO: create cards
     }
 
     @Override

@@ -1,6 +1,9 @@
 package is.hi.hbv601g.brent.models;
 
+import android.util.Log;
+
 import java.util.Date;
+import java.util.Map;
 
 public class Tour {
 
@@ -20,6 +23,20 @@ public class Tour {
         mPrice = price;
         mStartDate = startDate;
         mEndDate = endDate;
+    }
+
+    public static Tour toEntity(String tourId, Map<String, Object> tourData) {
+        Tour t = new Tour();
+        try {
+            t.setId(tourId);
+            t.setName(tourData.get("name").toString());
+            t.setLocation(tourData.get("location").toString());
+            t.setPrice(Long.parseLong(tourData.get("price").toString()));
+            // TODO: set dates
+            return t;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public String getId() {

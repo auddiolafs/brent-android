@@ -34,6 +34,9 @@ public class RoutesActivity extends CurrentActivity implements RoutesFragment.Se
         }
     }
 
+    /**
+     * Fetches the data if it hasn't already been fetched.
+     */
     @Override
     public void setUp() {
         if (!mDataFetched) {
@@ -46,6 +49,9 @@ public class RoutesActivity extends CurrentActivity implements RoutesFragment.Se
         }
     }
 
+    /**
+     * Fetches all routes from Firestore db, to be displayed in the routes list.
+     */
     private void fetchRoutes() {
         final ArrayList<Route> routes = new ArrayList<>();
         final Task<QuerySnapshot> task = mDB.collection("routes")
@@ -77,6 +83,9 @@ public class RoutesActivity extends CurrentActivity implements RoutesFragment.Se
         });
     }
 
+    /**
+     * Creates the fragment for the list of routes.
+     */
     private void setRouteList() {
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("routes", mRoutes);
@@ -87,6 +96,10 @@ public class RoutesActivity extends CurrentActivity implements RoutesFragment.Se
     }
 
 
+    /**
+     * Start the RouteAcvity to see details for the selected route.
+     * @param route
+     */
     @Override
     public void onRouteSelected(Route route) {
         Intent intent = new Intent(getApplicationContext(),
