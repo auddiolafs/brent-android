@@ -3,45 +3,43 @@ package is.hi.hbv601g.brent.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.Map;
 
 public class Bike implements Parcelable {
 
-    private String id;
-    private String brand;
-    private String name;
-    private String size;
-    private String serial;
-    private Long price;
-    private String type;
+    private String mID;
+    private String mBrand;
+    private String mName;
+    private String mSize;
+    private String mSerial;
+    private Long mPrice;
+    private String mType;
 
     public Bike() { }
 
     public Bike(String brand, String name, String size, String serial, Long price, String type,
                 String id) {
-        this.brand = brand;
-        this.name = name;
-        this.size = size;
-        this.serial = serial;
-        this.price = price;
-        this.type = type;
-        this.id = id;
+        mBrand = brand;
+        mName = name;
+        mSize = size;
+        mSerial = serial;
+        mPrice = price;
+        mType = type;
+        mID = id;
     }
 
 
     protected Bike(Parcel in) {
-        id = in.readString();
-        brand = in.readString();
-        name = in.readString();
-        size = in.readString();
-        serial = in.readString();
+        mID = in.readString();
+        mBrand = in.readString();
+        mName = in.readString();
+        mSize = in.readString();
+        mSerial = in.readString();
+        mPrice = in.readLong();
         if (in.readByte() == 0) {
-            price = null;
+            mPrice = null;
         } else {
-            price = in.readLong();
+            mPrice = in.readLong();
         }
     }
 
@@ -64,6 +62,7 @@ public class Bike implements Parcelable {
             b.setBrand(bikeData.get("brand").toString());
             b.setName(bikeData.get("name").toString());
             b.setSize(bikeData.get("size").toString());
+            b.setType(bikeData.get("type").toString());
             b.setSerial(bikeData.get("serial").toString());
             b.setPrice(Long.parseLong( bikeData.get("ppd").toString()));
             return b;
@@ -73,78 +72,70 @@ public class Bike implements Parcelable {
     }
 
     public String getId() {
-        return id;
+        return mID;
     }
 
     public void setId(String id) {
-        this.id = id;
+        mID = id;
     }
 
     public String getBrand() {
-        return brand;
+        return mBrand;
     }
 
     public void setBrand(String brand) {
-        this.brand = brand;
+        mBrand = brand;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        mName = name;
     }
 
     public String getSize() {
-        return size;
+        return mSize;
     }
 
     public void setSize(String size) {
-        this.size = size;
+        mSize = size;
     }
 
     public String getSerial() {
-        return serial;
+        return mSerial;
     }
 
     public void setSerial(String serial) {
-        this.serial = serial;
+        mSerial = serial;
     }
 
     public Long getPrice() {
-        return price;
+        return mPrice;
     }
 
     public void setPrice(Long price) {
-        this.price = price;
+        mPrice = price;
     }
 
-    public String getType() { return type; }
+    public String getType() { return mType; }
 
-    public void setType(String type) { this.type = type; }
+    public void setType(String type) { mType = type; }
 
     public boolean isEmpty() {
-        if (this.id == null) {
+        if (mID == null) {
             return true;
         }
         return false;
     }
 
-    public JSONObject toJSON() {
-        JSONObject obj = new JSONObject();
-        try {
-            obj.put("brand", this.brand);
-            //obj.put("type", "asdf");
-            obj.put("size", this.size);
-            obj.put("serial", this.serial);
-            obj.put("ppd", "12345");
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public boolean equals(Bike bike) {
+        if (bike.getSerial() == mSerial) {
+            return true;
         }
-        return obj;
+        return false;
     }
-
 
     @Override
     public int describeContents() {
@@ -153,16 +144,18 @@ public class Bike implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(brand);
-        dest.writeString(name);
-        dest.writeString(size);
-        dest.writeString(serial);
-        if (price == null) {
+        dest.writeString(mID);
+        dest.writeString(mBrand);
+        dest.writeString(mName);
+        dest.writeString(mSize);
+        dest.writeString(mType);
+        dest.writeString(mSerial);
+        dest.writeLong(mPrice);
+        if (mPrice == null) {
             dest.writeByte((byte) 0);
         } else {
             dest.writeByte((byte) 1);
-            dest.writeLong(price);
+            dest.writeLong(mPrice);
         }
     }
 }

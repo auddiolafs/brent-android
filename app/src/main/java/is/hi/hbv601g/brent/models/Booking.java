@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Booking {
 
+    private String mId;
     private List<Bike> mBikes;
     private List<Accessory> mAccessories;
     private List<Tour> mTours;
@@ -25,18 +26,20 @@ public class Booking {
 
 
     public boolean isEmpty() {
-        if (this.mStartDate == null) {
+        if (mStartDate == null) {
             return true;
         }
         return false;
     }
 
-    public List<Bike> getBikes() {
-        return mBikes;
-    }
+    public String getId() { return mId; }
+
+    public void setId(String id) { mId = id; }
+
+    public List<Bike> getBikes() { return mBikes; }
 
     public void setBikes(List<Bike> bikes) {
-        this.mBikes = bikes;
+        mBikes = bikes;
     }
 
     public List<Accessory> getAccessories() {
@@ -44,7 +47,7 @@ public class Booking {
     }
 
     public void setAccessories(List<Accessory> accessories) {
-        this.mAccessories = accessories;
+        mAccessories = accessories;
     }
 
     public List<Tour> getTours() {
@@ -52,7 +55,7 @@ public class Booking {
     }
 
     public void setTours(List<Tour> tours) {
-        this.mTours = tours;
+        mTours = tours;
     }
 
     public Date getStartDate() {
@@ -60,7 +63,7 @@ public class Booking {
     }
 
     public void setStartDate(Date startDate) {
-        this.mStartDate = startDate;
+        mStartDate = startDate;
     }
 
     public Date getEndDate() {
@@ -68,7 +71,7 @@ public class Booking {
     }
 
     public void setEndDate(Date endDate) {
-        this.mEndDate = endDate;
+        mEndDate = endDate;
     }
 
     public String getPickupLocation() {
@@ -76,17 +79,17 @@ public class Booking {
     }
 
     public void setPickupLocation(String pickupLocation) {
-        this.mPickupLocation = pickupLocation;
+        mPickupLocation = pickupLocation;
     }
 
     public Booking(List<Bike> bikes, List<Accessory> accessories, List<Tour> tours,
                    User user, Date startDate, Date endDate, String pickupLocation) {
-        this.mBikes = bikes;
-        this.mAccessories = accessories;
-        this.mTours = tours;
-        this.mStartDate = startDate;
-        this.mEndDate = endDate;
-        this.mPickupLocation = pickupLocation;
+        mBikes = bikes;
+        mAccessories = accessories;
+        mTours = tours;
+        mStartDate = startDate;
+        mEndDate = endDate;
+        mPickupLocation = pickupLocation;
     }
 
     public void addBike(Bike bike) {

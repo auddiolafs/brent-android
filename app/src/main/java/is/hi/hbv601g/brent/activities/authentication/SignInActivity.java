@@ -30,28 +30,28 @@ public class SignInActivity extends AppCompatActivity {
 
     final String TAG = "SignIn";
 
-    FirebaseApp mApp;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseAuth mAuth;
-    FirebaseAuth.AuthStateListener mAuthStateListener;
+    private FirebaseApp mApp;
+    private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    EditText mEmailEdit;
-    EditText mPassword;
-    EditText mConfirmPassword;
-    EditText mDisplayNameEdit;
+    private EditText mEmailEdit;
+    private EditText mPassword;
+    private EditText mConfirmPassword;
+    private EditText mDisplayNameEdit;
 
-    Button mLoginButton;
-    TextView mRegisterText;
-    TextView mForgotPasswordText;
+    private Button mLoginButton;
+    private TextView mRegisterText;
+    private TextView mForgotPasswordText;
 
-    ProgressBar mProgressBar;
+    private ProgressBar mProgressBar;
 
     boolean mLoginInProgress = true;
     boolean mRegisterInProgress = false;
 
-    String mDisplayName = "Unknown";
+    private String mDisplayName = "Unknown";
 
-    Map<String, Object> user = new HashMap<>();
+    private Map<String, Object> user = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,19 +118,14 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void initListeners() {
-
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 if (mLoginInProgress) {
                     String email = mEmailEdit.getText().toString();
                     String password = mPassword.getText().toString();
 
                     loginUser(email, password);
-
-
                 } else {
                     String email = mEmailEdit.getText().toString();
                     String password = mPassword.getText().toString();
@@ -147,8 +142,6 @@ public class SignInActivity extends AppCompatActivity {
         mRegisterText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if (!mRegisterInProgress) {
 
                     mEmailEdit.setVisibility(View.VISIBLE);
@@ -174,7 +167,6 @@ public class SignInActivity extends AppCompatActivity {
                     mRegisterInProgress = false;
                     mLoginInProgress = true;
                 }
-
             }
         });
     }
@@ -189,7 +181,7 @@ public class SignInActivity extends AppCompatActivity {
                     Log.e(TAG, "User registration successful");
                     user.put("email", email);
                     user.put("displayName", displayName);
-                    db.collection("users").document(tmp.getUid())
+                    mDB.collection("users").document(tmp.getUid())
                             .set(user);
                 } else {
                     Log.e(TAG, "User registration reponse but failed");

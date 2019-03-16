@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.LoginActivity"></activity>
+        <activity android:name=".activities.RouteActivity"></activity>
+        <activity android:name=".fragments.RoutesFragment" />
+        <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.authentication.RegisterActivity" />
         <activity
             android:name=".activities.SplashScreenActivity"
@@ -45,6 +47,10 @@
         <activity
             android:name=".activities.CartActivity"
             android:label="Cart" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

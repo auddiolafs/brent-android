@@ -18,24 +18,16 @@ import is.hi.hbv601g.brent.R;
 
 public class MainActivity extends CurrentActivity {
 
+    private String mTAG = "MainActivity >> ";
+    private FirebaseApp mApp;
+    private FirebaseDatabase mDatabase;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    String TAG = "MainActivity >> ";
-
-    FirebaseApp mApp;
-    FirebaseDatabase mDatabase;
-    FirebaseAuth mAuth;
-
-    FirebaseAuth.AuthStateListener mAuthStateListener;
-    String mDisplayName = "";
-//    TextView mBikesButton;
-ImageButton mToursButton;
-    ImageButton mRoutesButton;
-
-    ImageButton mBikesButton;
-
-    ImageButton toolbarProfile;
-    ImageButton toolbarHome;
-    ImageButton toolbarCart;
+    private String mDisplayName = "";
+    private ImageButton mToursButton;
+    private ImageButton mRoutesButton;
+    private ImageButton mBikesButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,51 +37,18 @@ ImageButton mToursButton;
         // Basic things which are done in each activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initFirebase();
         initListeners();
+
         if(this.connected) {
-            setUp();
+            super.setUp();
         }
     }
 
-    public void setUp() {
-        toolbarProfile = findViewById(R.id.toolbar_profile);
-        toolbarProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent userIntent = new Intent(getApplicationContext(), UserActivity.class);
-                startActivity(userIntent);
-            }
-        });
-        toolbarHome = findViewById(R.id.toolbar_home);
-        toolbarHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent home = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(home);
-            }
-        });
-        toolbarCart = findViewById(R.id.toolbar_cart);
-        toolbarCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cart = new Intent(getApplicationContext(), CartActivity.class);
-                startActivity(cart);
-            }
-        });
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle arrow click here
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
+    /**
+     * Initializes the Firebase connection for this app.
+     */
     private void initFirebase() {
         mApp = FirebaseApp.getInstance();
         mDatabase = FirebaseDatabase.getInstance(mApp);
@@ -101,7 +60,7 @@ ImageButton mToursButton;
                 FirebaseUser user = mAuth.getCurrentUser();
 
                 if (user != null) {
-                    Log.e(TAG, "AUTH SATE UPDATE : Valid User Login\0");
+                    Log.e(mTAG, "AUTH SATE UPDATE : Valid User Login\0");
                     String displayName = user.getDisplayName();
 
                     if (displayName !=null) {
@@ -110,7 +69,7 @@ ImageButton mToursButton;
                         mDisplayName = "Unknown DisplayName";
                     }
                 } else {
-                    Log.e(TAG, "AUTH STATE UPDATE : No user logged in");
+                    Log.e(mTAG, "AUTH STATE UPDATE : No user logged in");
                     mDisplayName = "No valid user";
 
                     Intent signInIntent = new Intent(getApplicationContext(), is.hi.hbv601g.brent.activities.LoginActivity.class);
@@ -121,6 +80,9 @@ ImageButton mToursButton;
         mAuth.addAuthStateListener(mAuthStateListener);
     }
 
+    /**
+     * Initializes onClick listeners for the buttons for bikes, tours and routes.
+     */
     private void initListeners() {
         mBikesButton = findViewById(R.id.bikeButton);
         mToursButton = findViewById(R.id.toursButton);
@@ -152,6 +114,12 @@ ImageButton mToursButton;
         });
     }
 
+    /**
+     * Gets the result from the subsequent activity when returning to this activity.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -159,9 +127,19 @@ ImageButton mToursButton;
         if (requestCode == 101 && resultCode == RESULT_OK) {
 
             mDisplayName = data.getStringExtra("displayname");
-            Log.e(TAG, "Returned Activity display name: [" + mDisplayName + "]");
+            Log.e(mTAG, "Returned Activity display name: [" + mDisplayName + "]");
             mAuth.addAuthStateListener(mAuthStateListener);
 
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
