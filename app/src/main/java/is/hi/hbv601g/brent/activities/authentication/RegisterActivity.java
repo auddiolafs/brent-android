@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,61 +29,51 @@ import is.hi.hbv601g.brent.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    String TAG = "Register >>";
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    ImageView headerImage;
-    static int PreqCode = 1;
-    static int REQUESCODE = 1;
-
-    private EditText userEmail;
-    private EditText userPassword;
-    private EditText userPasswordConfirm;
-    private EditText userName;
-
+    private EditText mUserEmail;
+    private EditText mUserPassword;
+    private EditText mUserPasswordConfirm;
+    private EditText mUserName;
     private TextView mRegisterText;
+    private ProgressBar mLoadingProgress;
+    private Button mRegBtn;
 
-    private ProgressBar loadingProgress;
-
-    private Button regBtn;
-
-    Map<String, Object> user = new HashMap<>();
+    private Map<String, Object> user = new HashMap<>();
     private FirebaseAuth mAuth;
+    private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
+    private String TAG = "Register >>";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        userEmail = findViewById(R.id.emailEdit);
-        userPassword = findViewById(R.id.passwordEdit);
-        userPasswordConfirm = findViewById(R.id.confirmPasswordEdit);
-        userName = findViewById(R.id.displayName);
-        loadingProgress = findViewById(R.id.login_progress);
-        headerImage = findViewById(R.id.imageHeader);
+        mUserEmail = findViewById(R.id.emailEdit);
+        mUserPassword = findViewById(R.id.passwordEdit);
+        mUserPasswordConfirm = findViewById(R.id.confirmPasswordEdit);
+        mUserName = findViewById(R.id.displayName);
+        mLoadingProgress = findViewById(R.id.login_progress);
         mRegisterText = findViewById(R.id.registerText);
-        regBtn = findViewById(R.id.loginButton);
-        loadingProgress.setVisibility(View.INVISIBLE);
+        mRegBtn = findViewById(R.id.loginButton);
+        mLoadingProgress.setVisibility(View.INVISIBLE);
 
 
         mAuth = FirebaseAuth.getInstance();
 
-        regBtn.setOnClickListener(new View.OnClickListener() {
+        mRegBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                regBtn.setVisibility(View.INVISIBLE);
-                loadingProgress.setVisibility(View.VISIBLE);
-                final String email = userEmail.getText().toString();
-                final String password = userPassword.getText().toString();
-                final String password2 = userPasswordConfirm.getText().toString();
-                final String name = userName.getText().toString();
+                mRegBtn.setVisibility(View.INVISIBLE);
+                mLoadingProgress.setVisibility(View.VISIBLE);
+                final String email = mUserEmail.getText().toString();
+                final String password = mUserPassword.getText().toString();
+                final String password2 = mUserPasswordConfirm.getText().toString();
+                final String name = mUserName.getText().toString();
 
                 if (email.isEmpty() || name.isEmpty() || password.isEmpty() || password2.isEmpty()
                 || !password.equals(password2)) {
                     showMessage("Checl fields");
-                    regBtn.setVisibility(View.VISIBLE);
-                    loadingProgress.setVisibility(View.INVISIBLE);
+                    mRegBtn.setVisibility(View.VISIBLE);
+                    mLoadingProgress.setVisibility(View.INVISIBLE);
                 } else {
                     CreateUserAccount(email, name, password);
                 }
@@ -111,8 +100,8 @@ public class RegisterActivity extends AppCompatActivity {
                     updateUserInfo(name, mAuth.getCurrentUser());
                 } else {
                     showMessage("error " + task.getException().getMessage());
-                    regBtn.setVisibility(View.VISIBLE);
-                    loadingProgress.setVisibility(View.INVISIBLE);
+                    mRegBtn.setVisibility(View.VISIBLE);
+                    mLoadingProgress.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -138,7 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
         Log.e(TAG, "User registration successful");
         user.put("email", currentUser.getEmail());
         user.put("displayName", name);
-        db.collection("users").document(currentUser.getUid())
+        mDB.collection("users").document(currentUser.getUid())
                 .set(user);
     }
 

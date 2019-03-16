@@ -50,9 +50,6 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     
     @Override
     public void setUp() {
-        setSizes();
-        fetchData();
-
         if (!mDataFetched) {
             setContentView(R.layout.activity_loading);
             super.setUp();
@@ -227,7 +224,6 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
 
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     types.add(document.getData().get("type").toString());
-                    Log.d(TAG, document.getId() + " => " + document.getData());
                 }
                 mTypes = types;
                 fetchBikes();
@@ -260,7 +256,6 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
                         Log.d(TAG, "error");
                     } else {
                         bikes.add(bike);
-                        Log.d(TAG, document.getId() + " => " + document.getData());
                     }
                 }
                 mBikes = bikes;

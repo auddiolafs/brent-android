@@ -30,28 +30,28 @@ public class SignInActivity extends AppCompatActivity {
 
     final String TAG = "SignIn";
 
-    FirebaseApp mApp;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseAuth mAuth;
-    FirebaseAuth.AuthStateListener mAuthStateListener;
+    private FirebaseApp mApp;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    EditText mEmailEdit;
-    EditText mPassword;
-    EditText mConfirmPassword;
-    EditText mDisplayNameEdit;
+    private EditText mEmailEdit;
+    private EditText mPassword;
+    private EditText mConfirmPassword;
+    private EditText mDisplayNameEdit;
 
-    Button mLoginButton;
-    TextView mRegisterText;
-    TextView mForgotPasswordText;
+    private Button mLoginButton;
+    private TextView mRegisterText;
+    private TextView mForgotPasswordText;
 
-    ProgressBar mProgressBar;
+    private ProgressBar mProgressBar;
 
     boolean mLoginInProgress = true;
     boolean mRegisterInProgress = false;
 
-    String mDisplayName = "Unknown";
+    private String mDisplayName = "Unknown";
 
-    Map<String, Object> user = new HashMap<>();
+    private Map<String, Object> user = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
