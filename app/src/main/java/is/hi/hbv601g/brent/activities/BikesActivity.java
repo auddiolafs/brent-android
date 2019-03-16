@@ -268,7 +268,6 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
         });
         task.addOnFailureListener(new OnFailureListener() {
             public void onFailure(Exception e) {
-                mDataFetched = true;
                 setUp();
                 Log.d(mTAG, "Error fetching bikes");
             }

@@ -1,14 +1,29 @@
 package is.hi.hbv601g.brent.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Toast;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.fragments.RoutesFragment;
+import is.hi.hbv601g.brent.models.Route;
 
-public class  RoutesActivity extends CurrentActivity {
+public class RoutesActivity extends CurrentActivity implements RoutesFragment.SelectionListener {
 
+    private ArrayList<Route> mRoutes = new ArrayList<>();
+    private RoutesFragment mRouteFragment;
+    private static final String mTAG = "RoutesActivity";
+    private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private boolean mDataFetched = false;
 
     @Override
@@ -22,28 +37,64 @@ public class  RoutesActivity extends CurrentActivity {
     @Override
     public void setUp() {
         if (!mDataFetched) {
-            fetchData();
             setContentView(R.layout.activity_loading);
             super.setUp();
+            fetchRoutes();
         } else {
             setContentView(R.layout.activity_routes);
             super.setUp();
         }
     }
 
-    private void fetchData() {
-        // TODO: fetch data
-        mDataFetched = true;
-        setUp();
+    private void fetchRoutes() {
+        final ArrayList<Route> routes = new ArrayList<>();
+        final Task<QuerySnapshot> task = mDB.collection("routes")
+                .get();
+
+        task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                setContentView(R.layout.activity_routes);
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Route route = Route.toEntity(document.getId(), document.getData());
+                    if (route == null) {
+                        Log.d(mTAG, "error");
+                    } else {
+                        routes.add(route);
+                        Log.d(mTAG, document.getId() + " => " + document.getData());
+                    }
+                }
+
+                mDataFetched = true;
+                mRoutes = routes;
+                setRouteList();
+            }
+        });
+        task.addOnFailureListener(new OnFailureListener() {
+            public void onFailure(Exception e) {
+                Log.d(mTAG, "Error fetching routes");
+            }
+        });
     }
 
+    private void setRouteList() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("routes", mRoutes);
+        mRouteFragment = new RoutesFragment();
+        mRouteFragment.setArguments(bundle);
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().add(R.id.routesListContainer, mRouteFragment).commit();
+    }
+
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(this, item.getTitle(), Toast.LENGTH_LONG).show();
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
-        }
-        return super.onOptionsItemSelected(item);
+    public void onRouteSelected(Route route) {
+        Intent intent = new Intent(getApplicationContext(),
+                RouteActivity.class);
+        intent.putExtra("route", route);
+        intent.putExtra("location", route.getLocation());
+        intent.putExtra("length", route.getLength());
+        startActivity(intent);
     }
 
 }

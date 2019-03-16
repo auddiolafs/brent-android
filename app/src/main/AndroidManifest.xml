@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.LoginActivity"></activity>
+        <activity android:name=".activities.RouteActivity"></activity>
+        <activity android:name=".fragments.RoutesFragment" />
+        <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.authentication.RegisterActivity" />
         <activity
             android:name=".activities.SplashScreenActivity"
