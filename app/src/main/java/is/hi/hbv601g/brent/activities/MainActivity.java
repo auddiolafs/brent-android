@@ -27,8 +27,8 @@ public class MainActivity extends CurrentActivity {
 
     FirebaseAuth.AuthStateListener mAuthStateListener;
     String mDisplayName = "";
-//    TextView mBikesButton;
-ImageButton mToursButton;
+    //    TextView mBikesButton;
+    ImageButton mToursButton;
     ImageButton mRoutesButton;
 
     ImageButton mBikesButton;

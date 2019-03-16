@@ -126,6 +126,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 setContentView(R.layout.activity_bikes);
                 for (QueryDocumentSnapshot document : task.getResult()) {
+                    Log.e(TAG, document.getId());
                     Bike bike = Bike.toEntity(document.getId(), document.getData());
                     if (bike == null) {
                         Log.d(TAG, "error");
