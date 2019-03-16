@@ -21,10 +21,10 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <Button
-            android:id="@+id/saveCartButton"
+            android:id="@+id/paymentButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save Cart"
+            android:text="Proceed to payment"
             tools:layout_editor_absoluteX="119dp"
             tools:layout_editor_absoluteY="154dp" />
     </FrameLayout>

@@ -27,6 +27,26 @@
         app:layout_constraintVertical_bias="0.093" />
 
     <EditText
+        android:id="@+id/cvcEdit"
+        style="@style/BodyText2ExtraLowContrastLeft"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:autofillHints="auto"
+        android:background="@drawable/reg_edittext_style"
+        android:ems="10"
+        android:hint="CVC"
+        android:inputType="number"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardNumberEdit"
+        app:layout_constraintVertical_bias="0.334" />
+
+    <EditText
         android:id="@+id/addressEdit"
         style="@style/BodyText2ExtraLowContrastLeft"
         android:layout_width="250dp"

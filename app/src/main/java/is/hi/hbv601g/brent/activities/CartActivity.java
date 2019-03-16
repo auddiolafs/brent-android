@@ -32,11 +32,13 @@ public class CartActivity extends CurrentActivity {
         setContentView(R.layout.activity_cart);
         super.setUp();
 
-        Button saveCartButton = findViewById(R.id.saveCartButton);
-        saveCartButton.setOnClickListener(new View.OnClickListener() {
+        Button paymentButton = findViewById(R.id.paymentButton);
+        paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCart.saveCart();
+                Intent paymentActivity = new Intent(getApplicationContext(), PaymentActivity.class);
+                startActivity(paymentActivity);
+                finish();
             }
         });
     }
