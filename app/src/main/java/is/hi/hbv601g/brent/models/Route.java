@@ -2,43 +2,41 @@ package is.hi.hbv601g.brent.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import java.util.Map;
 
 public class Route implements Parcelable {
-    private String id;
-    private String location;
-    private String length;
-    private String description;
-    private String likes;
+    private String mID;
+    private String mLocation;
+    private String mLength;
+    private String mDescription;
+    private String mLikes;
 
     public Route() { }
 
     public Route(String id, String location, String length, String description, String likes) {
-        this.id = id;
-        this.location = location;
-        this.length = length;
-        this.description = description;
-        this.likes = likes;
+        this.mID = id;
+        this.mLocation = location;
+        this.mLength = length;
+        this.mDescription = description;
+        this.mLikes = likes;
     }
 
     protected Route(Parcel in) {
-        id = in.readString();
-        location = in.readString();
-        length = in.readString();
-        description = in.readString();
-        likes = in.readString();
+        mID = in.readString();
+        mLocation = in.readString();
+        mLength = in.readString();
+        mDescription = in.readString();
+        mLikes = in.readString();
         if (in.readByte() == 0) {
-            length = null;
+            mLength = null;
         } else {
-            length = in.readString();
+            mLength = in.readString();
         }
     }
 
     public static Route toEntity(String routeId, Map<String, Object> routeData) {
         Route r = new Route();
-        Log.d("Route.java", routeData.get("Location").toString());
         try {
             r.setId(routeId);
             r.setLocation(routeData.get("Location").toString());
@@ -64,36 +62,36 @@ public class Route implements Parcelable {
     };
 
     public String getId() {
-        return id;
+        return mID;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.mID = id;
     }
 
     public String getLocation() {
-        return location;
+        return mLocation;
     }
 
     public void setLocation(String location) {
-        this.location = location;
+        mLocation = location;
     }
 
     public void setLength(String length) {
-        this.length = length;
+        this.mLength = length;
     }
 
     public String getLength() {
-        return length;
+        return mLength;
     }
 
-    public String getDescription() { return description; };
+    public String getDescription() { return mDescription; };
 
-    public void setDescription(String description) { this.description = description; }
+    public void setDescription(String mDescription) { this.mDescription = mDescription; }
 
-    public String getLikes() { return likes; }
+    public String getLikes() { return mLikes; }
 
-    public void setLikes(String likes) { this.likes = likes; }
+    public void setLikes(String likes) { this.mLikes = likes; }
 
     @Override
     public int describeContents() {
@@ -102,16 +100,16 @@ public class Route implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(location);
-        dest.writeString(length);
-        dest.writeString(description);
-        dest.writeString(likes);
-        if (id == null) {
+        dest.writeString(mID);
+        dest.writeString(mLocation);
+        dest.writeString(mLength);
+        dest.writeString(mDescription);
+        dest.writeString(mLikes);
+        if (mID == null) {
             dest.writeByte((byte) 0);
         } else {
             dest.writeByte((byte) 1);
-            dest.writeString(length);
+            dest.writeString(mLength);
         }
     }
 }

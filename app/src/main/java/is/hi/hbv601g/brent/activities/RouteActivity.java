@@ -1,19 +1,12 @@
 package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.util.Date;
-
-import is.hi.hbv601g.brent.Cart;
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.models.Bike;
-import is.hi.hbv601g.brent.models.Booking;
 import is.hi.hbv601g.brent.models.Route;
 
 public class RouteActivity extends CurrentActivity {
