@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.activities.authentication.LoginActivity;
 
 public class MainActivity extends CurrentActivity {
 
@@ -72,7 +73,7 @@ public class MainActivity extends CurrentActivity {
                     Log.e(mTAG, "AUTH STATE UPDATE : No user logged in");
                     mDisplayName = "No valid user";
 
-                    Intent signInIntent = new Intent(getApplicationContext(), is.hi.hbv601g.brent.activities.LoginActivity.class);
+                    Intent signInIntent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivityForResult(signInIntent, 101);
                 }
             }

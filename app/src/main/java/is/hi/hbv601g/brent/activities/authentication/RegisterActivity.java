@@ -23,7 +23,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-import is.hi.hbv601g.brent.activities.LoginActivity;
 import is.hi.hbv601g.brent.activities.MainActivity;
 import is.hi.hbv601g.brent.R;
 
