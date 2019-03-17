@@ -12,12 +12,12 @@ public class Bike implements Parcelable {
     private String mName;
     private String mSize;
     private String mSerial;
-    private Long mPrice;
+    private String mPrice;
     private String mType;
 
     public Bike() { }
 
-    public Bike(String brand, String name, String size, String serial, Long price, String type,
+    public Bike(String brand, String name, String size, String serial, String price, String type,
                 String id) {
         mBrand = brand;
         mName = name;
@@ -35,11 +35,11 @@ public class Bike implements Parcelable {
         mName = in.readString();
         mSize = in.readString();
         mSerial = in.readString();
-        mPrice = in.readLong();
+        mPrice = in.readString();
         if (in.readByte() == 0) {
             mPrice = null;
         } else {
-            mPrice = in.readLong();
+            mPrice = in.readString();
         }
     }
 
@@ -64,7 +64,7 @@ public class Bike implements Parcelable {
             b.setSize(bikeData.get("size").toString());
             b.setType(bikeData.get("type").toString());
             b.setSerial(bikeData.get("serial").toString());
-            b.setPrice(Long.parseLong( bikeData.get("ppd").toString()));
+            b.setPrice(bikeData.get("ppd").toString());
             return b;
         } catch (Exception e) {
             return null;
@@ -111,11 +111,11 @@ public class Bike implements Parcelable {
         mSerial = serial;
     }
 
-    public Long getPrice() {
+    public String getPrice() {
         return mPrice;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(String price) {
         mPrice = price;
     }
 
@@ -150,12 +150,12 @@ public class Bike implements Parcelable {
         dest.writeString(mSize);
         dest.writeString(mType);
         dest.writeString(mSerial);
-        dest.writeLong(mPrice);
+        dest.writeString(mPrice);
         if (mPrice == null) {
             dest.writeByte((byte) 0);
         } else {
             dest.writeByte((byte) 1);
-            dest.writeLong(mPrice);
+            dest.writeString(mPrice);
         }
     }
 }

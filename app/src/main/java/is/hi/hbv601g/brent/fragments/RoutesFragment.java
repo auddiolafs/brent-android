@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,7 +94,8 @@ public class RoutesFragment extends Fragment {
             Route route = mRoutes.get(i);
             routeHolder.mRoute = route;
             routeHolder.mCardTitle.setText(route.getLocation());
-            routeHolder.mCardLength.setText(route.getLength());
+            routeHolder.mCardLength.setText(route.getLength() + " km");
+            Picasso.get().load(route.getImage()).centerInside().resize(200, 200).into(routeHolder.mRouteImage);
         }
 
         @Override
