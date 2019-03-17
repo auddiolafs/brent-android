@@ -43,7 +43,7 @@ public class BikeActivity extends CurrentActivity {
         mBrand = findViewById(R.id.bike_brand_id);
         mPrice = findViewById(R.id.bike_price_id);
         mBrand.setText(bike.getBrand());
-        mPrice.setText(Long.toString(bike.getPrice()));
+        mPrice.setText((bike.getPrice()));
 //      Currently not working, gives error
 //      mType.setText(bike.getType());
 
