@@ -11,15 +11,17 @@ public class Route implements Parcelable {
     private String mLength;
     private String mDescription;
     private String mLikes;
+    private String mImage;
 
     public Route() { }
 
-    public Route(String id, String location, String length, String description, String likes) {
+    public Route(String id, String location, String length, String description, String likes, String image) {
         this.mID = id;
         this.mLocation = location;
         this.mLength = length;
         this.mDescription = description;
         this.mLikes = likes;
+        this.mImage = image;
     }
 
     protected Route(Parcel in) {
@@ -28,6 +30,7 @@ public class Route implements Parcelable {
         mLength = in.readString();
         mDescription = in.readString();
         mLikes = in.readString();
+        mImage = in.readString();
         if (in.readByte() == 0) {
             mLength = null;
         } else {
@@ -43,6 +46,7 @@ public class Route implements Parcelable {
             r.setLength(routeData.get("Length").toString());
             r.setDescription(routeData.get("Description").toString());
             r.setLikes(routeData.get("Likes").toString());
+            r.setImage(routeData.get("image").toString());
             return r;
         } catch (Exception e) {
             return null;
@@ -93,6 +97,10 @@ public class Route implements Parcelable {
 
     public void setLikes(String likes) { this.mLikes = likes; }
 
+    public String getImage() { return mImage; }
+
+    public void setImage(String image) { this.mImage = image; }
+
     @Override
     public int describeContents() {
         return 0;
@@ -105,6 +113,7 @@ public class Route implements Parcelable {
         dest.writeString(mLength);
         dest.writeString(mDescription);
         dest.writeString(mLikes);
+        dest.writeString(mImage);
         if (mID == null) {
             dest.writeByte((byte) 0);
         } else {
