@@ -47,7 +47,8 @@
         <activity
             android:name=".activities.CartActivity"
             android:label="Cart" />
-
+        <activity android:name=".activities.PaymentActivity"
+            android:label="Cart" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
