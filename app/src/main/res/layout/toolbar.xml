@@ -27,7 +27,7 @@
             android:layout_height="50dp"
             android:elevation="12dp"
             android:id="@+id/view2"
-            app:cardCornerRadius="50dp"
+            app:cardCornerRadius="25dp"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="20dp">
         <ImageButton

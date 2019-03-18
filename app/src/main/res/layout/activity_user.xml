@@ -18,7 +18,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
-        app:cardCornerRadius="140dp"
+        app:cardCornerRadius="70dp"
         android:layout_centerHorizontal="true"
         android:innerRadius="0dp"
         android:shape="ring"
