@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,9 +27,12 @@ public class MainActivity extends CurrentActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     private String mDisplayName = "";
-    private ImageButton mToursButton;
-    private ImageButton mRoutesButton;
-    private ImageButton mBikesButton;
+//    private ImageButton mToursButton;
+//    private ImageButton mRoutesButton;
+//    private ImageButton mBikesButton;
+    private CardView mToursButton;
+    private CardView mRoutesButton;
+    private CardView mBikesButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +89,9 @@ public class MainActivity extends CurrentActivity {
      * Initializes onClick listeners for the buttons for bikes, tours and routes.
      */
     private void initListeners() {
-        mBikesButton = findViewById(R.id.bikeButton);
-        mToursButton = findViewById(R.id.toursButton);
-        mRoutesButton = findViewById(R.id.routesButton);
+        mBikesButton = findViewById(R.id.card_view_id);
+        mToursButton = findViewById(R.id.card_view_id2);
+        mRoutesButton = findViewById(R.id.card_view_id3);
 
 
         mBikesButton.setOnClickListener(new View.OnClickListener() {

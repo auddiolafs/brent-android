@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,9 @@ public class UserActivity extends CurrentActivity {
     Button mLogoutButton;
 
     TextView mDisplayname;
+    TextView mEmailText;
+    TextView mBookingText;
+    View booking;
 
     FirebaseAuth mAuth;
     FirebaseApp mApp;
@@ -43,7 +47,17 @@ public class UserActivity extends CurrentActivity {
 
         mLogoutButton = findViewById(R.id.logoutButton);
         mDisplayname = findViewById(R.id.user_name_text);
+        mEmailText = findViewById(R.id.user_email_text);
+
+        booking = findViewById(R.id.user_bookings);
+        TextView bookingText = booking.findViewById(R.id.card_text_id);
+        bookingText.setText("Bookings");
+
+        ImageView bookingImage = booking.findViewById(R.id.card_image_id);
+        bookingImage.setImageResource(R.drawable.icon_list);
+
         mDisplayname.setText(mAuth.getCurrentUser().getDisplayName());
+        mEmailText.setText(mAuth.getCurrentUser().getEmail());
 
         mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
