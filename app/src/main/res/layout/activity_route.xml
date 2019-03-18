@@ -55,71 +55,84 @@
                     android:text="Specification"
                     android:textColor="#44566C"
                     android:textSize="24sp"
+                    android:paddingBottom="10dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <TextView
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:minWidth="100dp"
+                        android:layout_gravity="center"
                         android:text="Icon"
-                        android:textStyle="bold"
+                        android:src="@drawable/ic_integration"
                         android:gravity="left"/>
+
                     <TextView
                         android:id="@+id/place_info_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
                         android:minWidth="100dp"
                         android:text="info1"
-                        />
-                    <TextView
+                        android:textSize="18sp" />
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:minWidth="100dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="60dp"
                         android:text="Icon"
-                        android:textStyle="bold"
+                        android:src="@drawable/ic_show_the_love"
                         android:gravity="left"/>
+
                     <TextView
                         android:id="@+id/place_info_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:minWidth="100dp"
                         android:text="info2"
-                        />
+                        android:textSize="18sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <TextView
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:minWidth="100dp"
+                        android:layout_gravity="center"
                         android:text="Icon"
-                        android:textStyle="bold"
+                        android:src="@drawable/ic_help_center"
                         android:gravity="left"/>
+
                     <TextView
                         android:id="@+id/place_info_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
                         android:minWidth="100dp"
                         android:text="info3"
-                        />
-                    <TextView
+                        android:textSize="18sp" />
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:minWidth="100dp"
+                        android:layout_gravity="center"
                         android:text="Icon"
-                        android:textStyle="bold"
+                        android:src="@drawable/ic_team"
+                        android:layout_marginLeft="60dp"
                         android:gravity="left"/>
+
                     <TextView
                         android:id="@+id/place_info_4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:minWidth="100dp"
                         android:text="info4"
-                        />
+                        android:textSize="18sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
