@@ -95,7 +95,11 @@ public class RoutesFragment extends Fragment {
             routeHolder.mRoute = route;
             routeHolder.mCardTitle.setText(route.getLocation());
             routeHolder.mCardLength.setText(route.getLength() + " km");
-            Picasso.get().load(route.getImage()).centerInside().resize(200, 200).into(routeHolder.mRouteImage);
+            Picasso.get().load(route.getImage())
+                    .placeholder(R.drawable.bike_hybrid)
+                    .centerInside()
+                    .resize(200, 200)
+                    .into(routeHolder.mRouteImage);
         }
 
         @Override
