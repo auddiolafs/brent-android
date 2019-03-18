@@ -19,7 +19,7 @@
             android:layout_height="80dp"
             android:elevation="12dp"
             android:id="@+id/view2"
-            app:cardCornerRadius="50dp"
+            app:cardCornerRadius="40dp"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp">
