@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import is.hi.hbv601g.brent.Cart;
@@ -20,6 +20,10 @@ public class PaymentActivity extends CurrentActivity {
     private EditText mCVC;
     private Cart mCart;
 
+    private ImageButton mToolbarProfile;
+    private ImageButton mToolbarHome;
+    private ImageButton mToolbarCart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,8 @@ public class PaymentActivity extends CurrentActivity {
     public void setUp() {
         setContentView(R.layout.activity_payment);
         super.setUp();
+
+
 
         mFullName = findViewById(R.id.fullNameEdit);
         mAddress = findViewById(R.id.addressEdit);

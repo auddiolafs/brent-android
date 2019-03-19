@@ -6,6 +6,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/payButton"
+        style="@style/BodyText2WhiteCenter"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/reg_btn_style"
+        android:text="Pay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvcEdit"
+        app:layout_constraintVertical_bias="0.179" />
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
     <EditText
         android:id="@+id/expirationEdit"
         style="@style/BodyText2ExtraLowContrastLeft"
@@ -20,11 +40,11 @@
         android:inputType="number"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardNumberEdit"
-        app:layout_constraintVertical_bias="0.093" />
+        app:layout_constraintVertical_bias="0.042" />
 
     <EditText
         android:id="@+id/cvcEdit"
@@ -44,7 +64,7 @@
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardNumberEdit"
-        app:layout_constraintVertical_bias="0.334" />
+        app:layout_constraintVertical_bias="0.234" />
 
     <EditText
         android:id="@+id/addressEdit"
@@ -83,7 +103,7 @@
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fullNameEdit"
-        app:layout_constraintVertical_bias="0.222" />
+        app:layout_constraintVertical_bias="0.149" />
 
     <EditText
         android:id="@+id/fullNameEdit"
