@@ -32,11 +32,13 @@ public class CartActivity extends CurrentActivity {
         setContentView(R.layout.activity_cart);
         super.setUp();
 
-        Button saveCartButton = findViewById(R.id.saveCartButton);
+        final Button saveCartButton = findViewById(R.id.saveCartButton);
         saveCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCart.saveCart();
+                saveCartButton.setClickable(false);
+                updateUI();
             }
         });
     }
@@ -48,5 +50,11 @@ public class CartActivity extends CurrentActivity {
             finish(); // close this activity and return to preview activity (if there is any)
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateUI() {
+        Intent homeActivity = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(homeActivity);
+        finish();
     }
 }

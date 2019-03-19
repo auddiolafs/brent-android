@@ -14,8 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.RouteActivity"></activity>
-        <!--<activity android:name=".fragments.RoutesFragment" />-->
+        <activity android:name=".activities.user.BookingsActivity"></activity>
+        <activity android:name=".activities.RouteActivity" /> <!-- <activity android:name=".fragments.RoutesFragment" /> -->
         <activity android:name=".activities.authentication.LoginActivity" />
         <activity android:name=".activities.authentication.RegisterActivity" />
         <activity

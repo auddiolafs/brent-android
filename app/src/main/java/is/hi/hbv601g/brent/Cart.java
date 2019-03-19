@@ -41,6 +41,7 @@ public class Cart {
 
     public void removeBooking(Long bookingId) {
         mBookings.remove(bookingId);
+        mCartID -= 1;
     }
 
     public boolean contains(Date startDate, Date endDate) {
@@ -72,11 +73,13 @@ public class Cart {
             Map.Entry pair = (Map.Entry) it.next();
             Booking booking = (Booking) pair.getValue();
             saveBookingToFirebase(booking);
+            removeBooking(mCartID);
         }
     }
 
     private void saveBookingToFirebase(Booking booking) {
         Map<String, Object> data = new HashMap<>();
+        Log.d("Cart.java", "Enter saveBooking");
         data.put("startDate", booking.getStartDate());
         data.put("endDate", booking.getEndDate());
         data.put("pickupLocation", booking.getPickupLocation());
