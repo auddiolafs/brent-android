@@ -74,7 +74,6 @@ public class RoutesActivity extends CurrentActivity implements RoutesFragment.Se
 
                 mRoutes = routes;
                 setRouteList();
-                mDataFetched = true;
             }
         });
         task.addOnFailureListener(new OnFailureListener() {

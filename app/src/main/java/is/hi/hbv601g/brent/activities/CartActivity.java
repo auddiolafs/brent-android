@@ -38,6 +38,7 @@ public class CartActivity extends CurrentActivity {
             public void onClick(View v) {
                 Intent paymentActivity = new Intent(getApplicationContext(), PaymentActivity.class);
                 startActivity(paymentActivity);
+                // saveCartButton.setClickable(false);
                 finish();
             }
         });
@@ -50,5 +51,11 @@ public class CartActivity extends CurrentActivity {
             finish(); // close this activity and return to preview activity (if there is any)
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateUI() {
+        Intent homeActivity = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(homeActivity);
+        finish();
     }
 }
