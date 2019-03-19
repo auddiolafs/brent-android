@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import is.hi.hbv601g.brent.Cart;
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.services.BookingService;
 
 public class PaymentActivity extends CurrentActivity {
 
@@ -24,6 +26,8 @@ public class PaymentActivity extends CurrentActivity {
     private ImageButton mToolbarHome;
     private ImageButton mToolbarCart;
 
+    private BookingService bookingService = new BookingService();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,21 +41,44 @@ public class PaymentActivity extends CurrentActivity {
         setContentView(R.layout.activity_payment);
         super.setUp();
 
-
-
         mFullName = findViewById(R.id.fullNameEdit);
         mAddress = findViewById(R.id.addressEdit);
         mCardNumber = findViewById(R.id.cardNumberEdit);
         mExpiration = findViewById(R.id.expirationEdit);
         mCVC = findViewById(R.id.cvcEdit);
-        // mCart = Cart.getCart();
-        // Button saveCartButton = findViewById(R.id.saveCartButton);
-        /*saveCartButton.setOnClickListener(new View.OnClickListener() {
+        mCart = Cart.getCart();
+        Button payButton = findViewById(R.id.payButton);
+        payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCart.saveCart();
+                if (validateInputs()) {
+                    bookingService.saveBooking(null, null, null, null,
+                            null, null);
+                } else {
+                    showMessage("Invalid credit card information");
+                }
             }
-        });*/
+        });
+    }
+
+    private boolean validateInputs() {
+        String visaPattern = "^4[0-9]{6,}$";
+        String expirationDatePattern = "(?:0[1-9]|1[0-2])/[0-9]{2}";
+        if (mCardNumber.toString().matches(visaPattern) && mCVC.length() == 3
+            && mExpiration.toString().matches(expirationDatePattern)) {
+
+            return true;
+        }
+        
+        return false;
+    }
+
+    /**
+     * Creates a toast message.
+     * @param message
+     */
+    private void showMessage(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override

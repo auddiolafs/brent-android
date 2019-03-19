@@ -14,9 +14,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import is.hi.hbv601g.brent.models.Accessory;
+import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Booking;
+import is.hi.hbv601g.brent.models.Tour;
 
 public class Cart {
 
@@ -101,5 +105,9 @@ public class Cart {
                         Log.w(TAG, "Error adding document", e);
                     }
                 });
+    }
+
+    public void addToCart(List<Bike> bikes, List<Accessory> accessories, List<Tour>tours) {
+
     }
 }
