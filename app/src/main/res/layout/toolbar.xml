@@ -5,69 +5,67 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-<android.support.v7.widget.Toolbar
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar_toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
-    android:minHeight="80dp"
-    android:theme="?attr/actionBarTheme"
-    android:outlineProvider="bounds"
-    android:clipToPadding="false"
-    android:elevation="5dp"
+    <android.support.v7.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:minHeight="80dp"
+        android:theme="?attr/actionBarTheme"
+        android:outlineProvider="bounds"
+        android:clipToPadding="false"
+        android:elevation="15dp"
 
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageButton
-        android:id="@+id/toolbar_profile"
-        android:src="@drawable/ic_tag_faces_black_24dp"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_gravity="left"
-        android:backgroundTint="#ffffff"/>
+        <android.support.v7.widget.CardView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:elevation="12dp"
+            android:id="@+id/view2"
+            app:cardCornerRadius="25dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp">
+        <ImageButton
+            android:id="@+id/toolbar_profile"
+            android:src="@drawable/user_portrait"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
 
+            android:background="@drawable/style_circle"/>
+        </android.support.v7.widget.CardView>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="center">
-
             <ImageButton
                 android:id="@+id/toolbar_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_brent"
                 android:backgroundTint="#ffffff"/>
-
-
         </LinearLayout>
-    <ImageButton
-        android:id="@+id/toolbar_cart"
-        android:src="@drawable/ic_shopping_cart_black_24dp"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_gravity="right"
-        android:backgroundTint="#ffffff"/>
-
-
-/>
-
-</android.support.v7.widget.Toolbar>
+        <ImageButton
+            android:id="@+id/toolbar_cart"
+            android:src="@drawable/ic_shopping_cart_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_gravity="right"
+            android:backgroundTint="#ffffff"/>
+    </android.support.v7.widget.Toolbar>
     <View
         android:background="#e7edf3"
         android:layout_width="match_parent"
         android:layout_height="1dp" />
-    </LinearLayout>
+</LinearLayout>

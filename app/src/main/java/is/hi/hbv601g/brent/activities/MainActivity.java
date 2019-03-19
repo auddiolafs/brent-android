@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.activities.authentication.LoginActivity;
 
 public class MainActivity extends CurrentActivity {
 
@@ -25,9 +27,12 @@ public class MainActivity extends CurrentActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     private String mDisplayName = "";
-    private ImageButton mToursButton;
-    private ImageButton mRoutesButton;
-    private ImageButton mBikesButton;
+//    private ImageButton mToursButton;
+//    private ImageButton mRoutesButton;
+//    private ImageButton mBikesButton;
+    private CardView mToursButton;
+    private CardView mRoutesButton;
+    private CardView mBikesButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +77,7 @@ public class MainActivity extends CurrentActivity {
                     Log.e(mTAG, "AUTH STATE UPDATE : No user logged in");
                     mDisplayName = "No valid user";
 
-                    Intent signInIntent = new Intent(getApplicationContext(), is.hi.hbv601g.brent.activities.LoginActivity.class);
+                    Intent signInIntent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivityForResult(signInIntent, 101);
                 }
             }
@@ -84,9 +89,9 @@ public class MainActivity extends CurrentActivity {
      * Initializes onClick listeners for the buttons for bikes, tours and routes.
      */
     private void initListeners() {
-        mBikesButton = findViewById(R.id.bikeButton);
-        mToursButton = findViewById(R.id.toursButton);
-        mRoutesButton = findViewById(R.id.routesButton);
+        mBikesButton = findViewById(R.id.card_view_id);
+        mToursButton = findViewById(R.id.card_view_id2);
+        mRoutesButton = findViewById(R.id.card_view_id3);
 
 
         mBikesButton.setOnClickListener(new View.OnClickListener() {

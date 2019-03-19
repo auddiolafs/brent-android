@@ -131,7 +131,7 @@ public class BikeListFragment extends Fragment {
             Bike bike = mBikes.get(i);
             bikeHolder.mBike = bike;
             bikeHolder.mCardTitle.setText(bike.getName());
-            bikeHolder.mCardPrice.setText(Long.toString(bike.getPrice()));
+            bikeHolder.mCardPrice.setText(bike.getPrice());
         }
 
         @Override
