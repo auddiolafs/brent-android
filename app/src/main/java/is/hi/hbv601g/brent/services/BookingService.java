@@ -42,12 +42,18 @@ public class BookingService {
                             Date startDate, Date endDate, String pickupLocation) {
 
         Map<String, Object> booking = new HashMap<>();
-        Timestamp startDateTimestamp = new Timestamp(startDate);
-        Timestamp endDateTimestamp = new Timestamp(endDate);
+        if (startDate != null) {
+            Timestamp startDateTimestamp = new Timestamp(startDate);
+            booking.put("startDate", startDateTimestamp);
+        }
+        if(endDate != null) {
+            Timestamp endDateTimestamp = new Timestamp(endDate);
+            booking.put("endDate", endDateTimestamp);
+        }
 
         booking.put("userId", mUserId);
-        booking.put("startDate", startDateTimestamp);
-        booking.put("endDate", endDateTimestamp);
+
+
         booking.put("pickupLocation", pickupLocation);
 
         Task<DocumentReference> bookingTask =  mDB.collection("bookings").add(booking);

@@ -37,7 +37,7 @@
         android:background="@drawable/reg_edittext_style"
         android:ems="10"
         android:hint="Expiration"
-        android:inputType="number"
+        android:inputType="text"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

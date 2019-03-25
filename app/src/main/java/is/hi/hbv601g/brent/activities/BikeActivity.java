@@ -2,6 +2,7 @@ package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -40,10 +41,10 @@ public class BikeActivity extends CurrentActivity {
         final Date startDate = (Date) bikesActivity_intent.getSerializableExtra("startDate");
         final Date endDate = (Date) bikesActivity_intent.getSerializableExtra("endDate");
 
+        // Log.d("bike", bike.getPrice());
         mBrand = findViewById(R.id.bike_brand_id);
         mPrice = findViewById(R.id.bike_price_id);
-        mBrand.setText(bike.getBrand());
-        mPrice.setText((bike.getPrice()));
+        // mBrand.setText(brand);
 //      Currently not working, gives error
 //      mType.setText(bike.getType());
 
@@ -53,11 +54,13 @@ public class BikeActivity extends CurrentActivity {
             @Override
             public void onClick(View v) {
                 Cart cart = Cart.getCart();
-                if (!cart.contains(startDate, endDate)) {
+                /*if (!cart.contains(startDate, endDate)) {
                     Booking booking = new Booking(startDate, endDate);
-                    booking.addBike(bike);
-                    cart.putBooking(booking);
-                }
+                    // booking.addBike(bike);
+
+                }*/
+                cart.addBikeToCart(bike);
+                cart.setTotalPrice(cart.getTotalPrice() + bike.getPrice());
                 startActivity(cartActivity_intent);
             }
         });

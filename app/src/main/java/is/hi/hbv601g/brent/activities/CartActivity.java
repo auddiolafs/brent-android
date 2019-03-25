@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import is.hi.hbv601g.brent.Cart;
@@ -32,8 +33,11 @@ public class CartActivity extends CurrentActivity {
         setContentView(R.layout.activity_cart);
         super.setUp();
 
-        Button paymentButton = findViewById(R.id.paymentButton);
-        paymentButton.setOnClickListener(new View.OnClickListener() {
+        TextView mTotalPrice = findViewById(R.id.totalPriceValueText);
+        mTotalPrice.setText(mCart.getTotalPrice().toString() + " kr.");
+
+        Button continueButton = findViewById(R.id.continueButton);
+        continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent paymentActivity = new Intent(getApplicationContext(), PaymentActivity.class);
