@@ -38,16 +38,12 @@ public class MainActivity extends CurrentActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         setTheme(R.style.AppTheme);
-
         // Basic things which are done in each activity
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        initFirebase();
-        initListeners();
 
         if(this.connected) {
             super.setUp();
+            initFirebase();
         }
     }
 
@@ -67,12 +63,13 @@ public class MainActivity extends CurrentActivity {
                 if (user != null) {
                     Log.e(mTAG, "AUTH SATE UPDATE : Valid User Login\0");
                     String displayName = user.getDisplayName();
-
                     if (displayName !=null) {
                         mDisplayName = displayName;
                     } else {
                         mDisplayName = "Unknown DisplayName";
                     }
+                    setContentView(R.layout.activity_main);
+                    initListeners();
                 } else {
                     Log.e(mTAG, "AUTH STATE UPDATE : No user logged in");
                     mDisplayName = "No valid user";
@@ -128,13 +125,10 @@ public class MainActivity extends CurrentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == 101 && resultCode == RESULT_OK) {
-
             mDisplayName = data.getStringExtra("displayname");
             Log.e(mTAG, "Returned Activity display name: [" + mDisplayName + "]");
             mAuth.addAuthStateListener(mAuthStateListener);
-
         }
     }
 

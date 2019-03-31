@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Booking {
 
-    private String mId;
+    private String mID;
     private List<Bike> mBikes;
     private List<Accessory> mAccessories;
     private List<Tour> mTours;
@@ -32,9 +32,9 @@ public class Booking {
         return false;
     }
 
-    public String getId() { return mId; }
+    public String getId() { return mID; }
 
-    public void setId(String id) { mId = id; }
+    public void setId(String id) { mID = id; }
 
     public List<Bike> getBikes() { return mBikes; }
 

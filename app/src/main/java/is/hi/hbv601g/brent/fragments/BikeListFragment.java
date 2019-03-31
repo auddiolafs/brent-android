@@ -24,8 +24,8 @@ import is.hi.hbv601g.brent.R;
 public class BikeListFragment extends Fragment {
     private RecyclerView mRecycleView = null;
     private SelectionListener mListener;
-    private ArrayList<Bike> mBikes;
-    private ArrayList<Bike> mBikesUnfiltered;
+    private ArrayList<Bike> mDisplayedBikes;
+    private ArrayList<Bike> mAllBikes;
     private int MarginLeftAndRight = 0;
     private int MarginTopAndBot = 0;
     private BikeListAdapter mAdapter;
@@ -34,7 +34,7 @@ public class BikeListFragment extends Fragment {
 
     public void filterBikes(String selectedType, String selectedSize) throws InterruptedException {
         ArrayList<Bike> res = new ArrayList<>();
-        for (Bike bike : mBikesUnfiltered) {
+        for (Bike bike : mAllBikes) {
             Log.d("BikeListFragment", "Bike added");
             if (bike.getType() != null &&
                     (bike.getType().equals(selectedType) && bike.getSize().equals(selectedSize))) {
@@ -48,28 +48,28 @@ public class BikeListFragment extends Fragment {
                 res.add(bike);
             }
         }
-        Boolean[] initVals = new Boolean[mBikes.size()];
+        Boolean[] initVals = new Boolean[mDisplayedBikes.size()];
         for (int i = 0; i < initVals.length; i += 1) {
             initVals[i] = new Boolean(false);
         }
-        ArrayBlockingQueue<Boolean> shouldBeInList = new ArrayBlockingQueue<>(mBikesUnfiltered.size(), true, Arrays.asList(initVals));
+        ArrayBlockingQueue<Boolean> shouldBeInList = new ArrayBlockingQueue<>(mAllBikes.size(), true, Arrays.asList(initVals));
         int n = res.size() - 1;
         while (!(n < 0)) {
             Bike bikeInRes = res.get(n);
             boolean bikePresent = false;
-            for (int i = 0; i<mBikes.size(); i += 1) {
-                Bike bike = mBikes.get(i);
+            for (int i = 0; i<mDisplayedBikes.size(); i += 1) {
+                Bike bike = mDisplayedBikes.get(i);
                 if (bike == bikeInRes) {
                     bikePresent = true;
                     Object[] array = shouldBeInList.toArray();
                     Boolean[] vals  = Arrays.copyOf(array, array.length, Boolean[].class);
                     vals[i] = new Boolean(true);
-                    shouldBeInList = new ArrayBlockingQueue<>(mBikesUnfiltered.size(), true, Arrays.asList(vals));
+                    shouldBeInList = new ArrayBlockingQueue<>(mAllBikes.size(), true, Arrays.asList(vals));
                     break;
                 }
             }
             if (!bikePresent) {
-                mBikes.add(bikeInRes);
+                mDisplayedBikes.add(bikeInRes);
                 shouldBeInList.add(new Boolean(true));
             }
             n -= 1;
@@ -77,7 +77,7 @@ public class BikeListFragment extends Fragment {
         n = 0;
         while (shouldBeInList.size() != 0) {
             if (!shouldBeInList.take()) {
-                mBikes.remove(n);
+                mDisplayedBikes.remove(n);
             } else {
                 n += 1;
             }
@@ -93,8 +93,8 @@ public class BikeListFragment extends Fragment {
         mListener = (SelectionListener) getActivity();
         Bundle bundle = getArguments();
         ArrayList<Bike> bikes = bundle.getParcelableArrayList(BIKES_KEY);
-        mBikes = bikes;
-        mBikesUnfiltered = (ArrayList<Bike>) bikes.clone();
+        mDisplayedBikes = bikes;
+        mAllBikes = (ArrayList<Bike>) bikes.clone();
         mAdapter = new BikeListAdapter();
         mRecycleView.setAdapter(mAdapter);
         mRecycleView.addItemDecoration(new SpacesItemDecoration());
@@ -128,7 +128,7 @@ public class BikeListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull BikeListFragment.BikeHolder bikeHolder, int i) {
-            Bike bike = mBikes.get(i);
+            Bike bike = mDisplayedBikes.get(i);
             bikeHolder.mBike = bike;
             bikeHolder.mCardTitle.setText(bike.getName());
             bikeHolder.mCardPrice.setText(bike.getPrice());
@@ -136,7 +136,7 @@ public class BikeListFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return mBikes.size();
+            return mDisplayedBikes.size();
         }
     }
 

@@ -20,6 +20,7 @@ import is.hi.hbv601g.brent.models.Route;
 
 public class RoutesActivity extends CurrentActivity implements RoutesFragment.SelectionListener {
 
+    private static final String KEY_ROUTES = "Routes";
     private ArrayList<Route> mRoutes = new ArrayList<>();
     private RoutesFragment mRouteFragment;
     private static final String mTAG = "RoutesActivity";
@@ -29,9 +30,19 @@ public class RoutesActivity extends CurrentActivity implements RoutesFragment.Se
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mRoutes = savedInstanceState.getParcelableArrayList(KEY_ROUTES);
+            mDataFetched = true;
+        }
         if (this.connected) {
             setUp();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putParcelableArrayList(KEY_ROUTES, mRoutes);
     }
 
     /**
@@ -46,6 +57,7 @@ public class RoutesActivity extends CurrentActivity implements RoutesFragment.Se
         } else {
             setContentView(R.layout.activity_routes);
             super.setUp();
+            setRouteList();
         }
     }
 
@@ -60,7 +72,6 @@ public class RoutesActivity extends CurrentActivity implements RoutesFragment.Se
         task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                setContentView(R.layout.activity_routes);
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Route route = Route.toEntity(document.getId(), document.getData());
                     if (route == null) {
@@ -71,10 +82,9 @@ public class RoutesActivity extends CurrentActivity implements RoutesFragment.Se
                     }
                 }
 
-
                 mRoutes = routes;
-                setRouteList();
                 mDataFetched = true;
+                setUp();
             }
         });
         task.addOnFailureListener(new OnFailureListener() {

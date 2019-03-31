@@ -58,6 +58,7 @@ public abstract class CurrentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent userIntent = new Intent(getApplicationContext(), UserActivity.class);
+                userIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(userIntent);
             }
         });
@@ -66,6 +67,7 @@ public abstract class CurrentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent home = new Intent(getApplicationContext(), MainActivity.class);
+                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(home);
             }
         });
@@ -74,6 +76,7 @@ public abstract class CurrentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent cart = new Intent(getApplicationContext(), CartActivity.class);
+                cart.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(cart);
             }
         });

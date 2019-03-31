@@ -1,11 +1,13 @@
 package is.hi.hbv601g.brent.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import java.util.Date;
 import java.util.Map;
 
-public class Tour {
+public class Tour implements Parcelable {
 
     private String mID;
     private String mName;
@@ -24,6 +26,31 @@ public class Tour {
         mStartDate = startDate;
         mEndDate = endDate;
     }
+
+    protected Tour(Parcel in) {
+        mID = in.readString();
+        mName = in.readString();
+        mLocation = in.readString();
+        mStartDate = new Date(in.readString());
+        mEndDate = new Date(in.readString());
+        if (in.readByte() == 0) {
+            mPrice = null;
+        } else {
+            mPrice = in.readLong();
+        }
+    }
+
+    public static final Creator<Tour> CREATOR = new Creator<Tour>() {
+        @Override
+        public Tour createFromParcel(Parcel in) {
+            return new Tour(in);
+        }
+
+        @Override
+        public Tour[] newArray(int size) {
+            return new Tour[size];
+        }
+    };
 
     public static Tour toEntity(String tourId, Map<String, Object> tourData) {
         Tour t = new Tour();
@@ -85,5 +112,28 @@ public class Tour {
 
     public void setEndDate(Date endDate) {
         mEndDate = endDate;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mID);
+        dest.writeString(mName);
+        dest.writeString(mPrice.toString());
+        dest.writeString(mLocation);
+        if (mStartDate != null && mEndDate != null) {
+            dest.writeString(mStartDate.toString());
+            dest.writeString(mEndDate.toString());
+        }
+        if (mPrice == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeString(mPrice.toString());
+        }
     }
 }

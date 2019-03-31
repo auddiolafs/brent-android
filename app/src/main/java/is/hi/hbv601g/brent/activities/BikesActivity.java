@@ -2,6 +2,7 @@ package is.hi.hbv601g.brent.activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.text.InputType;
@@ -39,13 +40,31 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     private static final String mTAG = "BikesActivity";
     private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private boolean mDataFetched = false;
+    private final static String KEY_BIKES = "Bikes";
+    private final static String KEY_TYPES = "Types";
+    private final static String KEY_SIZES = "Sizes";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mBikes = savedInstanceState.getParcelableArrayList(KEY_BIKES);
+            mTypes = savedInstanceState.getStringArrayList(KEY_TYPES);
+            mSizes = savedInstanceState.getStringArrayList(KEY_SIZES);
+            mDataFetched = true;
+        }
         if (this.connected) {
             setUp();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putParcelableArrayList(KEY_BIKES, mBikes);
+        savedInstanceState.putStringArrayList(KEY_SIZES, mSizes);
+        savedInstanceState.putStringArrayList(KEY_TYPES, mTypes);
     }
 
     /**
@@ -62,6 +81,9 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
         else {
             setContentView(R.layout.activity_bikes);
             super.setUp();
+            setSpinners();
+            setDatePickers();
+            setBikeList();
         }
     }
 
@@ -83,7 +105,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
      */
     private void setBikeList() {
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(BikeListFragment.BIKES_KEY, mBikes);
+        bundle.putParcelableArrayList(BikeListFragment.BIKES_KEY, (ArrayList<Bike>) mBikes.clone());
         mBikeListFragment = new BikeListFragment();
         mBikeListFragment.setArguments(bundle);
         FragmentManager fm = getSupportFragmentManager();
@@ -250,8 +272,6 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
         task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                mDataFetched = true;
-                setUp();
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Bike bike = Bike.toEntity(document.getId(), document.getData());
                     if (bike == null) {
@@ -261,9 +281,8 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
                     }
                 }
                 mBikes = bikes;
-                setSpinners();
-                setDatePickers();
-                setBikeList();
+                mDataFetched = true;
+                setUp();
             }
         });
         task.addOnFailureListener(new OnFailureListener() {
