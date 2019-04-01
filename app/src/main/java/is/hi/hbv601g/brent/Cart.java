@@ -14,9 +14,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import is.hi.hbv601g.brent.models.Accessory;
+import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Booking;
+import is.hi.hbv601g.brent.models.Tour;
 
 public class Cart {
 
@@ -41,6 +45,7 @@ public class Cart {
 
     public void removeBooking(Long bookingId) {
         mBookings.remove(bookingId);
+        mCartID -= 1;
     }
 
     public boolean contains(Date startDate, Date endDate) {
@@ -72,11 +77,13 @@ public class Cart {
             Map.Entry pair = (Map.Entry) it.next();
             Booking booking = (Booking) pair.getValue();
             saveBookingToFirebase(booking);
+            removeBooking(mCartID);
         }
     }
 
     private void saveBookingToFirebase(Booking booking) {
         Map<String, Object> data = new HashMap<>();
+        Log.d("Cart.java", "Enter saveBooking");
         data.put("startDate", booking.getStartDate());
         data.put("endDate", booking.getEndDate());
         data.put("pickupLocation", booking.getPickupLocation());
@@ -98,5 +105,9 @@ public class Cart {
                         Log.w(TAG, "Error adding document", e);
                     }
                 });
+    }
+
+    public void addToCart(List<Bike> bikes, List<Accessory> accessories, List<Tour>tours) {
+
     }
 }

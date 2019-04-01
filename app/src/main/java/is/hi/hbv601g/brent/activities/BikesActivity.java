@@ -3,6 +3,7 @@ package is.hi.hbv601g.brent.activities;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.text.InputType;
@@ -106,10 +107,10 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
     private void setBikeList() {
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(BikeListFragment.BIKES_KEY, (ArrayList<Bike>) mBikes.clone());
+        FragmentManager fm = getSupportFragmentManager();
         mBikeListFragment = new BikeListFragment();
         mBikeListFragment.setArguments(bundle);
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().add(R.id.bikeListContainer, mBikeListFragment).commit();
+        fm.beginTransaction().replace(R.id.bikeListContainer, mBikeListFragment).commit();
     }
 
 

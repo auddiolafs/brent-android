@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mUserPassword;
     private TextView mRegisterText;
     private ProgressBar mLoadingProgress;
-    private Intent mHomeActivity;
     private Button mBtnLogin;
 
     private FirebaseAuth mAuth;
@@ -39,8 +38,8 @@ public class LoginActivity extends AppCompatActivity {
         initDisplayControls();
         initListeners();
 
+
         mAuth = FirebaseAuth.getInstance();
-        mHomeActivity = new Intent(this, MainActivity.class);
     }
 
     /**
@@ -120,7 +119,9 @@ public class LoginActivity extends AppCompatActivity {
      * Starts the HomeActivity.
      */
     private void updateUI() {
-        startActivity(mHomeActivity);
+        Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(mainIntent);
         finish();
     }
 

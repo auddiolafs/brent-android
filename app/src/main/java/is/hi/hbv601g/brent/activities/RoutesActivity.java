@@ -82,6 +82,7 @@ public class RoutesActivity extends CurrentActivity implements RoutesFragment.Se
                     }
                 }
 
+
                 mRoutes = routes;
                 mDataFetched = true;
                 setUp();

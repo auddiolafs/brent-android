@@ -1,5 +1,6 @@
 package is.hi.hbv601g.brent.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.activities.user.BookingsActivity;
 
 public class UserActivity extends CurrentActivity {
 
@@ -52,6 +54,13 @@ public class UserActivity extends CurrentActivity {
         booking = findViewById(R.id.user_bookings);
         TextView bookingText = booking.findViewById(R.id.card_text_id);
         bookingText.setText("Bookings");
+        booking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent bikesIntent = new Intent(getApplicationContext(), BookingsActivity.class);
+                startActivity(bikesIntent);
+            }
+        });
 
         ImageView bookingImage = booking.findViewById(R.id.card_image_id);
         bookingImage.setImageResource(R.drawable.icon_list);
