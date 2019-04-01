@@ -6,6 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
     <Button
         android:id="@+id/payButton"
         style="@style/BodyText2WhiteCenter"
@@ -22,9 +26,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cvcEdit"
         app:layout_constraintVertical_bias="0.179" />
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+
 
     <EditText
         android:id="@+id/expirationEdit"

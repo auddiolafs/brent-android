@@ -40,8 +40,8 @@ public class CartActivity extends CurrentActivity {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent paymentActivity = new Intent(getApplicationContext(), PaymentActivity.class);
-                startActivity(paymentActivity);
+                Intent accessoriesActivity = new Intent(getApplicationContext(), AccessoriesActivity.class);
+                startActivity(accessoriesActivity);
                 // saveCartButton.setClickable(false);
                 finish();
             }

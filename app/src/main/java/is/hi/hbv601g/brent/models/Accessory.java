@@ -1,11 +1,17 @@
 package is.hi.hbv601g.brent.models;
 
+import java.util.Map;
+
+import is.hi.hbv601g.brent.activities.AccessoriesActivity;
+
 public class Accessory {
 
     private String mID;
     private String mType;
     private String mName;
     private Long mPrice;
+
+    public Accessory() { }
 
     public Accessory(String type, String name, Long price, String id) {
         mType = type;
@@ -51,4 +57,16 @@ public class Accessory {
         return false;
     }
 
+    public static Accessory toEntity(String id, Map<String, Object> data) {
+        Accessory a = new Accessory();
+        try {
+            a.setId(id);
+            a.setName(data.get("name").toString());
+            a.setType(data.get("location").toString());
+            a.setPrice(Long.parseLong(data.get("price").toString()));
+            return a;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
