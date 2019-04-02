@@ -11,9 +11,9 @@ public class Bike implements Parcelable {
     private String mBrand;
     private String mName;
     private String mSize;
+    private String mType;
     private String mSerial;
     private Long mPrice;
-    private String mType;
 
     public Bike() { }
 
@@ -34,6 +34,7 @@ public class Bike implements Parcelable {
         mBrand = in.readString();
         mName = in.readString();
         mSize = in.readString();
+        mType = in.readString();
         mSerial = in.readString();
         mPrice = in.readLong();
         if (in.readByte() == 0) {

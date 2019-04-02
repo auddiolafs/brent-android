@@ -1,14 +1,5 @@
 package is.hi.hbv601g.brent;
 
-import android.support.annotation.NonNull;
-import android.util.Log;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -22,7 +13,6 @@ import is.hi.hbv601g.brent.models.Accessory;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Booking;
 import is.hi.hbv601g.brent.models.Tour;
-import is.hi.hbv601g.brent.models.User;
 
 public class Cart {
 
@@ -33,7 +23,7 @@ public class Cart {
     private Date mEndDate;
     private Long mTotalPrice = new Long(0);
 
-    private static Cart mCart = new Cart();
+    private static Cart sCart = new Cart();
     private static Long mCartID = new Long(1);
     private static final String TAG = "CartActivity";
 
@@ -47,7 +37,7 @@ public class Cart {
     }
 
     public static Cart getCart() {
-        return mCart;
+        return sCart;
     }
 
     public boolean contains(Date startDate, Date endDate) {
@@ -62,7 +52,7 @@ public class Cart {
     }
 
     public void resetCart() {
-        mCart = new Cart();
+        sCart = new Cart();
     }
 
     public List<Bike> getBikes() { return mBikes; }
