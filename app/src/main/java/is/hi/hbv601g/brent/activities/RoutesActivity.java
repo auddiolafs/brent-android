@@ -2,6 +2,7 @@ package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
@@ -99,12 +100,12 @@ public class RoutesActivity extends CurrentActivity implements RoutesFragment.Se
      * Creates the fragment for the list of routes.
      */
     private void setRouteList() {
+        FragmentManager fm = getSupportFragmentManager();
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("routes", mRoutes);
         mRouteFragment = new RoutesFragment();
         mRouteFragment.setArguments(bundle);
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().add(R.id.routesListContainer, mRouteFragment).commit();
+        fm.beginTransaction().replace(R.id.routesListContainer, mRouteFragment).commit();
     }
 
 

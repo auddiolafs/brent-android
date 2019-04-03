@@ -22,10 +22,6 @@ public class PaymentActivity extends CurrentActivity {
     private EditText mCVC;
     private Cart mCart;
 
-    private ImageButton mToolbarProfile;
-    private ImageButton mToolbarHome;
-    private ImageButton mToolbarCart;
-
     private BookingService bookingService = new BookingService();
 
     @Override
@@ -51,9 +47,15 @@ public class PaymentActivity extends CurrentActivity {
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validateInputs()) {
-                    bookingService.saveBooking(null, null, null, null,
-                            null, null);
+                if (true) {
+                    bookingService.saveBooking(mCart.getBikes(), mCart.getAccessories(), mCart.getTours(), mCart.getStartDate(),
+                            mCart.getEndDate(), null);
+                    mCart.resetCart();
+                    showMessage("Payment successful");
+                    Intent homeIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(homeIntent);
+
                 } else {
                     showMessage("Invalid credit card information");
                 }
@@ -69,7 +71,7 @@ public class PaymentActivity extends CurrentActivity {
 
             return true;
         }
-        
+
         return false;
     }
 

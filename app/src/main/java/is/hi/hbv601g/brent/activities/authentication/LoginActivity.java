@@ -119,9 +119,9 @@ public class LoginActivity extends AppCompatActivity {
      * Starts the HomeActivity.
      */
     private void updateUI() {
-        Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
-        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(mainIntent);
+        Intent homeIntent= new Intent(getApplicationContext(), MainActivity.class);
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
         finish();
     }
 

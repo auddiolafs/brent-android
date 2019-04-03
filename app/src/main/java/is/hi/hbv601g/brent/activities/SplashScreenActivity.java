@@ -45,9 +45,9 @@ public class SplashScreenActivity extends AppCompatActivity {
 
                 if (user != null) {
                     Log.e(mTAG, "AUTH SATE UPDATE : Valid User Login\0");
-                    Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
-                    mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(mainIntent);
+                    Intent homeIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(homeIntent);
                 } else {
                     Log.e(mTAG, "AUTH STATE UPDATE : No user logged in");
                     Intent logInIntent = new Intent(getApplicationContext(), LoginActivity.class);

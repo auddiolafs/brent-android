@@ -12,9 +12,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,13 +49,18 @@ public class RoutesFragment extends Fragment {
     private int MarginLeftAndRight = 0;
     private int MarginTopAndBot = 0;
     private RoutesFragment.RouteListAdapter mAdapter;
+    private boolean mLandscapeMode = false;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_routes, container, false);
         mRecycleView = view.findViewById(R.id.route_recycle_view);
-        mRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        if (landscapeMode()) {
+            mRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        } else {
+            mRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        }
         mListener = (SelectionListener) getActivity();
         Bundle bundle = getArguments();
         ArrayList<Route> routes = bundle.getParcelableArrayList("routes");
@@ -62,6 +70,13 @@ public class RoutesFragment extends Fragment {
         mRecycleView.setAdapter(mAdapter);
         mRecycleView.addItemDecoration(new SpacesItemDecoration());
         return view;
+    }
+
+    private boolean landscapeMode() {
+        Display display = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        int rotation = display.getRotation();
+        if (rotation == Surface.ROTATION_90 || rotation == Surface.ROTATION_270) return true;
+        return false;
     }
 
     private class SpacesItemDecoration extends RecyclerView.ItemDecoration {
@@ -119,7 +134,7 @@ public class RoutesFragment extends Fragment {
         public RouteHolder(@NonNull View itemView, int parentHeight) {
             super(itemView);
             mLayout = (FrameLayout) itemView;
-            GridLayoutManager.LayoutParams params = (GridLayoutManager.LayoutParams) mLayout.getLayoutParams();
+            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) mLayout.getLayoutParams();
             mLayout.setLayoutParams(params);
             mCardTitle = mLayout.findViewById(R.id.card_title_id);
             mRouteImage = mLayout.findViewById(R.id.card_image_id);

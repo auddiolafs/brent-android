@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,7 +12,6 @@
         android:id="@+id/frameLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,155 +21,203 @@
             layout="@layout/toolbar" />
     </FrameLayout>
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/booking"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="40dp"
-        android:textSize="30dp"/>
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="0dp">
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
 
-
-
-    <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view_id"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="10dp"
-        android:elevation="13dp"
-        android:clickable="true">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/card_image_id"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/colorWhite"
-                    android:contentDescription="@string/card_bike"
-                    android:layout_gravity="center"
-                    android:src="@drawable/brent_main_bike" />
-
-                <TextView
-                    android:id="@+id/card_text_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_name"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-
-            <View
-                android:background="#e7edf3"
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-        <View
-            android:background="#e7edf3"
-            android:layout_width="2dp"
-            android:layout_height="80dp"
-            />
-    <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view_id2"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="10dp"
-        android:elevation="13dp"
-        android:clickable="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_gravity="center">
-
-                <ImageView
-                    android:id="@+id/card_image_id2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/colorWhite"
-                    android:contentDescription="@string/card_bike"
-                    android:layout_gravity="center"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/menu_tour" />
-
-                <TextView
-                    android:id="@+id/card_text_id2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tours"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-
-
-
-
-
-
-
-        </LinearLayout>
-
-
-    </android.support.v7.widget.CardView>
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="0dp">
-        <TextView
+        <FrameLayout
+            android:id="@+id/frameLayout6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/explore"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="40dp"
-            android:textSize="30dp"/>
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/frameLayout11">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/booking"
+                android:textSize="30dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout5"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="0dp">
-            <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/card_view_id3"
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/frameLayout11">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_view_id2"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
-                app:cardCornerRadius="10dp"
+                android:clickable="true"
                 android:elevation="13dp"
-                android:clickable="true">
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/card_image_id2"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/colorWhite"
+                            android:contentDescription="@string/card_bike"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/menu_tour" />
+
+                        <TextView
+                            android:id="@+id/card_text_id2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/tours" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout11"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            app:layout_constraintEnd_toStartOf="@+id/frameLayout5"
+            app:layout_constraintStart_toEndOf="@+id/frameLayout6">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_view_id"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:clickable="true"
+                android:elevation="13dp"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/card_image_id"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/colorWhite"
+                            android:contentDescription="@string/card_bike"
+                            android:src="@drawable/brent_main_bike" />
+
+                        <TextView
+                            android:id="@+id/card_text_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/app_name" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#e7edf3" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </FrameLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <FrameLayout
+            android:id="@+id/frameLayout10"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout8"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/frameLayout8">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/explore"
+                android:textSize="30dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/frameLayout10"
+            app:layout_constraintStart_toEndOf="@+id/frameLayout7">
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view_id3"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:clickable="true"
+                android:elevation="13dp"
+                app:cardCornerRadius="10dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -186,31 +233,32 @@
                             android:id="@+id/card_image_id3"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
+                            android:layout_gravity="center"
                             android:layout_marginTop="15dp"
                             android:background="@color/colorWhite"
                             android:contentDescription="@string/card_bike"
-                            android:layout_gravity="center"
                             android:src="@drawable/menu_map" />
 
                         <TextView
                             android:id="@+id/card_text_id3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/routes"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center"
+                            android:text="@string/routes" />
                     </LinearLayout>
 
                     <View
-                        android:background="#e7edf3"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp" />
+                        android:layout_height="1dp"
+                        android:background="#e7edf3" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
-    </LinearLayout>
+
+        </FrameLayout>
 
 
-    <!--<ImageButton-->
+        <!--<ImageButton-->
         <!--android:id="@+id/bikeButton"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="150dp"-->
@@ -223,7 +271,7 @@
         <!--tools:srcCompat="@drawable/main_rentabike"></ImageButton>-->
 
 
-    <!--<ImageView-->
+        <!--<ImageView-->
         <!--android:id="@+id/lineBreak1"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="53dp"-->
@@ -232,24 +280,24 @@
         <!--android:layout_below="@+id/bikeButton"-->
         <!--app:srcCompat="@drawable/menu_or" />-->
         <!--<TextView-->
-            <!--android:id="@+id/textOr"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_below="@+id/bikeButton"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_marginTop="16dp"-->
-            <!--android:text="OR" />-->
+        <!--android:id="@+id/textOr"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/bikeButton"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:text="OR" />-->
 
         <!--<ImageView-->
-            <!--android:id="@+id/lineBreak2"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="53dp"-->
-            <!--android:layout_marginStart="10dp"-->
-            <!--android:layout_toEndOf="@+id/textOr"-->
-            <!--android:layout_below="@+id/bikeButton"-->
-            <!--app:srcCompat="@drawable/menu_or" />-->
+        <!--android:id="@+id/lineBreak2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="53dp"-->
+        <!--android:layout_marginStart="10dp"-->
+        <!--android:layout_toEndOf="@+id/textOr"-->
+        <!--android:layout_below="@+id/bikeButton"-->
+        <!--app:srcCompat="@drawable/menu_or" />-->
 
-    <!--<ImageButton-->
+        <!--<ImageButton-->
         <!--android:id="@+id/toursButton"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
@@ -260,7 +308,7 @@
         <!--android:layout_below="@+id/lineBreak1"-->
         <!--android:adjustViewBounds ="true"-->
         <!--app:srcCompat="@drawable/menu_tours" />-->
-    <!--<ImageButton-->
+        <!--<ImageButton-->
         <!--android:id="@+id/routesButton"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
@@ -272,7 +320,7 @@
         <!--android:adjustViewBounds ="true"-->
         <!--app:srcCompat="@drawable/menu_routes" />-->
 
-    <!--<TextView-->
+        <!--<TextView-->
         <!--android:id="@+id/textTour"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
@@ -282,7 +330,7 @@
         <!--android:text="Lorem ipsum"-->
         <!--android:textAlignment="center" />-->
 
-    <!--<TextView-->
+        <!--<TextView-->
         <!--android:id="@+id/textRoutes"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
@@ -292,5 +340,5 @@
         <!--android:text="Ipsum Lorem"-->
         <!--android:textAlignment="center" />-->
 
-</LinearLayout>
-</LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

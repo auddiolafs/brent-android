@@ -105,12 +105,17 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
      * Creates the fragment for the list of bikes.
      */
     private void setBikeList() {
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(BikeListFragment.BIKES_KEY, (ArrayList<Bike>) mBikes.clone());
         FragmentManager fm = getSupportFragmentManager();
-        mBikeListFragment = new BikeListFragment();
-        mBikeListFragment.setArguments(bundle);
-        fm.beginTransaction().replace(R.id.bikeListContainer, mBikeListFragment).commit();
+        Fragment fragment = fm.findFragmentById(R.id.bikeListContainer);
+        if (fragment == null) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList(BikeListFragment.BIKES_KEY, (ArrayList<Bike>) mBikes.clone());
+            mBikeListFragment = new BikeListFragment();
+            mBikeListFragment.setArguments(bundle);
+            fm.beginTransaction().add(R.id.bikeListContainer, mBikeListFragment).commit();
+        } else {
+            mBikeListFragment = (BikeListFragment) fragment;
+        }
     }
 
 

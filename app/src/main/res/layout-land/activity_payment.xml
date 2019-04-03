@@ -8,24 +8,20 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="1dp" />
 
     <Button
         android:id="@+id/payButton"
         style="@style/BodyText2WhiteCenter"
         android:layout_width="250dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="32dp"
         android:background="@drawable/reg_btn_style"
         android:text="Pay"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvcEdit"
-        app:layout_constraintVertical_bias="0.179" />
-
+        app:layout_constraintStart_toEndOf="@+id/cvcEdit"
+        app:layout_constraintTop_toTopOf="@+id/cvcEdit" />
 
 
     <EditText
@@ -33,20 +29,15 @@
         style="@style/BodyText2ExtraLowContrastLeft"
         android:layout_width="250dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="32dp"
         android:autofillHints="auto"
         android:background="@drawable/reg_edittext_style"
         android:ems="10"
         android:hint="Expiration"
         android:inputType="text"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardNumberEdit"
-        app:layout_constraintVertical_bias="0.042" />
+        app:layout_constraintStart_toEndOf="@+id/fullNameEdit"
+        app:layout_constraintTop_toTopOf="@+id/fullNameEdit" />
 
     <EditText
         android:id="@+id/cvcEdit"
@@ -54,19 +45,15 @@
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:autofillHints="auto"
         android:background="@drawable/reg_edittext_style"
         android:ems="10"
         android:hint="CVC"
         android:inputType="number"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardNumberEdit"
-        app:layout_constraintVertical_bias="0.234" />
+        app:layout_constraintStart_toStartOf="@+id/addressEdit"
+        app:layout_constraintTop_toBottomOf="@+id/cardNumberEdit" />
 
     <EditText
         android:id="@+id/addressEdit"
@@ -74,45 +61,39 @@
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:autofillHints="auto"
         android:background="@drawable/reg_edittext_style"
         android:ems="10"
         android:hint="Address"
         android:inputType="text"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        app:layout_constraintBottom_toTopOf="@+id/cardNumberEdit"
-        app:layout_constraintHorizontal_bias="0.499"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullNameEdit"
-        app:layout_constraintVertical_bias="0.388" />
+        app:layout_constraintStart_toStartOf="@+id/fullNameEdit"
+        app:layout_constraintTop_toBottomOf="@+id/fullNameEdit" />
 
     <EditText
         android:id="@+id/cardNumberEdit"
         style="@style/BodyText2ExtraLowContrastLeft"
         android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="32dp"
         android:autofillHints="auto"
         android:background="@drawable/reg_edittext_style"
         android:ems="10"
         android:hint="Card number"
         android:inputType="number"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullNameEdit"
-        app:layout_constraintVertical_bias="0.149" />
+        app:layout_constraintStart_toEndOf="@+id/addressEdit"
+        app:layout_constraintTop_toTopOf="@+id/addressEdit" />
 
     <EditText
         android:id="@+id/fullNameEdit"
         style="@style/BodyText2ExtraLowContrastLeft"
         android:layout_width="250dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:autofillHints="auto"
         android:background="@drawable/reg_edittext_style"
@@ -121,9 +102,11 @@
         android:inputType="text"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.285" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.13" />
 
 </android.support.constraint.ConstraintLayout>

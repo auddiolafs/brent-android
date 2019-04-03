@@ -129,9 +129,10 @@ public class BikeListFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull BikeListFragment.BikeHolder bikeHolder, int i) {
             Bike bike = mDisplayedBikes.get(i);
+            Log.d("price", bike.getPrice().toString());
             bikeHolder.mBike = bike;
             bikeHolder.mCardTitle.setText(bike.getName());
-            bikeHolder.mCardPrice.setText(bike.getPrice());
+            bikeHolder.mCardPrice.setText(bike.getPrice().toString());
         }
 
         @Override
