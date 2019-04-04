@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import is.hi.hbv601g.brent.Cart;
@@ -32,11 +33,17 @@ public class CartActivity extends CurrentActivity {
         setContentView(R.layout.activity_cart);
         super.setUp();
 
-        Button saveCartButton = findViewById(R.id.saveCartButton);
-        saveCartButton.setOnClickListener(new View.OnClickListener() {
+        TextView mTotalPrice = findViewById(R.id.totalPriceValueText);
+        mTotalPrice.setText(mCart.getTotalPrice().toString() + " kr.");
+
+        Button continueButton = findViewById(R.id.continueButton);
+        continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCart.saveCart();
+                Intent accessoriesActivity = new Intent(getApplicationContext(), AccessoriesActivity.class);
+                startActivity(accessoriesActivity);
+                // saveCartButton.setClickable(false);
+                finish();
             }
         });
     }
@@ -48,5 +55,11 @@ public class CartActivity extends CurrentActivity {
             finish(); // close this activity and return to preview activity (if there is any)
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateUI() {
+        Intent homeActivity = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(homeActivity);
+        finish();
     }
 }

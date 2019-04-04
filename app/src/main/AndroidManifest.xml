@@ -14,8 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.RouteActivity"></activity>
-        <!--<activity android:name=".fragments.RoutesFragment" />-->
+        <activity android:name=".activities.AccessoriesActivity"></activity>
+        <activity android:name=".activities.user.BookingsActivity" />
+        <activity android:name=".activities.RouteActivity" /> <!-- <activity android:name=".fragments.RoutesFragment" /> -->
         <activity android:name=".activities.authentication.LoginActivity" />
         <activity android:name=".activities.authentication.RegisterActivity" />
         <activity
@@ -45,6 +46,9 @@
             android:label="Profile" />
         <activity
             android:name=".activities.CartActivity"
+            android:label="Cart" />
+        <activity
+            android:name=".activities.PaymentActivity"
             android:label="Cart" />
 
         <meta-data
