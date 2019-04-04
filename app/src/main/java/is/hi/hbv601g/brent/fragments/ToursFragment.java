@@ -22,36 +22,35 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.models.Route;
+import is.hi.hbv601g.brent.models.Tour;
 
-public class RoutesFragment extends Fragment {
-
+public class ToursFragment extends Fragment {
 
     private RecyclerView mRecycleView = null;
     private SelectionListener mListener;
-    private ArrayList<Route> mRoutes;
-    private ArrayList<Route> mRoutesUnfiltered;
+    private ArrayList<Tour> mTours;
+    private ArrayList<Tour> mToursUnfiltered;
     private int MarginLeftAndRight = 0;
     private int MarginTopAndBot = 0;
-    private RoutesFragment.RouteListAdapter mAdapter;
+    private ToursFragment.TourListAdapter mAdapter;
     private boolean mLandscapeMode = false;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_routes, container, false);
-        mRecycleView = view.findViewById(R.id.route_recycle_view);
+        View view = inflater.inflate(R.layout.fragment_tours, container, false);
+        mRecycleView = view.findViewById(R.id.tour_recycle_view);
         if (landscapeMode()) {
             mRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         } else {
             mRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         }
-        mListener = (SelectionListener) getActivity();
+        //mListener = (SelectionListener) getActivity();
         Bundle bundle = getArguments();
-        ArrayList<Route> routes = bundle.getParcelableArrayList("routes");
-        mRoutes = routes;
-        mRoutesUnfiltered = (ArrayList<Route>) routes.clone();
-        mAdapter = new RouteListAdapter();
+        ArrayList<Tour> tours = bundle.getParcelableArrayList("tours");
+        mTours = tours;
+        mToursUnfiltered = (ArrayList<Tour>) tours.clone();
+        mAdapter = new TourListAdapter();
         mRecycleView.setAdapter(mAdapter);
         mRecycleView.addItemDecoration(new SpacesItemDecoration());
         return view;
@@ -76,65 +75,65 @@ public class RoutesFragment extends Fragment {
         }
     }
 
-    private class RouteListAdapter extends RecyclerView.Adapter<RoutesFragment.RouteHolder> {
-        public RouteListAdapter() {
+    private class TourListAdapter extends RecyclerView.Adapter<ToursFragment.TourHolder> {
+        public TourListAdapter() {
             super();
         }
         @NonNull
         @Override
-        public RoutesFragment.RouteHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        public ToursFragment.TourHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             FrameLayout layout = (FrameLayout) LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.viewholder_bike, viewGroup, false);
-            RouteHolder routeHolder = new RouteHolder(layout, viewGroup.getMeasuredHeight());
-            return routeHolder;
+            TourHolder tourHolder = new TourHolder(layout, viewGroup.getMeasuredHeight());
+            return tourHolder;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RoutesFragment.RouteHolder routeHolder, int i) {
-            Route route = mRoutes.get(i);
-            routeHolder.mRoute = route;
-            routeHolder.mCardTitle.setText(route.getLocation());
-            routeHolder.mCardLength.setText(route.getLength() + " km");
-            Picasso.get().load(route.getImage())
+        public void onBindViewHolder(@NonNull ToursFragment.TourHolder tourHolder, int i) {
+            Tour tour = mTours.get(i);
+            tourHolder.mTour = tour;
+            tourHolder.mCardTitle.setText(tour.getLocation());
+            // tourHolder.mCardLength.setText(tour.getLength() + " km");
+            Picasso.get().load(tour.getImage())
                     .placeholder(R.drawable.bike_hybrid)
                     .centerInside()
                     .resize(200, 200)
-                    .into(routeHolder.mRouteImage);
+                    .into(tourHolder.mTourImage);
         }
 
         @Override
         public int getItemCount() {
-            return mRoutes.size();
+            return mTours.size();
         }
     }
 
-    private class RouteHolder extends RecyclerView.ViewHolder {
+    private class TourHolder extends RecyclerView.ViewHolder {
         TextView mCardTitle;
         TextView mCardLength;
         TextView mCardDescription;
         TextView mCardLikes;
-        ImageView mRouteImage;
+        ImageView mTourImage;
         FrameLayout mLayout;
-        Route mRoute;
-        public RouteHolder(@NonNull View itemView, int parentHeight) {
+        Tour mTour;
+        public TourHolder(@NonNull View itemView, int parentHeight) {
             super(itemView);
             mLayout = (FrameLayout) itemView;
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) mLayout.getLayoutParams();
             mLayout.setLayoutParams(params);
             mCardTitle = mLayout.findViewById(R.id.card_title_id);
-            mRouteImage = mLayout.findViewById(R.id.card_image_id);
+            mTourImage = mLayout.findViewById(R.id.card_image_id);
             mCardLength = mLayout.findViewById(R.id.card_info3_id);
             mLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onRouteSelected(mRoute);
+                    //mListener.onTourSelected(mTour);
                 }
             });
         }
     }
 
     public interface SelectionListener {
-        void onRouteSelected(Route Route);
+        void onTourSelected(Tour tour);
     }
 
 }

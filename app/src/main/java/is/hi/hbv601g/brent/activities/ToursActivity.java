@@ -2,6 +2,7 @@ package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -16,12 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.fragments.RoutesFragment;
+import is.hi.hbv601g.brent.fragments.ToursFragment;
 import is.hi.hbv601g.brent.models.Tour;
 
 public class ToursActivity extends CurrentActivity {
 
     private static final String KEY_TOURS = "Tours";
     private ArrayList<Tour> mTours = new ArrayList<>();
+    private ToursFragment mTourFragment;
     private static final FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private static final String mTAG = "ToursActivity";
     private boolean mDataFetched = false;
@@ -56,7 +60,7 @@ public class ToursActivity extends CurrentActivity {
         } else {
             setContentView(R.layout.activity_tours);
             super.setUp();
-            // setTours();
+            setTourList();
         }
     }
 
@@ -86,6 +90,18 @@ public class ToursActivity extends CurrentActivity {
                 Log.d(mTAG, "error");
             }
         });
+    }
+
+    /**
+     * Creates the fragment for the list of tours.
+     */
+    private void setTourList() {
+        FragmentManager fm = getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("tours", mTours);
+        mTourFragment = new ToursFragment();
+        mTourFragment.setArguments(bundle);
+        fm.beginTransaction().replace(R.id.toursListContainer, mTourFragment).commit();
     }
 
     @Override

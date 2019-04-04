@@ -15,22 +15,25 @@ public class Tour implements Parcelable {
     private Long mPrice;
     private Date mStartDate;
     private Date mEndDate;
+    private String mImage;
 
     public Tour() { }
 
-    public Tour(String id, String name, String location, Long price, Date startDate, Date endDate) {
+    public Tour(String id, String name, String location, Long price, Date startDate, Date endDate, String image) {
         mID = id;
         mName = name;
         mLocation = location;
         mPrice = price;
         mStartDate = startDate;
         mEndDate = endDate;
+        mImage = image;
     }
 
     protected Tour(Parcel in) {
         mID = in.readString();
         mName = in.readString();
         mLocation = in.readString();
+        mImage = in.readString();
         mStartDate = new Date(in.readString());
         mEndDate = new Date(in.readString());
         if (in.readByte() == 0) {
@@ -59,6 +62,7 @@ public class Tour implements Parcelable {
             t.setName(tourData.get("name").toString());
             t.setLocation(tourData.get("location").toString());
             t.setPrice(Long.parseLong(tourData.get("price").toString()));
+            t.setImage(tourData.get("image").toString());
             // TODO: set dates
             return t;
         } catch (Exception e) {
@@ -114,6 +118,10 @@ public class Tour implements Parcelable {
         mEndDate = endDate;
     }
 
+    public String getImage() { return mImage; }
+
+    public void setImage(String image) { this.mImage = image; }
+
     @Override
     public int describeContents() {
         return 0;
@@ -125,6 +133,7 @@ public class Tour implements Parcelable {
         dest.writeString(mName);
         dest.writeString(mPrice.toString());
         dest.writeString(mLocation);
+        dest.writeString(mImage);
         if (mStartDate != null && mEndDate != null) {
             dest.writeString(mStartDate.toString());
             dest.writeString(mEndDate.toString());
