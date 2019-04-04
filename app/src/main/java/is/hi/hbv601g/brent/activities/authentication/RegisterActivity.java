@@ -132,7 +132,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d(mTAG, "SUCCESS");
-                            updateUI();
+                            finish();
                         }
                     }
                 });
@@ -143,14 +143,6 @@ public class RegisterActivity extends AppCompatActivity {
         mDB.collection("users").document(currentUser.getUid()).set(mUser);
     }
 
-    /**
-     * Starts the home activity - redirects the user to the menu.
-     */
-    private void updateUI() {
-        Intent homeActivity = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(homeActivity);
-        finish();
-    }
 
     /**
      * Creates a toast message.

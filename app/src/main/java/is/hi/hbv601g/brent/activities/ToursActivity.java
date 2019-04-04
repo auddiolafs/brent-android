@@ -20,7 +20,8 @@ import is.hi.hbv601g.brent.models.Tour;
 
 public class ToursActivity extends CurrentActivity {
 
-    private List<Tour> mTours = new ArrayList<>();
+    private static final String KEY_TOURS = "Tours";
+    private ArrayList<Tour> mTours = new ArrayList<>();
     private static final FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private static final String mTAG = "ToursActivity";
     private boolean mDataFetched = false;
@@ -28,9 +29,19 @@ public class ToursActivity extends CurrentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mTours = savedInstanceState.getParcelableArrayList(KEY_TOURS);
+            mDataFetched = true;
+        }
         if (this.connected) {
             setUp();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putParcelableArrayList(KEY_TOURS, mTours);
     }
 
     /**
@@ -45,6 +56,7 @@ public class ToursActivity extends CurrentActivity {
         } else {
             setContentView(R.layout.activity_tours);
             super.setUp();
+            // setTours();
         }
     }
 
@@ -52,20 +64,19 @@ public class ToursActivity extends CurrentActivity {
      * Fetches all tours from Firestore db, to be displayed in the tours list.
      */
     private void fetchTours() {
-        final List<Tour> tours = new ArrayList<>();
+        final ArrayList<Tour> tours = new ArrayList<>();
         final Task<QuerySnapshot> task = mDB.collection("tours").get();
 
         task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                mDataFetched = true;
-                setUp();
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     tours.add(Tour.toEntity(document.getId(), document.getData()));
                 }
 
                 mTours = tours;
-                // setTours();
+                mDataFetched = true;
+                setUp();
             }
         });
 

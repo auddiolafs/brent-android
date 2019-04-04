@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="1dp" />
+
+    <Button
+        android:id="@+id/payButton"
+        style="@style/BodyText2WhiteCenter"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/reg_btn_style"
+        android:text="Pay"
+        app:layout_constraintStart_toEndOf="@+id/cvcEdit"
+        app:layout_constraintTop_toTopOf="@+id/cvcEdit" />
+
+
+    <EditText
+        android:id="@+id/expirationEdit"
+        style="@style/BodyText2ExtraLowContrastLeft"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:autofillHints="auto"
+        android:background="@drawable/reg_edittext_style"
+        android:ems="10"
+        android:hint="Expiration"
+        android:inputType="text"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintStart_toEndOf="@+id/fullNameEdit"
+        app:layout_constraintTop_toTopOf="@+id/fullNameEdit" />
+
+    <EditText
+        android:id="@+id/cvcEdit"
+        style="@style/BodyText2ExtraLowContrastLeft"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:autofillHints="auto"
+        android:background="@drawable/reg_edittext_style"
+        android:ems="10"
+        android:hint="CVC"
+        android:inputType="number"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/addressEdit"
+        app:layout_constraintTop_toBottomOf="@+id/cardNumberEdit" />
+
+    <EditText
+        android:id="@+id/addressEdit"
+        style="@style/BodyText2ExtraLowContrastLeft"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:autofillHints="auto"
+        android:background="@drawable/reg_edittext_style"
+        android:ems="10"
+        android:hint="Address"
+        android:inputType="text"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintStart_toStartOf="@+id/fullNameEdit"
+        app:layout_constraintTop_toBottomOf="@+id/fullNameEdit" />
+
+    <EditText
+        android:id="@+id/cardNumberEdit"
+        style="@style/BodyText2ExtraLowContrastLeft"
+        android:layout_width="250dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="32dp"
+        android:autofillHints="auto"
+        android:background="@drawable/reg_edittext_style"
+        android:ems="10"
+        android:hint="Card number"
+        android:inputType="number"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addressEdit"
+        app:layout_constraintTop_toTopOf="@+id/addressEdit" />
+
+    <EditText
+        android:id="@+id/fullNameEdit"
+        style="@style/BodyText2ExtraLowContrastLeft"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:autofillHints="auto"
+        android:background="@drawable/reg_edittext_style"
+        android:ems="10"
+        android:hint="Full name"
+        android:inputType="text"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.13" />
+
+</android.support.constraint.ConstraintLayout>

@@ -53,6 +53,7 @@ public class PaymentActivity extends CurrentActivity {
                     mCart.resetCart();
                     showMessage("Payment successful");
                     Intent homeIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(homeIntent);
 
                 } else {
