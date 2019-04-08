@@ -83,7 +83,7 @@ public class ToursFragment extends Fragment {
         @Override
         public ToursFragment.TourHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             FrameLayout layout = (FrameLayout) LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.viewholder_bike, viewGroup, false);
+                    .inflate(R.layout.viewholder_card, viewGroup, false);
             TourHolder tourHolder = new TourHolder(layout, viewGroup.getMeasuredHeight());
             return tourHolder;
         }
@@ -92,7 +92,7 @@ public class ToursFragment extends Fragment {
         public void onBindViewHolder(@NonNull ToursFragment.TourHolder tourHolder, int i) {
             Tour tour = mTours.get(i);
             tourHolder.mTour = tour;
-            tourHolder.mCardTitle.setText(tour.getName());
+            // tourHolder.mCardTitle.setText(tour.getName());
             // tourHolder.mCardLength.setText(tour.getLength() + " km");
             Picasso.get().load(tour.getImage())
                     .placeholder(R.drawable.menu_tour)
