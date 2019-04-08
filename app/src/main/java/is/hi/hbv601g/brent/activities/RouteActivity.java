@@ -2,8 +2,6 @@ package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +16,6 @@ public class RouteActivity extends CurrentActivity {
     TextView mLength;
     TextView mLikes;
     TextView mDescription;
-    TextView mPrice;
     ImageView mImage;
 
     @Override
