@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.List;
 
 import is.hi.hbv601g.brent.R;
@@ -29,7 +27,7 @@ public class MiniCardsAdapter extends RecyclerView.Adapter<MiniCardsAdapter.MyVi
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View row = LayoutInflater.from(mContext).inflate(R.layout.viewholder_bike, parent, false);
+        View row = LayoutInflater.from(mContext).inflate(R.layout.viewholder_card, parent, false);
 
         return new MyViewHolder(row);
     }

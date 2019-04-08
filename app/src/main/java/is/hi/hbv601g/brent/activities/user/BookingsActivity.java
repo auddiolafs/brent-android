@@ -1,6 +1,7 @@
 package is.hi.hbv601g.brent.activities.user;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -41,14 +43,14 @@ public class BookingsActivity extends CurrentActivity implements BookingsFragmen
 
     private FirebaseApp mApp;
     private FirebaseAuth mAuth;
-    private FirebaseUser user;
+    private FirebaseUser mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApp = FirebaseApp.getInstance();
         mAuth = FirebaseAuth.getInstance(mApp);
-        user = mAuth.getCurrentUser();
+        mUser = mAuth.getCurrentUser();
 
         if (this.connected) {
             setUp();
@@ -67,6 +69,7 @@ public class BookingsActivity extends CurrentActivity implements BookingsFragmen
         } else {
             setContentView(R.layout.activity_bookings);
             super.setUp();
+            setBookingList();
         }
     }
 
@@ -75,34 +78,30 @@ public class BookingsActivity extends CurrentActivity implements BookingsFragmen
      */
     private void fetchBookings() {
         final ArrayList<Booking> bookings = new ArrayList<>();
-
+//        mUser.getUid()
         final Task<QuerySnapshot> task = mDB.collection("bookings")
-                .whereEqualTo("user", user.getUid())
+                .whereEqualTo("userId", "4sBPeqJS0iMywgzTGJOZ7NGaLcx1")
                 .get();
 
         task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                setContentView(R.layout.activity_bookings);
-
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Booking booking = Booking.toEntity(document.getId(), document.getData());
-
                     if (booking == null) {
                         Log.d(mTAG, "error");
                     } else {
-
-                            bookings.add(booking);
-
-//                        Log.d(mTAG, document.getId() + " => " + document.getData());
+                        bookings.add(booking);
                     }
+                    Log.d("TE", Integer.toString(bookings.size()));
+                    mBookings = bookings;
                 }
-
-                Log.d("TE", Integer.toString(bookings.size()));
-                mBookings = bookings;
-                setBookingList();
+                mDataFetched = true;
+                setUp();
             }
         });
+
+
         task.addOnFailureListener(new OnFailureListener() {
             public void onFailure(Exception e) {
                 Log.d(mTAG, "Error fetching bookings");
@@ -130,10 +129,8 @@ public class BookingsActivity extends CurrentActivity implements BookingsFragmen
     @Override
     public void onBookingSelected(Booking booking) {
         Intent intent = new Intent(getApplicationContext(),
-                BookingsActivity.class);
+                BookingActivity.class);
         intent.putExtra("booking", booking);
-//        intent.putExtra("location", booking.getLocation());
-//        intent.putExtra("length", booking.getLength());
         startActivity(intent);
     }
 }

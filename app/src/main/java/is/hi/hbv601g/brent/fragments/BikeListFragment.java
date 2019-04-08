@@ -11,13 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.R;
 
@@ -30,6 +29,26 @@ public class BikeListFragment extends Fragment {
     private int MarginTopAndBot = 0;
     private BikeListAdapter mAdapter;
     public static String BIKES_KEY = "bikes";
+
+
+    public static RecyclerView.ViewHolder getViewHolder(@NonNull ViewGroup viewGroup, SelectionListener listener) {
+        FrameLayout layout = (FrameLayout) LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.viewholder_card, viewGroup, false);
+        ViewHolder viewHolder = new ViewHolder(layout, viewGroup.getMeasuredHeight(), listener);
+        return viewHolder;
+    }
+
+    public static void bindViewHolder(final ViewHolder viewHolder, final Bike bike) {
+        Log.d("price", bike.getPrice().toString());
+        viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.mListener.onBikeSelected(bike);
+            }
+        });
+        viewHolder.mCardTitle.setText(bike.getName());
+        viewHolder.mCardInfo3.setText(bike.getPrice().toString());
+    }
 
 
     public void filterBikes(String selectedType, String selectedSize) throws InterruptedException {
@@ -113,26 +132,23 @@ public class BikeListFragment extends Fragment {
         }
     }
 
-    private class BikeListAdapter extends RecyclerView.Adapter<BikeListFragment.BikeHolder> {
+    public class BikeListAdapter extends RecyclerView.Adapter<ViewHolder> {
         public BikeListAdapter() {
             super();
         }
         @NonNull
         @Override
-        public BikeListFragment.BikeHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
             FrameLayout layout = (FrameLayout) LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.viewholder_bike, parent, false);
-            BikeHolder bikeHolder = new BikeHolder(layout, parent.getMeasuredHeight());
-            return bikeHolder;
+                    .inflate(R.layout.viewholder_card, parent, false);
+            ViewHolder viewHolder = new ViewHolder(layout, parent.getMeasuredHeight(), mListener);
+            return viewHolder;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull BikeListFragment.BikeHolder bikeHolder, int i) {
+        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
             Bike bike = mDisplayedBikes.get(i);
-            Log.d("price", bike.getPrice().toString());
-            bikeHolder.mBike = bike;
-            bikeHolder.mCardTitle.setText(bike.getName());
-            bikeHolder.mCardPrice.setText(bike.getPrice().toString());
+            BikeListFragment.bindViewHolder(viewHolder, bike);
         }
 
         @Override
@@ -141,31 +157,4 @@ public class BikeListFragment extends Fragment {
         }
     }
 
-    private class BikeHolder extends RecyclerView.ViewHolder {
-        TextView mCardTitle;
-        TextView mCardPrice;
-        ImageView mBikeImage;
-        FrameLayout mLayout;
-        Bike mBike;
-        public BikeHolder(@NonNull View itemView, int parentHeight) {
-            super(itemView);
-            mLayout = (FrameLayout) itemView;
-            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) mLayout.getLayoutParams();
-            params.height = parentHeight/3;
-            mLayout.setLayoutParams(params);
-            mCardTitle = mLayout.findViewById(R.id.card_title_id);
-            mBikeImage = mLayout.findViewById(R.id.card_image_id);
-            mCardPrice = mLayout.findViewById(R.id.card_info3_id);
-            mLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onBikeSelected(mBike);
-                }
-            });
-        }
-    }
-
-    public interface SelectionListener {
-        void onBikeSelected(Bike bike);
-    }
 }
