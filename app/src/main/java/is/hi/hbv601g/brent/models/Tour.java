@@ -34,8 +34,8 @@ public class Tour implements Parcelable {
         mName = in.readString();
         mLocation = in.readString();
         mImage = in.readString();
-        mStartDate = new Date(in.readString());
-        mEndDate = new Date(in.readString());
+        //mStartDate = new Date(in.readString());
+        //mEndDate = new Date(in.readString());
         if (in.readByte() == 0) {
             mPrice = null;
         } else {
@@ -63,7 +63,8 @@ public class Tour implements Parcelable {
             t.setLocation(tourData.get("location").toString());
             t.setPrice(Long.parseLong(tourData.get("price").toString()));
             t.setImage(tourData.get("image").toString());
-            // TODO: set dates
+            //t.setStartDate(new Date((long)tourData.get("startDate")));
+            //t.setEndDate(new Date((long)tourData.get("endDate")));
             return t;
         } catch (Exception e) {
             return null;
@@ -131,18 +132,17 @@ public class Tour implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mID);
         dest.writeString(mName);
-        dest.writeString(mPrice.toString());
         dest.writeString(mLocation);
         dest.writeString(mImage);
-        if (mStartDate != null && mEndDate != null) {
-            dest.writeString(mStartDate.toString());
-            dest.writeString(mEndDate.toString());
-        }
+        //if (mStartDate != null && mEndDate != null) {
+        //    dest.writeString(mStartDate.toString());
+        //    dest.writeString(mEndDate.toString());
+        //}
         if (mPrice == null) {
             dest.writeByte((byte) 0);
         } else {
             dest.writeByte((byte) 1);
-            dest.writeString(mPrice.toString());
+            dest.writeLong(mPrice);
         }
     }
 }

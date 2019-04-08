@@ -45,7 +45,7 @@ public class ToursFragment extends Fragment {
         } else {
             mRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         }
-        //mListener = (SelectionListener) getActivity();
+        mListener = (SelectionListener) getActivity();
         Bundle bundle = getArguments();
         ArrayList<Tour> tours = bundle.getParcelableArrayList("tours");
         mTours = tours;
@@ -92,10 +92,10 @@ public class ToursFragment extends Fragment {
         public void onBindViewHolder(@NonNull ToursFragment.TourHolder tourHolder, int i) {
             Tour tour = mTours.get(i);
             tourHolder.mTour = tour;
-            tourHolder.mCardTitle.setText(tour.getLocation());
+            tourHolder.mCardTitle.setText(tour.getName());
             // tourHolder.mCardLength.setText(tour.getLength() + " km");
             Picasso.get().load(tour.getImage())
-                    .placeholder(R.drawable.bike_hybrid)
+                    .placeholder(R.drawable.menu_tour)
                     .centerInside()
                     .resize(200, 200)
                     .into(tourHolder.mTourImage);
@@ -126,7 +126,7 @@ public class ToursFragment extends Fragment {
             mLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //mListener.onTourSelected(mTour);
+                    mListener.onTourSelected(mTour);
                 }
             });
         }

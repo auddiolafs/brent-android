@@ -36,6 +36,9 @@
             android:name=".activities.BikesActivity"
             android:label="Bikes" />
         <activity
+            android:name=".activities.TourActivity"
+            android:label="Tour" />
+        <activity
             android:name=".activities.ToursActivity"
             android:label="Tours" />
         <activity

@@ -21,7 +21,7 @@ import is.hi.hbv601g.brent.fragments.RoutesFragment;
 import is.hi.hbv601g.brent.fragments.ToursFragment;
 import is.hi.hbv601g.brent.models.Tour;
 
-public class ToursActivity extends CurrentActivity {
+public class ToursActivity extends CurrentActivity implements ToursFragment.SelectionListener {
 
     private static final String KEY_TOURS = "Tours";
     private ArrayList<Tour> mTours = new ArrayList<>();
@@ -102,6 +102,16 @@ public class ToursActivity extends CurrentActivity {
         mTourFragment = new ToursFragment();
         mTourFragment.setArguments(bundle);
         fm.beginTransaction().replace(R.id.toursListContainer, mTourFragment).commit();
+    }
+
+    @Override
+    public void onTourSelected(Tour tour) {
+        Intent intent = new Intent(getApplicationContext(),
+                TourActivity.class);
+        intent.putExtra("tour", tour);
+        intent.putExtra("location", tour.getLocation());
+        // intent.putExtra("length", route.getLength());
+        startActivity(intent);
     }
 
     @Override
