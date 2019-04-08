@@ -2,7 +2,6 @@ package is.hi.hbv601g.brent.activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -26,11 +25,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import is.hi.hbv601g.brent.fragments.SelectionListener;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.fragments.BikeListFragment;
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.models.Route;
 
-public class BikesActivity extends CurrentActivity implements BikeListFragment.SelectionListener {
+public class BikesActivity extends SelectionListener {
 
     private ArrayList<Bike> mBikes = new ArrayList<>();
     private ArrayList<String> mTypes = new ArrayList<>();
@@ -87,6 +88,7 @@ public class BikesActivity extends CurrentActivity implements BikeListFragment.S
             setBikeList();
         }
     }
+
 
     /**
      * Start the BikeActivity to see bike details for the selected bike and/or book the bike.

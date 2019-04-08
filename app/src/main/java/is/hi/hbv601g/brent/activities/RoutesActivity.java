@@ -2,7 +2,6 @@ package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
@@ -17,9 +16,11 @@ import java.util.ArrayList;
 
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.fragments.RoutesFragment;
+import is.hi.hbv601g.brent.fragments.SelectionListener;
+import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Route;
 
-public class RoutesActivity extends CurrentActivity implements RoutesFragment.SelectionListener {
+public class RoutesActivity extends SelectionListener {
 
     private static final String KEY_ROUTES = "Routes";
     private ArrayList<Route> mRoutes = new ArrayList<>();

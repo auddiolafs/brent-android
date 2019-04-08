@@ -2,16 +2,11 @@ package is.hi.hbv601g.brent.fragments;
 
 import android.content.Context;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -19,24 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.adapters.MiniCardsAdapter;
-import is.hi.hbv601g.brent.models.Route;
+import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Route;
 
 public class RoutesFragment extends Fragment {
@@ -49,7 +33,30 @@ public class RoutesFragment extends Fragment {
     private int MarginLeftAndRight = 0;
     private int MarginTopAndBot = 0;
     private RoutesFragment.RouteListAdapter mAdapter;
-    private boolean mLandscapeMode = false;
+
+
+    public static RecyclerView.ViewHolder getViewHolder(@NonNull ViewGroup viewGroup, SelectionListener listener) {
+        FrameLayout layout = (FrameLayout) LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.viewholder_card, viewGroup, false);
+        ViewHolder viewHolder = new ViewHolder(layout, viewGroup.getMeasuredHeight(), listener);
+        return viewHolder;
+    }
+
+    public static void bindViewHolder(final ViewHolder viewHolder, final Route route) {
+        viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.mListener.onRouteSelected(route);
+            }
+        });
+        viewHolder.mCardTitle.setText(route.getLocation());
+        viewHolder.mCardInfo3.setText(route.getLength() + " km");
+        Picasso.get().load(route.getImage())
+                .placeholder(R.drawable.bike_hybrid)
+                .centerInside()
+                .resize(200, 200)
+                .into(viewHolder.mCardImage);
+    }
 
 
     @Override
@@ -91,30 +98,20 @@ public class RoutesFragment extends Fragment {
         }
     }
 
-    private class RouteListAdapter extends RecyclerView.Adapter<RoutesFragment.RouteHolder> {
+    public class RouteListAdapter extends RecyclerView.Adapter<ViewHolder> {
         public RouteListAdapter() {
             super();
         }
         @NonNull
         @Override
-        public RoutesFragment.RouteHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            FrameLayout layout = (FrameLayout) LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.viewholder_bike, viewGroup, false);
-            RouteHolder routeHolder = new RouteHolder(layout, viewGroup.getMeasuredHeight());
-            return routeHolder;
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            return (ViewHolder) RoutesFragment.getViewHolder(viewGroup, mListener);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RoutesFragment.RouteHolder routeHolder, int i) {
+        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
             Route route = mRoutes.get(i);
-            routeHolder.mRoute = route;
-            routeHolder.mCardTitle.setText(route.getLocation());
-            routeHolder.mCardLength.setText(route.getLength() + " km");
-            Picasso.get().load(route.getImage())
-                    .placeholder(R.drawable.bike_hybrid)
-                    .centerInside()
-                    .resize(200, 200)
-                    .into(routeHolder.mRouteImage);
+            RoutesFragment.bindViewHolder(viewHolder, route);
         }
 
         @Override
@@ -123,33 +120,5 @@ public class RoutesFragment extends Fragment {
         }
     }
 
-    private class RouteHolder extends RecyclerView.ViewHolder {
-        TextView mCardTitle;
-        TextView mCardLength;
-        TextView mCardDescription;
-        TextView mCardLikes;
-        ImageView mRouteImage;
-        FrameLayout mLayout;
-        Route mRoute;
-        public RouteHolder(@NonNull View itemView, int parentHeight) {
-            super(itemView);
-            mLayout = (FrameLayout) itemView;
-            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) mLayout.getLayoutParams();
-            mLayout.setLayoutParams(params);
-            mCardTitle = mLayout.findViewById(R.id.card_title_id);
-            mRouteImage = mLayout.findViewById(R.id.card_image_id);
-            mCardLength = mLayout.findViewById(R.id.card_info3_id);
-            mLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onRouteSelected(mRoute);
-                }
-            });
-        }
-    }
-
-    public interface SelectionListener {
-        void onRouteSelected(Route Route);
-    }
 
 }
