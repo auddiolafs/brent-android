@@ -4,12 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.utils.RequireInternet;
@@ -22,6 +27,8 @@ public abstract class CurrentActivity extends AppCompatActivity {
     private ImageButton mToolbarProfile;
     private ImageButton mToolbarHome;
     private ImageButton mToolbarCart;
+    FirebaseAuth mAuth;
+    FirebaseApp mApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +39,9 @@ public abstract class CurrentActivity extends AppCompatActivity {
     }
 
     public void setUp() {
+
+        mApp = FirebaseApp.getInstance();
+        mAuth = FirebaseAuth.getInstance(mApp);
         setToolbar();
     }
 
@@ -53,7 +63,13 @@ public abstract class CurrentActivity extends AppCompatActivity {
      * Sets the toolbar for the current activity with a button for profile, home and cart.
      */
     public void setToolbar() {
+
         mToolbarProfile = findViewById(R.id.toolbar_profile);
+        if (mAuth.getCurrentUser().getPhotoUrl() != null) {
+            Uri image = mAuth.getCurrentUser().getPhotoUrl();
+//            imgUserPhoto.setImageURI(image);
+            Picasso.get().load(image).into(mToolbarProfile);
+        }
         mToolbarProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
