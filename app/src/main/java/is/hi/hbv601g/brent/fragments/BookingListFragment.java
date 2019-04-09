@@ -1,6 +1,7 @@
 package is.hi.hbv601g.brent.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,11 +10,13 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +24,10 @@ import java.util.Map;
 
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.holders.ViewHolder;
+import is.hi.hbv601g.brent.models.Accessory;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Route;
+import is.hi.hbv601g.brent.models.Tour;
 
 public class BookingListFragment extends Fragment {
 
@@ -49,6 +54,11 @@ public class BookingListFragment extends Fragment {
 
         public Tuple get(int i) {
             return new Tuple(mKeys.get(i), mVals.get(i));
+        }
+
+        public void delete(V val) {
+            for (int i = 0; i < mVals.size(); i += 1) {
+            }
         }
     }
 
@@ -90,11 +100,21 @@ public class BookingListFragment extends Fragment {
     private MultiMap createMultiMap() {
         Bundle bundle = getArguments();
         ArrayList<Bike> bikes = bundle.getParcelableArrayList("bikes");
+        ArrayList<Tour> tours = bundle.getParcelableArrayList("tours");
+        ArrayList<Accessory> accessories = bundle.getParcelableArrayList("accessories");
         ArrayList<String> keys = new ArrayList<>();
         ArrayList<Object> vals = new ArrayList<>();
         for (Bike bike : bikes){
             keys.add("bike");
             vals.add(bike);
+        }
+        for (Tour tour : tours){
+            keys.add("tour");
+            vals.add(tour);
+        }
+        for (Accessory accessory : accessories){
+            keys.add("accessory");
+            vals.add(accessory);
         }
         return new MultiMap(keys, vals);
     }
@@ -133,15 +153,31 @@ public class BookingListFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
             Tuple tuple = mData.get(i);
             String key = (String) tuple.getKey();
             if (key == "bike") {
                 Bike bike = (Bike) tuple.getVal();
                 BikeListFragment.bindViewHolder(viewHolder, bike);
-            } else {
-                Route route = (Route) tuple.getVal();
-                RoutesFragment.bindViewHolder(viewHolder, route);
+            }
+            else if (key == "tour") {
+                final Tour tour = (Tour) tuple.getVal();
+//                RoutesFragment.bindViewHolder(viewHolder, route);
+                viewHolder.mCardTitle.setText(tour.getName());
+                viewHolder.mCardInfo3.setText(tour.getPrice().toString());
+                final ImageButton button = viewHolder.mLayout.findViewById(R.id.card_delete_item);
+                setListeners(button);
+            }
+            else if(key == "accessory") {
+                Accessory accessory = (Accessory) tuple.getVal();
+//                viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        viewHolder.mListener.onBikeSelected(bike);
+//                    }
+//                });
+                viewHolder.mCardTitle.setText(accessory.getName());
+                viewHolder.mCardInfo3.setText(accessory.getPrice().toString());
             }
         }
 
@@ -149,6 +185,29 @@ public class BookingListFragment extends Fragment {
         public int getItemCount() {
             return mData.size();
         }
+    }
+
+    private void setListeners(final ImageButton button) {
+        button.setOnTouchListener( new View.OnTouchListener()
+        {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction())
+                {
+                    case MotionEvent.ACTION_DOWN:
+                        button.setBackgroundColor(Color.GRAY);
+                        System.out.println("her");
+                        break;
+                    case MotionEvent.ACTION_UP:
+
+                        //set color back to default
+                        button.setBackgroundColor(Color.WHITE);
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
 

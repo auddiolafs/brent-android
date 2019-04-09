@@ -90,7 +90,7 @@ public class BookingsFragment extends Fragment {
         public void onBindViewHolder(@NonNull BookingsFragment.BookingHolder bookingHolder, int i) {
             Booking booking = mBookings.get(i);
             bookingHolder.mBooking = booking;
-            bookingHolder.mCardTitle.setText(booking.getId());
+            bookingHolder.mCardTitle.setText("Booking title");
             bookingHolder.mCardPrice.setText(booking.getPrice() + " kr");
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
             String startDateString = dateFormat.format(booking.getStartDate());
