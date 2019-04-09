@@ -1,5 +1,6 @@
 package is.hi.hbv601g.brent.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -56,9 +57,9 @@ public class BookingListFragment extends Fragment {
             return new Tuple(mKeys.get(i), mVals.get(i));
         }
 
-        public void delete(V val) {
-            for (int i = 0; i < mVals.size(); i += 1) {
-            }
+        public void delete(int i) {
+            mVals.remove(i);
+            mKeys.remove(i);
         }
     }
 
@@ -162,23 +163,23 @@ public class BookingListFragment extends Fragment {
             }
             else if (key == "tour") {
                 final Tour tour = (Tour) tuple.getVal();
-//                RoutesFragment.bindViewHolder(viewHolder, route);
                 viewHolder.mCardTitle.setText(tour.getName());
                 viewHolder.mCardInfo3.setText(tour.getPrice().toString());
-                final ImageButton button = viewHolder.mLayout.findViewById(R.id.card_delete_item);
-                setListeners(button);
+                viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        viewHolder.mListener.onTourSelected(tour);
+                    }
+                });
+
             }
             else if(key == "accessory") {
                 Accessory accessory = (Accessory) tuple.getVal();
-//                viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        viewHolder.mListener.onBikeSelected(bike);
-//                    }
-//                });
                 viewHolder.mCardTitle.setText(accessory.getName());
                 viewHolder.mCardInfo3.setText(accessory.getPrice().toString());
             }
+            final ImageButton button = viewHolder.mLayout.findViewById(R.id.card_delete_item);
+            setListeners(button, mData, i);
         }
 
         @Override
@@ -187,26 +188,27 @@ public class BookingListFragment extends Fragment {
         }
     }
 
-    private void setListeners(final ImageButton button) {
+    @SuppressLint("ClickableViewAccessibility")
+    private void setListeners(final ImageButton button, final MultiMap<String,Object> multiMap, final int index) {
         button.setOnTouchListener( new View.OnTouchListener()
         {
-
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction())
                 {
                     case MotionEvent.ACTION_DOWN:
                         button.setBackgroundColor(Color.GRAY);
-                        System.out.println("her");
+                        multiMap.delete(index);
+                        mAdapter.notifyDataSetChanged();
                         break;
                     case MotionEvent.ACTION_UP:
 
-                        //set color back to default
                         button.setBackgroundColor(Color.WHITE);
                         break;
                 }
                 return true;
             }
+
         });
     }
 

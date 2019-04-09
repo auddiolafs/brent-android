@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Tour;
 
 public class ToursFragment extends Fragment {
@@ -35,6 +36,21 @@ public class ToursFragment extends Fragment {
     private ToursFragment.TourListAdapter mAdapter;
     private boolean mLandscapeMode = false;
 
+    public static void bindViewHolder(final ViewHolder viewHolder, final Tour tour) {
+        viewHolder.mCardTitle.setText(tour.getName());
+//             viewHolder.mCardLength.setText(tour.getLength() + " km");
+        Picasso.get().load(tour.getImage())
+                .placeholder(R.drawable.menu_tour)
+                .centerInside()
+                .resize(200, 200)
+                .into(viewHolder.mCardImage);
+            viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewHolder.mListener.onTourSelected(tour);
+                }
+            });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,30 +91,23 @@ public class ToursFragment extends Fragment {
         }
     }
 
-    private class TourListAdapter extends RecyclerView.Adapter<ToursFragment.TourHolder> {
+    private class TourListAdapter extends RecyclerView.Adapter<ViewHolder> {
         public TourListAdapter() {
             super();
         }
         @NonNull
         @Override
-        public ToursFragment.TourHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             FrameLayout layout = (FrameLayout) LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.viewholder_card, viewGroup, false);
-            TourHolder tourHolder = new TourHolder(layout, viewGroup.getMeasuredHeight());
-            return tourHolder;
+            ViewHolder viewHolder = new ViewHolder(layout, viewGroup.getMeasuredHeight(), mListener);
+            return viewHolder;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ToursFragment.TourHolder tourHolder, int i) {
+        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
             Tour tour = mTours.get(i);
-            tourHolder.mTour = tour;
-            // tourHolder.mCardTitle.setText(tour.getName());
-            // tourHolder.mCardLength.setText(tour.getLength() + " km");
-            Picasso.get().load(tour.getImage())
-                    .placeholder(R.drawable.menu_tour)
-                    .centerInside()
-                    .resize(200, 200)
-                    .into(tourHolder.mTourImage);
+            ToursFragment.bindViewHolder(viewHolder, tour);
         }
 
         @Override
@@ -107,33 +116,30 @@ public class ToursFragment extends Fragment {
         }
     }
 
-    private class TourHolder extends RecyclerView.ViewHolder {
-        TextView mCardTitle;
-        TextView mCardLength;
-        TextView mCardDescription;
-        TextView mCardLikes;
-        ImageView mTourImage;
-        FrameLayout mLayout;
-        Tour mTour;
-        public TourHolder(@NonNull View itemView, int parentHeight) {
-            super(itemView);
-            mLayout = (FrameLayout) itemView;
-            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) mLayout.getLayoutParams();
-            mLayout.setLayoutParams(params);
-            mCardTitle = mLayout.findViewById(R.id.card_title_id);
-            mTourImage = mLayout.findViewById(R.id.card_image_id);
-            mCardLength = mLayout.findViewById(R.id.card_info3_id);
-            mLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onTourSelected(mTour);
-                }
-            });
-        }
-    }
+//    private class TourHolder extends RecyclerView.ViewHolder {
+//        TextView mCardTitle;
+//        TextView mCardLength;
+//        TextView mCardDescription;
+//        TextView mCardLikes;
+//        ImageView mTourImage;
+//        FrameLayout mLayout;
+//        Tour mTour;
+//        public TourHolder(@NonNull View itemView, int parentHeight) {
+//            super(itemView);
+//            mLayout = (FrameLayout) itemView;
+//            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) mLayout.getLayoutParams();
+//            mLayout.setLayoutParams(params);
+//            mCardTitle = mLayout.findViewById(R.id.card_title);
+//            mTourImage = mLayout.findViewById(R.id.card_image_id);
+//            mCardLength = mLayout.findViewById(R.id.card_info3);
+//            mLayout.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    mListener.onTourSelected(mTour);
+//                }
+//            });
+//        }
+//    }
 
-    public interface SelectionListener {
-        void onTourSelected(Tour tour);
-    }
 
 }
