@@ -1,10 +1,13 @@
 package is.hi.hbv601g.brent.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Map;
 
 import is.hi.hbv601g.brent.activities.AccessoriesActivity;
 
-public class Accessory {
+public class Accessory implements Parcelable {
 
     private String mID;
     private String mType;
@@ -19,6 +22,29 @@ public class Accessory {
         mPrice = price;
         mID = id;
     }
+
+    protected Accessory(Parcel in) {
+        mID = in.readString();
+        mType = in.readString();
+        mName = in.readString();
+        if (in.readByte() == 0) {
+            mPrice = null;
+        } else {
+            mPrice = in.readLong();
+        }
+    }
+
+    public static final Creator<Accessory> CREATOR = new Creator<Accessory>() {
+        @Override
+        public Accessory createFromParcel(Parcel in) {
+            return new Accessory(in);
+        }
+
+        @Override
+        public Accessory[] newArray(int size) {
+            return new Accessory[size];
+        }
+    };
 
     public String getId() { return mID; }
 
@@ -68,5 +94,18 @@ public class Accessory {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mID);
+        dest.writeString(mType);
+        dest.writeString(mName);
+        dest.writeLong(mPrice);
     }
 }

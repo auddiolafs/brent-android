@@ -93,6 +93,8 @@ public class BookingActivity extends SelectionListener {
     private void setList() {
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("bikes", mBikes);
+        bundle.putParcelableArrayList("tours", mTours);
+        bundle.putParcelableArrayList("accessories", mAccessories);
         mBookingFragment = new BookingListFragment();
         mBookingFragment.setArguments(bundle);
         FragmentManager fm = getSupportFragmentManager();

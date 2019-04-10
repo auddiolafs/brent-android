@@ -18,10 +18,11 @@ import java.util.List;
 
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.fragments.RoutesFragment;
+import is.hi.hbv601g.brent.fragments.SelectionListener;
 import is.hi.hbv601g.brent.fragments.ToursFragment;
 import is.hi.hbv601g.brent.models.Tour;
 
-public class ToursActivity extends CurrentActivity implements ToursFragment.SelectionListener {
+public class ToursActivity extends SelectionListener {
 
     private static final String KEY_TOURS = "Tours";
     private ArrayList<Tour> mTours = new ArrayList<>();

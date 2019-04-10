@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_margin="10dp"
-    app:cardCornerRadius="10dp"
+    android:clickable="true"
     android:elevation="13dp"
-    android:clickable="true">
+    app:cardCornerRadius="10dp">
 
     <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/card_delete_item"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_gravity="top|right"
         android:background="@color/colorWhite"
         app:srcCompat="@drawable/close_icon" />
@@ -23,23 +23,24 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/view2"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:elevation="12dp"
-            android:id="@+id/view2"
-            app:cardCornerRadius="40dp"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:elevation="12dp"
+            app:cardCornerRadius="40dp">
+
             <ImageView
 
                 android:id="@+id/card_image_id"
-                android:src="@drawable/user_portrait"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:background="@drawable/style_circle"
                 android:scaleType="centerCrop"
 
-                android:background="@drawable/style_circle"/>
+                android:src="@drawable/user_portrait" />
         </android.support.v7.widget.CardView>
         <!--<ImageView-->
         <!--android:id="@+id/card_image_id"-->
@@ -57,15 +58,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
+            android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
@@ -101,7 +102,6 @@
                 android:text="" />
 
         </LinearLayout>
-
 
 
     </LinearLayout>
