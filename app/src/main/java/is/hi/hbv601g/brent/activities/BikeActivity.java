@@ -2,22 +2,23 @@ package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import java.util.Date;
 
 import is.hi.hbv601g.brent.models.Bike;
-import is.hi.hbv601g.brent.models.Booking;
 import is.hi.hbv601g.brent.Cart;
 import is.hi.hbv601g.brent.R;
 
 public class BikeActivity extends CurrentActivity {
 
+    private TextView mTitle;
     private TextView mBrand;
     private TextView mType;
     private TextView mPrice;
+    private TextView mName;
+    private TextView mSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +42,7 @@ public class BikeActivity extends CurrentActivity {
         final Date startDate = (Date) bikesActivity_intent.getSerializableExtra("startDate");
         final Date endDate = (Date) bikesActivity_intent.getSerializableExtra("endDate");
 
-        // Log.d("bike", bike.getPrice());
-        mBrand = findViewById(R.id.bike_brand_id);
-        mPrice = findViewById(R.id.bike_price_id);
-        // mBrand.setText(brand);
-//      Currently not working, gives error
-//      mType.setText(bike.getType());
+        setBikeDetails(bike);
 
         TextView bookButton= findViewById(R.id.buttonBooking);
         final Intent cartActivity_intent = CartActivity.newIntent(this);
@@ -64,5 +60,20 @@ public class BikeActivity extends CurrentActivity {
                 startActivity(cartActivity_intent);
             }
         });
+    }
+
+    private void setBikeDetails(Bike bike) {
+        mTitle = findViewById(R.id.bike_title_id);
+        mBrand = findViewById(R.id.bike_brand_id);
+        mType = findViewById(R.id.bike_type_id);
+        mPrice = findViewById(R.id.bike_price_id);
+        mName = findViewById(R.id.bike_name_id);
+        mSize = findViewById(R.id.bike_size_id);
+        mTitle.setText(bike.getName() + " - " + bike.getBrand());
+        mBrand.setText(bike.getBrand());
+        mType.setText(bike.getType());
+        mPrice.setText(bike.getPrice().toString());
+        mName.setText(bike.getName());
+        mSize.setText(bike.getSize());
     }
 }

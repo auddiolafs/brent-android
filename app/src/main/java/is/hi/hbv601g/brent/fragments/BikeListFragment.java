@@ -33,7 +33,7 @@ public class BikeListFragment extends Fragment {
 
     public static RecyclerView.ViewHolder getViewHolder(@NonNull ViewGroup viewGroup, SelectionListener listener) {
         FrameLayout layout = (FrameLayout) LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.viewholder_card, viewGroup, false);
+                .inflate(R.layout.viewholder_card_bikes, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(layout, viewGroup.getMeasuredHeight(), listener);
         return viewHolder;
     }
@@ -46,7 +46,7 @@ public class BikeListFragment extends Fragment {
                 viewHolder.mListener.onBikeSelected(bike);
             }
         });
-        viewHolder.mCardTitle.setText(bike.getName());
+        viewHolder.mCardTitle.setText(bike.getName() + " - " + bike.getBrand());
         viewHolder.mCardInfo3.setText(bike.getPrice().toString());
     }
 
@@ -140,7 +140,7 @@ public class BikeListFragment extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
             FrameLayout layout = (FrameLayout) LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.viewholder_card, parent, false);
+                    .inflate(R.layout.viewholder_card_bikes, parent, false);
             ViewHolder viewHolder = new ViewHolder(layout, parent.getMeasuredHeight(), mListener);
             return viewHolder;
         }
