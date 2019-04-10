@@ -2,6 +2,10 @@ package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +22,8 @@ import java.util.List;
 
 import is.hi.hbv601g.brent.Cart;
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.fragments.BikeListFragment;
+import is.hi.hbv601g.brent.fragments.CartListFragment;
 import is.hi.hbv601g.brent.models.Bike;
 
 public class CartActivity extends CurrentActivity {
@@ -25,6 +31,7 @@ public class CartActivity extends CurrentActivity {
     private Cart mCart;
     private Bike mBikes;
     private List aList = new ArrayList();
+    private CartListFragment mCartListFragment;
 
     public static Intent newIntent(BikeActivity bikeActivity) {
         return new Intent(bikeActivity, CartActivity.class);
@@ -38,34 +45,102 @@ public class CartActivity extends CurrentActivity {
         }
     }
 
+    public class Triplet implements Parcelable {
+        String mProductName;
+        int mQuantity;
+        int mPrice;
+
+        public Triplet(String productName, int quantity, int price) {
+            mProductName = productName;
+            mQuantity = quantity;
+            mPrice = price;
+        }
+
+        protected Triplet(Parcel in) {
+            mProductName = in.readString();
+            mQuantity = in.readInt();
+            mPrice = in.readInt();
+        }
+
+        public String getPrice() {
+            return "" + mPrice;
+        }
+
+        public void setPrice(int price) {
+            mPrice = price;
+        }
+
+        public final Creator<Triplet> CREATOR = new Creator<Triplet>() {
+            @Override
+            public Triplet createFromParcel(Parcel in) {
+                return new Triplet(in);
+            }
+
+            @Override
+            public Triplet[] newArray(int size) {
+                return new Triplet[size];
+            }
+        };
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(mProductName);
+            dest.writeInt(mQuantity);
+            dest.writeInt(mPrice);
+        }
+
+        public String getProduct() {
+            return mProductName;
+        }
+
+        public String getQuantity() {
+            return "" + mQuantity;
+        }
+    }
+
+
     @Override
     public void setUp() {
         mCart = Cart.getCart();
 
         List<Bike> bikes = mCart.getBikes();
 
-        Map<String, Integer> list = new HashMap<>();
+        Map<String, Integer> quantity = new HashMap<>();
         Map<String, Long> priceList = new HashMap<>();
+        Map<String, String> productName = new HashMap<>();
+
+        ArrayList<Triplet> listOfTriplets = new ArrayList<>();
 
         for (int i = 0; i < bikes.size(); i++) {
-            Integer count = list.get(bikes.get(i).getId());
+            String bikeID = bikes.get(i).getId();
+            productName.put(bikeID, bikes.get(i).getName());
+            Integer count = quantity.get(bikeID);
             if (count == null) {
-                list.put(bikes.get(i).getId(), 1);
-                priceList.put(bikes.get(i).getId(), bikes.get(i).getPrice());
+                quantity.put(bikeID, 1);
+                priceList.put(bikeID, bikes.get(i).getPrice());
             } else {
                 count += 1;
-                list.put(bikes.get(i).getId(), count);
-                priceList.put(bikes.get(i).getId(), count * bikes.get(i).getPrice());
+                quantity.put(bikeID, count);
+                priceList.put(bikeID, count * bikes.get(i).getPrice());
             }
         }
 
         for (Map.Entry<String, Long> entry : priceList.entrySet()) {
-            Log.d("Cart", entry.getKey() + " / " + entry.getValue());
+            String bikeID = entry.getKey();
+            Log.d("Cart", bikeID + " / " + entry.getValue());
+            listOfTriplets.add(new Triplet(productName.get(bikeID), quantity.get(bikeID).intValue(), priceList.get(bikeID).intValue()));
         }
 
 
         setContentView(R.layout.activity_cart);
         super.setUp();
+
+        setList(listOfTriplets);
 
         TextView mTotalPrice = findViewById(R.id.totalPriceValueText);
         mTotalPrice.setText(mCart.getTotalPrice().toString() + " kr.");
@@ -80,6 +155,20 @@ public class CartActivity extends CurrentActivity {
                 finish();
             }
         });
+    }
+
+    private void setList(ArrayList<Triplet> triplets) {
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.bikeListContainer);
+        if (fragment == null) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList("data", triplets);
+            mCartListFragment = new CartListFragment();
+            mCartListFragment.setArguments(bundle);
+            fm.beginTransaction().add(R.id.cart_list_container, mCartListFragment).commit();
+        } else {
+            mCartListFragment = (CartListFragment) fragment;
+        }
     }
 
     @Override
