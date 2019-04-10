@@ -126,16 +126,25 @@ public class BikesActivity extends SelectionListener {
      * Sets an onClickListener for both datepickers - startDate and endDate.
      */
     private void setDatePickers() {
+        final Calendar cldr = Calendar.getInstance();
+        int day = cldr.get(Calendar.DAY_OF_MONTH);
+        int month = cldr.get(Calendar.MONTH);
+        int year = cldr.get(Calendar.YEAR);
         final EditText startDateText = findViewById(R.id.startDateText);
         final EditText endDateText = findViewById(R.id.endDateText);
         startDateText.setInputType(InputType.TYPE_NULL);
         endDateText.setInputType(InputType.TYPE_NULL);
+        mStartDate.setTime(new Date());
+        mEndDate.setTime(new Date());
+        startDateText.setText(day + "/" + (month + 1) + "/" + year);
+        cldr.add(Calendar.DAY_OF_YEAR, 1);
+        day = cldr.get(Calendar.DAY_OF_MONTH);
+        endDateText.setText(day + "/" + (month + 1) + "/" + year);
 
         startDateText.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final Calendar cldr = Calendar.getInstance();
                         int day = cldr.get(Calendar.DAY_OF_MONTH);
                         int month = cldr.get(Calendar.MONTH);
                         int year = cldr.get(Calendar.YEAR);

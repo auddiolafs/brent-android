@@ -79,7 +79,7 @@ public class TourActivity extends CurrentActivity {
         final Calendar cldr = Calendar.getInstance();
         dateText.setInputType(InputType.TYPE_NULL);
         mDate.setTime(new Date());
-        dateText.setText(cldr.get(Calendar.DAY_OF_MONTH) + "/" + cldr.get(Calendar.MONTH) + "/" +
+        dateText.setText(cldr.get(Calendar.DAY_OF_MONTH) + "/" + (cldr.get(Calendar.MONTH) + 1) + "/" +
                 cldr.get(Calendar.YEAR));
 
         dateText.setOnClickListener(
