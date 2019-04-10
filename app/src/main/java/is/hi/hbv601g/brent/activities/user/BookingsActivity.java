@@ -29,10 +29,11 @@ import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.activities.CurrentActivity;
 import is.hi.hbv601g.brent.fragments.BookingsFragment;
 import is.hi.hbv601g.brent.fragments.BookingsFragment;
+import is.hi.hbv601g.brent.fragments.SelectionListener;
 import is.hi.hbv601g.brent.models.Booking;
 import is.hi.hbv601g.brent.models.Booking;
 
-public class BookingsActivity extends CurrentActivity implements BookingsFragment.SelectionListener {
+public class BookingsActivity extends SelectionListener {
 
 
     private ArrayList<Booking> mBookings = new ArrayList<>();

@@ -14,21 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Booking;
 
 public class BookingsFragment extends Fragment {
 
     private RecyclerView mRecycleView = null;
-    private BookingsFragment.SelectionListener mListener;
+    private SelectionListener mListener;
     private ArrayList<Booking> mBookings;
     private ArrayList<Booking> mBookingsUnfiltered;
     private int MarginLeftAndRight = 0;
@@ -45,7 +43,7 @@ public class BookingsFragment extends Fragment {
         } else {
             mRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         }
-        mListener = (BookingsFragment.SelectionListener) getActivity();
+        mListener = (SelectionListener) getActivity();
         Bundle bundle = getArguments();
         ArrayList<Booking> bookings = bundle.getParcelableArrayList("bookings");
         mBookings = bookings;
@@ -75,45 +73,50 @@ public class BookingsFragment extends Fragment {
         }
     }
 
-    private class BookingListAdapter extends RecyclerView.Adapter<BookingsFragment.BookingHolder> {
+    private class BookingListAdapter extends RecyclerView.Adapter<ViewHolder> {
         public BookingListAdapter() {
             super();
         }
         @NonNull
         @Override
-        public BookingsFragment.BookingHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             FrameLayout layout = (FrameLayout) LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.viewholder_card, viewGroup, false);
-            BookingsFragment.BookingHolder bookingHolder = new BookingsFragment.BookingHolder(layout, viewGroup.getMeasuredHeight());
+            ViewHolder bookingHolder = new ViewHolder(layout, viewGroup.getMeasuredHeight(), mListener);
             return bookingHolder;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull BookingsFragment.BookingHolder bookingHolder, int i) {
-            Booking booking = mBookings.get(i);
-            bookingHolder.mBooking = booking;
+        public void onBindViewHolder(@NonNull ViewHolder bookingHolder, int i) {
+            final Booking booking = mBookings.get(i);
             bookingHolder.mCardTitle.setText("Booking title");
-            bookingHolder.mCardPrice.setText(booking.getPrice() + " kr");
+            bookingHolder.mCardInfo3.setText(booking.getPrice() + " kr");
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
             String startDateString = dateFormat.format(booking.getStartDate());
             String endDateString = dateFormat.format(booking.getEndDate());
-            bookingHolder.mCardDate.setText(startDateString + " to " + endDateString);
+            bookingHolder.mCardInfo2.setText(startDateString + " to " + endDateString);
             switch (i % 5) {
                 case 0:
-                    bookingHolder.mBookingImage.setImageResource(R.drawable.booking_img1);
+                    bookingHolder.mCardImage.setImageResource(R.drawable.booking_img1);
                     break;
                 case 1:
-                    bookingHolder.mBookingImage.setImageResource(R.drawable.booking_img2);
+                    bookingHolder.mCardImage.setImageResource(R.drawable.booking_img2);
                     break;
                 case 2:
-                    bookingHolder.mBookingImage.setImageResource(R.drawable.booking_img3);
+                    bookingHolder.mCardImage.setImageResource(R.drawable.booking_img3);
                     break;
                 case 3:
-                    bookingHolder.mBookingImage.setImageResource(R.drawable.booking_img4);
+                    bookingHolder.mCardImage.setImageResource(R.drawable.booking_img4);
                     break;
                 default:
-                    bookingHolder.mBookingImage.setImageResource(R.drawable.booking_img5);
+                    bookingHolder.mCardImage.setImageResource(R.drawable.booking_img5);
             }
+            bookingHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onBookingSelected(booking);
+                }
+            });
         }
 
         @Override
@@ -122,35 +125,5 @@ public class BookingsFragment extends Fragment {
         }
     }
 
-    private class BookingHolder extends RecyclerView.ViewHolder {
-        TextView mCardTitle;
-        TextView mCardPrice;
-        TextView mCardDate;
-        TextView mCardDescription;
-        ImageView mBookingImage;
-        FrameLayout mLayout;
-        Booking mBooking;
-        public BookingHolder(@NonNull View itemView, int parentHeight) {
-            super(itemView);
-            mLayout = (FrameLayout) itemView;
-            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) mLayout.getLayoutParams();
-            mLayout.setLayoutParams(params);
-            mCardTitle = mLayout.findViewById(R.id.card_title);
-            mBookingImage = mLayout.findViewById(R.id.card_image_id);
-            mCardPrice = mLayout.findViewById(R.id.card_info3);
-            mCardDate = mLayout.findViewById(R.id.card_info2);
-            mCardDescription = mLayout.findViewById(R.id.card_info1);
-            mLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onBookingSelected(mBooking);
-                }
-            });
-        }
-    }
-
-    public interface SelectionListener {
-        void onBookingSelected(Booking Booking);
-    }
 
 }
