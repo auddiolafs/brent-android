@@ -40,6 +40,13 @@ public class BikeListFragment extends Fragment {
         });
         viewHolder.mCardTitle.setText(bike.getName() + " - " + bike.getBrand());
         viewHolder.mCardInfo3.setText(bike.getPrice().toString());
+        if (bike.getType().equals("Hybrid")) {
+            viewHolder.mCardImage.setImageResource(R.drawable.bike_hybrid);
+        } else if (bike.getType().equals("Racer")) {
+            viewHolder.mCardImage.setImageResource(R.drawable.bike_racer);
+        } else if (bike.getType().equals("MTB")) {
+            viewHolder.mCardImage.setImageResource(R.drawable.bike_mbk);
+        }
     }
 
 

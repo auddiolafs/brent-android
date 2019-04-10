@@ -162,7 +162,7 @@
                     android:layout_height="50dp"
                     android:background="@color/colorAccent"
                     android:gravity="center"
-                    android:text="Email / Reserve"
+                    android:text="See on map"
                     android:textColor="@color/colorWhite"
                     android:textSize="20dp" />
             </LinearLayout>

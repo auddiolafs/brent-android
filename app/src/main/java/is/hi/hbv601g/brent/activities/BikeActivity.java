@@ -3,6 +3,7 @@ package is.hi.hbv601g.brent.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Date;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.Cart;
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.models.Booking;
 
 public class BikeActivity extends CurrentActivity {
 
@@ -19,6 +21,7 @@ public class BikeActivity extends CurrentActivity {
     private TextView mPrice;
     private TextView mName;
     private TextView mSize;
+    private ImageView mImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +53,8 @@ public class BikeActivity extends CurrentActivity {
             @Override
             public void onClick(View v) {
                 Cart cart = Cart.getCart();
-                /*if (!cart.contains(startDate, endDate)) {
-                    Booking booking = new Booking(startDate, endDate);
-                    // booking.addBike(bike);
-
-                }*/
+                cart.setStartDate(startDate);
+                cart.setEndDate(endDate);
                 cart.addBikeToCart(bike);
                 cart.setTotalPrice(cart.getTotalPrice() + bike.getPrice());
                 startActivity(cartActivity_intent);
@@ -69,11 +69,17 @@ public class BikeActivity extends CurrentActivity {
         mPrice = findViewById(R.id.bike_price_id);
         mName = findViewById(R.id.bike_name_id);
         mSize = findViewById(R.id.bike_size_id);
+        mImage = findViewById(R.id.bike_image);
         mTitle.setText(bike.getName() + " - " + bike.getBrand());
         mBrand.setText(bike.getBrand());
         mType.setText(bike.getType());
         mPrice.setText(bike.getPrice().toString());
         mName.setText(bike.getName());
         mSize.setText(bike.getSize());
+        if (bike.getType().equals("Hybrid")) {
+            mImage.setImageResource(R.drawable.bike_hybrid);
+        } else if (bike.getType().equals("Racer")) {
+            mImage.setImageResource(R.drawable.bike_racer);
+        }
     }
 }

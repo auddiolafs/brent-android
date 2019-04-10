@@ -36,6 +36,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/bike_image"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:layout_margin="10dp"
@@ -172,7 +173,7 @@
                     android:gravity="center"
                     android:textColor="@color/colorWhite"
                     android:textSize="20dp"
-                    android:text="Add to booking"
+                    android:text="Add to cart"
                     />
             </LinearLayout>
 
