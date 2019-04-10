@@ -30,7 +30,6 @@ public class ToursFragment extends Fragment {
     private RecyclerView mRecycleView = null;
     private SelectionListener mListener;
     private ArrayList<Tour> mTours;
-    private ArrayList<Tour> mToursUnfiltered;
     private int MarginLeftAndRight = 0;
     private int MarginTopAndBot = 0;
     private ToursFragment.TourListAdapter mAdapter;
@@ -38,7 +37,9 @@ public class ToursFragment extends Fragment {
 
     public static void bindViewHolder(final ViewHolder viewHolder, final Tour tour) {
         viewHolder.mCardTitle.setText(tour.getName());
-//             viewHolder.mCardLength.setText(tour.getLength() + " km");
+        viewHolder.mCardInfo1.setText(tour.getLocation());
+        viewHolder.mCardInfo2.setText(tour.getDuration().toString() + " hours");
+        viewHolder.mCardInfo3.setText(tour.getPrice().toString() + " ISK");
         Picasso.get().load(tour.getImage())
                 .placeholder(R.drawable.menu_tour)
                 .centerInside()
@@ -65,7 +66,6 @@ public class ToursFragment extends Fragment {
         Bundle bundle = getArguments();
         ArrayList<Tour> tours = bundle.getParcelableArrayList("tours");
         mTours = tours;
-        mToursUnfiltered = (ArrayList<Tour>) tours.clone();
         mAdapter = new TourListAdapter();
         mRecycleView.setAdapter(mAdapter);
         mRecycleView.addItemDecoration(new SpacesItemDecoration());

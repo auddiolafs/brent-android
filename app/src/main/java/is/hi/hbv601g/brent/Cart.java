@@ -27,8 +27,6 @@ public class Cart {
     private static Long mCartID = new Long(1);
     private static final String TAG = "CartActivity";
 
-
-
     private static final FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private Map<Long, Booking> mBookings;
 
