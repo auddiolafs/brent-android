@@ -52,7 +52,7 @@ public class RoutesFragment extends Fragment {
         viewHolder.mCardTitle.setText(route.getLocation());
         viewHolder.mCardInfo3.setText(route.getLength() + " km");
         Picasso.get().load(route.getImage())
-                .placeholder(R.drawable.bike_hybrid)
+                .placeholder(R.drawable.menu_map)
                 .centerInside()
                 .resize(200, 200)
                 .into(viewHolder.mCardImage);

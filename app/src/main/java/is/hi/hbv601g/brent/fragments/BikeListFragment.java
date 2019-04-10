@@ -30,7 +30,6 @@ public class BikeListFragment extends Fragment {
     private BikeListAdapter mAdapter;
     public static String BIKES_KEY = "bikes";
 
-
     public static void bindViewHolder(final ViewHolder viewHolder, final Bike bike) {
         Log.d("price", bike.getPrice().toString());
         viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
@@ -39,8 +38,15 @@ public class BikeListFragment extends Fragment {
                 viewHolder.mListener.onBikeSelected(bike);
             }
         });
-        viewHolder.mCardTitle.setText(bike.getName());
+        viewHolder.mCardTitle.setText(bike.getName() + " - " + bike.getBrand());
         viewHolder.mCardInfo3.setText(bike.getPrice().toString());
+        if (bike.getType().equals("Hybrid")) {
+            viewHolder.mCardImage.setImageResource(R.drawable.bike_hybrid);
+        } else if (bike.getType().equals("Racer")) {
+            viewHolder.mCardImage.setImageResource(R.drawable.bike_racer);
+        } else if (bike.getType().equals("MTB")) {
+            viewHolder.mCardImage.setImageResource(R.drawable.bike_mbk);
+        }
     }
 
 
@@ -133,7 +139,7 @@ public class BikeListFragment extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
             FrameLayout layout = (FrameLayout) LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.viewholder_card, parent, false);
+                    .inflate(R.layout.viewholder_card_bikes, parent, false);
             ViewHolder viewHolder = new ViewHolder(layout, parent.getMeasuredHeight(), mListener);
             return viewHolder;
         }

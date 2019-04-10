@@ -121,9 +121,9 @@ public class TourActivity extends CurrentActivity {
                     for (int i = 0; i < numberOfTravelers; i++) {
                         cart.setTotalPrice(cart.getTotalPrice() + tour.getPrice());
                     }
-                    showMessage("Tour added to cart");
-                    Intent toursIntent = new Intent(getApplicationContext(), ToursActivity.class);
-                    startActivity(toursIntent);
+
+                    Intent cartIntent = new Intent(getApplicationContext(), CartActivity.class);
+                    startActivity(cartIntent);
                 }
             }
         });
