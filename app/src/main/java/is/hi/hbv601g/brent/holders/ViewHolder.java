@@ -24,9 +24,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public ViewHolder(@NonNull View itemView, int parentHeight, SelectionListener listener) {
         super(itemView);
         mLayout = (FrameLayout) itemView;
-        RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) mLayout.getLayoutParams();
-        params.height = parentHeight/3;
-        mLayout.setLayoutParams(params);
         mCardTitle = mLayout.findViewById(R.id.card_title);
         mCardInfo1 = mLayout.findViewById(R.id.card_info1);
         mCardInfo2 = mLayout.findViewById(R.id.card_info2);
