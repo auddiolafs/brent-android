@@ -17,6 +17,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -90,12 +92,28 @@ public class BookingsFragment extends Fragment {
         public void onBindViewHolder(@NonNull BookingsFragment.BookingHolder bookingHolder, int i) {
             Booking booking = mBookings.get(i);
             bookingHolder.mBooking = booking;
-            bookingHolder.mCardTitle.setText(booking.getId());
+            bookingHolder.mCardTitle.setText("Booking title");
             bookingHolder.mCardPrice.setText(booking.getPrice() + " kr");
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
             String startDateString = dateFormat.format(booking.getStartDate());
             String endDateString = dateFormat.format(booking.getEndDate());
             bookingHolder.mCardDate.setText(startDateString + " to " + endDateString);
+            switch (i % 5) {
+                case 0:
+                    bookingHolder.mBookingImage.setImageResource(R.drawable.booking_img1);
+                    break;
+                case 1:
+                    bookingHolder.mBookingImage.setImageResource(R.drawable.booking_img2);
+                    break;
+                case 2:
+                    bookingHolder.mBookingImage.setImageResource(R.drawable.booking_img3);
+                    break;
+                case 3:
+                    bookingHolder.mBookingImage.setImageResource(R.drawable.booking_img4);
+                    break;
+                default:
+                    bookingHolder.mBookingImage.setImageResource(R.drawable.booking_img5);
+            }
         }
 
         @Override

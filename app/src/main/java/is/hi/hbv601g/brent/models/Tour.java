@@ -13,20 +13,27 @@ public class Tour implements Parcelable {
     private String mName;
     private String mLocation;
     private Long mPrice;
-    private Date mStartDate;
-    private Date mEndDate;
+    private Date mDate;
     private String mImage;
+    private Long mDuration;
+    private String mDescription;
+    private Long mNumberOfTravelers;
+    private String mDepartureTime;
 
     public Tour() { }
 
-    public Tour(String id, String name, String location, Long price, Date startDate, Date endDate, String image) {
+    public Tour(String id, String name, String location, Long price, Date date, String image,
+                Long duration, String description, Long travelers, String departureTime) {
         mID = id;
         mName = name;
         mLocation = location;
         mPrice = price;
-        mStartDate = startDate;
-        mEndDate = endDate;
+        mDate = date;
         mImage = image;
+        mDuration = duration;
+        mDescription = description;
+        mNumberOfTravelers = travelers;
+        mDepartureTime = departureTime;
     }
 
     protected Tour(Parcel in) {
@@ -34,6 +41,10 @@ public class Tour implements Parcelable {
         mName = in.readString();
         mLocation = in.readString();
         mImage = in.readString();
+        mDuration = in.readLong();
+        mDescription = in.readString();
+        mDepartureTime = in.readString();
+        //mDate = new Date(in.readString());
         //mStartDate = new Date(in.readString());
         //mEndDate = new Date(in.readString());
         if (in.readByte() == 0) {
@@ -41,6 +52,7 @@ public class Tour implements Parcelable {
         } else {
             mPrice = in.readLong();
         }
+        //mNumberOfTravelers = in.readLong();
     }
 
     public static final Creator<Tour> CREATOR = new Creator<Tour>() {
@@ -63,6 +75,9 @@ public class Tour implements Parcelable {
             t.setLocation(tourData.get("location").toString());
             t.setPrice(Long.parseLong(tourData.get("price").toString()));
             t.setImage(tourData.get("image").toString());
+            t.setDuration(Long.parseLong(tourData.get("durationHours").toString()));
+            t.setDescription(tourData.get("description").toString());
+            t.setDepartureTime(tourData.get("departure").toString());
             //t.setStartDate(new Date((long)tourData.get("startDate")));
             //t.setEndDate(new Date((long)tourData.get("endDate")));
             return t;
@@ -103,25 +118,33 @@ public class Tour implements Parcelable {
         mPrice = price;
     }
 
-    public Date getStartDate() {
-        return mStartDate;
+    public Date getDate() {
+        return mDate;
     }
 
-    public void setStartDate(Date startDate) {
-        mStartDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return mEndDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        mEndDate = endDate;
+    public void setDate(Date date) {
+        mDate = date;
     }
 
     public String getImage() { return mImage; }
 
     public void setImage(String image) { this.mImage = image; }
+
+    public Long getDuration() { return mDuration; }
+
+    public void setDuration(Long duration) { this.mDuration = duration; }
+
+    public String getDescription() { return mDescription; }
+
+    public void setDescription(String description) { this.mDescription = description; }
+
+    public Long getNumberOfTravelers() { return mNumberOfTravelers; }
+
+    public void setNumberOfTravelers(Long travelers) { this.mNumberOfTravelers = travelers; }
+
+    public String getDepartureTime() { return mDepartureTime; }
+
+    public void setDepartureTime(String departureTime) { this.mDepartureTime = departureTime; }
 
     @Override
     public int describeContents() {
@@ -134,15 +157,18 @@ public class Tour implements Parcelable {
         dest.writeString(mName);
         dest.writeString(mLocation);
         dest.writeString(mImage);
-        //if (mStartDate != null && mEndDate != null) {
-        //    dest.writeString(mStartDate.toString());
-        //    dest.writeString(mEndDate.toString());
-        //}
+        dest.writeLong(mDuration);
+        dest.writeString(mDescription);
+        dest.writeString(mDepartureTime);
+        /*if (mDate != null) {
+            dest.writeString(mDate.toString());
+        }*/
         if (mPrice == null) {
             dest.writeByte((byte) 0);
         } else {
             dest.writeByte((byte) 1);
             dest.writeLong(mPrice);
         }
+        //dest.writeLong(mNumberOfTravelers);
     }
 }

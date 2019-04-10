@@ -31,13 +31,6 @@ public class BikeListFragment extends Fragment {
     public static String BIKES_KEY = "bikes";
 
 
-    public static RecyclerView.ViewHolder getViewHolder(@NonNull ViewGroup viewGroup, SelectionListener listener) {
-        FrameLayout layout = (FrameLayout) LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.viewholder_card, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(layout, viewGroup.getMeasuredHeight(), listener);
-        return viewHolder;
-    }
-
     public static void bindViewHolder(final ViewHolder viewHolder, final Bike bike) {
         Log.d("price", bike.getPrice().toString());
         viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
