@@ -2,6 +2,7 @@ package is.hi.hbv601g.brent.fragments;
 
 
 import is.hi.hbv601g.brent.activities.CurrentActivity;
+import is.hi.hbv601g.brent.models.Accessory;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Booking;
 import is.hi.hbv601g.brent.models.Route;
@@ -20,6 +21,10 @@ public class SelectionListener extends CurrentActivity {
     }
 
     public void onBookingSelected(Booking booking) {
+
+    }
+
+    public void onAccessorySelected(Accessory accessory) {
 
     }
 }

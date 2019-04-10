@@ -13,14 +13,16 @@ public class Accessory implements Parcelable {
     private String mType;
     private String mName;
     private Long mPrice;
+    private String mImage;
 
     public Accessory() { }
 
-    public Accessory(String type, String name, Long price, String id) {
+    public Accessory(String type, String name, Long price, String id, String image) {
         mType = type;
         mName = name;
         mPrice = price;
         mID = id;
+        mImage = image;
     }
 
     protected Accessory(Parcel in) {
@@ -76,6 +78,10 @@ public class Accessory implements Parcelable {
         mPrice = price;
     }
 
+    public String getImage() { return mImage; }
+
+    public void setImage(String image) { this.mImage = image; }
+
     public boolean isEmpty() {
         if (mID == null) {
             return true;
@@ -88,7 +94,7 @@ public class Accessory implements Parcelable {
         try {
             a.setId(id);
             a.setName(data.get("name").toString());
-            a.setType(data.get("location").toString());
+            a.setType(data.get("type").toString());
             a.setPrice(Long.parseLong(data.get("price").toString()));
             return a;
         } catch (Exception e) {
