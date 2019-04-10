@@ -18,9 +18,9 @@
     <string name="bikes">Bikes</string>
     <string name="tours">Tours</string>
     <string name="routes">Routes</string>
-    <string name="toursText">Welcome to Tours!</string>
-    <string name="routesText">Welcome to Routes!</string>
-    <string name="profileText">Welcome to Profile page!</string>
+    <string name="toursText">Tours</string>
+    <string name="routesText">Routes</string>
+    <string name="profileText">Profile page</string>
     <string name="cartText">Welcome to Cart page!</string>
     <string name="filter">Filter</string>
     <string name="search">Search</string>
@@ -32,6 +32,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="card_bike">CardBike</string>
-    <string name="booking">Booking</string>
+    <string name="booking">My Bookings</string>
     <string name="explore">Explore</string>
 </resources>

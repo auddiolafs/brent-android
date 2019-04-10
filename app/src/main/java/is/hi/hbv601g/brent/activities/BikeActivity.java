@@ -73,7 +73,7 @@ public class BikeActivity extends CurrentActivity {
         mTitle.setText(bike.getName() + " - " + bike.getBrand());
         mBrand.setText(bike.getBrand());
         mType.setText(bike.getType());
-        mPrice.setText(bike.getPrice().toString());
+        mPrice.setText(bike.getPrice().toString() + " ISK");
         mName.setText(bike.getName());
         mSize.setText(bike.getSize());
         if (bike.getType().equals("Hybrid")) {
