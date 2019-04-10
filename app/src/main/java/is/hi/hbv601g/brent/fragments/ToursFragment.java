@@ -116,30 +116,5 @@ public class ToursFragment extends Fragment {
         }
     }
 
-//    private class TourHolder extends RecyclerView.ViewHolder {
-//        TextView mCardTitle;
-//        TextView mCardLength;
-//        TextView mCardDescription;
-//        TextView mCardLikes;
-//        ImageView mTourImage;
-//        FrameLayout mLayout;
-//        Tour mTour;
-//        public TourHolder(@NonNull View itemView, int parentHeight) {
-//            super(itemView);
-//            mLayout = (FrameLayout) itemView;
-//            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) mLayout.getLayoutParams();
-//            mLayout.setLayoutParams(params);
-//            mCardTitle = mLayout.findViewById(R.id.card_title);
-//            mTourImage = mLayout.findViewById(R.id.card_image_id);
-//            mCardLength = mLayout.findViewById(R.id.card_info3);
-//            mLayout.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    mListener.onTourSelected(mTour);
-//                }
-//            });
-//        }
-//    }
-
 
 }
