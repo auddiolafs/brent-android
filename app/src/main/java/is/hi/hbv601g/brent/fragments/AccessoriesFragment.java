@@ -1,12 +1,14 @@
 package is.hi.hbv601g.brent.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -19,12 +21,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import is.hi.hbv601g.brent.Cart;
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Accessory;
 
 public class AccessoriesFragment extends Fragment {
 
+    private Cart mCart;
     private RecyclerView mRecycleView = null;
     private SelectionListener mListener;
     private ArrayList<Accessory> mAccessories;
@@ -53,6 +57,8 @@ public class AccessoriesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 viewHolder.mListener.onAccessorySelected(accessory);
+//                mCart.addAccessoryToCart(accessory.getType());
+                Log.d("Fragment", accessory.getType());
             }
         });
     }
