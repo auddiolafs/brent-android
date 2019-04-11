@@ -81,7 +81,7 @@ public class BookingsActivity extends SelectionListener {
         final ArrayList<Booking> bookings = new ArrayList<>();
 //        Log.d("USER", mUser.getUid());
         final Task<QuerySnapshot> task = mDB.collection("bookings")
-                .whereEqualTo("userId", mUser.getUid())
+                .whereEqualTo("userId", "YtEdZ0MTwUencIqF8sWdapu0xGk1")
                 .get();
 
         task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
