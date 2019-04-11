@@ -79,7 +79,7 @@ public class BookingsActivity extends SelectionListener {
      */
     private void fetchBookings() {
         final ArrayList<Booking> bookings = new ArrayList<>();
-//        mUser.getUid()
+//        Log.d("USER", mUser.getUid());
         final Task<QuerySnapshot> task = mDB.collection("bookings")
                 .whereEqualTo("userId", mUser.getUid())
                 .get();
