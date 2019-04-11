@@ -27,7 +27,7 @@ import is.hi.hbv601g.brent.fragments.CartListFragment;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Tour;
 
-public class CartActivity extends CurrentActivity {
+public class    CartActivity extends CurrentActivity {
 
     private Cart mCart;
     private Bike mBikes;
@@ -136,11 +136,13 @@ public class CartActivity extends CurrentActivity {
             String tourID = tours.get(i).getId();
             productName.put(tourID, tours.get(i).getName());
             Integer count = quantity.get(tourID);
+            Log.d("CartAct", tourID);
             if (count == null) {
-                quantity.put(tourID, 1);
-                priceList.put(tourID, tours.get(i).getPrice());
+                Integer numPax = tours.get(i).getNumberOfTravelers().intValue();
+                quantity.put(tourID, numPax);
+                priceList.put(tourID, tours.get(i).getPrice() * numPax);
             } else {
-                count += 1;
+                count += tours.get(i).getNumberOfTravelers().intValue();
                 quantity.put(tourID, count);
                 priceList.put(tourID, count * tours.get(i).getPrice());
             }
