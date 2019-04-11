@@ -25,6 +25,7 @@ import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.fragments.BikeListFragment;
 import is.hi.hbv601g.brent.fragments.CartListFragment;
 import is.hi.hbv601g.brent.models.Bike;
+import is.hi.hbv601g.brent.models.Tour;
 
 public class CartActivity extends CurrentActivity {
 
@@ -109,6 +110,7 @@ public class CartActivity extends CurrentActivity {
         mCart = Cart.getCart();
 
         List<Bike> bikes = mCart.getBikes();
+        List<Tour> tours = mCart.getTours();
 
         Map<String, Integer> quantity = new HashMap<>();
         Map<String, Long> priceList = new HashMap<>();
@@ -127,6 +129,20 @@ public class CartActivity extends CurrentActivity {
                 count += 1;
                 quantity.put(bikeID, count);
                 priceList.put(bikeID, count * bikes.get(i).getPrice());
+            }
+        }
+
+        for (int i = 0; i < tours.size(); i++) {
+            String tourID = tours.get(i).getId();
+            productName.put(tourID, tours.get(i).getName());
+            Integer count = quantity.get(tourID);
+            if (count == null) {
+                quantity.put(tourID, 1);
+                priceList.put(tourID, tours.get(i).getPrice());
+            } else {
+                count += 1;
+                quantity.put(tourID, count);
+                priceList.put(tourID, count * tours.get(i).getPrice());
             }
         }
 

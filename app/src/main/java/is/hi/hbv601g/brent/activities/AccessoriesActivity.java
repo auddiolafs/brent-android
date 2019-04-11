@@ -2,6 +2,7 @@ package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,12 +21,15 @@ import java.util.List;
 
 import is.hi.hbv601g.brent.Cart;
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.fragments.AccessoriesFragment;
+import is.hi.hbv601g.brent.fragments.SelectionListener;
 import is.hi.hbv601g.brent.models.Accessory;
 
-public class AccessoriesActivity extends CurrentActivity {
+public class AccessoriesActivity extends SelectionListener {
 
     private Cart mCart;
-    private List<Accessory> mAccessories = new ArrayList<>();
+    private ArrayList<Accessory> mAccessories = new ArrayList<>();
+    private AccessoriesFragment accessoriesFragment;
     private boolean mDataFetched = false;
     private static final FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private static final String mTAG = "AccessoriesActivity";
@@ -50,6 +54,7 @@ public class AccessoriesActivity extends CurrentActivity {
         } else {
             setContentView(R.layout.activity_accessories);
             super.setUp();
+            setAccessoriesList();
             setButtonOnClick();
         }
     }
@@ -58,19 +63,19 @@ public class AccessoriesActivity extends CurrentActivity {
      * Fetches all accessories from Firestore db, to be displayed in the accessories list.
      */
     private void fetchAccessories() {
-        final List<Accessory> accessories = new ArrayList<>();
-        final Task<QuerySnapshot> task = mDB.collection("acessories").get();
+        final ArrayList<Accessory> accessories = new ArrayList<>();
+        final Task<QuerySnapshot> task = mDB.collection("accessories").get();
 
         task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                mDataFetched = true;
                 setUp();
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     accessories.add(Accessory.toEntity(document.getId(), document.getData()));
                 }
 
                 mAccessories = accessories;
+                mDataFetched = true;
             }
         });
 
@@ -83,7 +88,7 @@ public class AccessoriesActivity extends CurrentActivity {
     }
 
     private void setButtonOnClick() {
-        Button continueButton = findViewById(R.id.continueToPaymentButton);
+        /*Button continueButton = findViewById(R.id.continueToPaymentButton);
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +96,21 @@ public class AccessoriesActivity extends CurrentActivity {
                 startActivity(accessoriesActivity);
                 finish();
             }
-        });
+        });*/
+    }
+
+    private void setAccessoriesList() {
+        FragmentManager fm = getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("accessories", mAccessories);
+        accessoriesFragment = new AccessoriesFragment();
+        accessoriesFragment.setArguments(bundle);
+        fm.beginTransaction().replace(R.id.accessoriesListContainer, accessoriesFragment).commit();
+    }
+
+    @Override
+    public void onAccessorySelected(Accessory accessory) {
+
     }
 
     @Override
