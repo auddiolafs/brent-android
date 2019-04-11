@@ -57,7 +57,7 @@ public class AccessoriesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 viewHolder.mListener.onAccessorySelected(accessory);
-//                mCart.addAccessoryToCart(accessory.getType());
+                viewHolder.mLayout.setBackgroundColor(Color.GREEN);
                 Log.d("Fragment", accessory.getType());
             }
         });

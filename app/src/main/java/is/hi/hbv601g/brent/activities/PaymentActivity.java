@@ -49,7 +49,7 @@ public class PaymentActivity extends CurrentActivity {
             public void onClick(View v) {
                 if (true) {
                     bookingService.saveBooking(mCart.getBikes(), mCart.getAccessories(), mCart.getTours(), mCart.getStartDate(),
-                            mCart.getEndDate(), null);
+                            mCart.getEndDate(), "Reykjavik");
                     mCart.resetCart();
                     showMessage("Payment successful");
                     Intent homeIntent = new Intent(getApplicationContext(), MainActivity.class);
