@@ -79,7 +79,7 @@ public class BookingsActivity extends SelectionListener {
      */
     private void fetchBookings() {
         final ArrayList<Booking> bookings = new ArrayList<>();
-//        Log.d("USER", mUser.getUid());
+        Log.d(mTAG, mUser.getUid());
         final Task<QuerySnapshot> task = mDB.collection("bookings")
                 .whereEqualTo("userId", mUser.getUid())
                 .get();
@@ -88,6 +88,7 @@ public class BookingsActivity extends SelectionListener {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
+                    Log.d(mTAG, document.getData().toString());
                     Booking booking = Booking.toEntity(document.getId(), document.getData());
                     if (booking == null) {
                         Log.d(mTAG, "error");
