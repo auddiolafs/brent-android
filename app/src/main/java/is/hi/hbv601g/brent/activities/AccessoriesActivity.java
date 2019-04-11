@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -88,7 +89,7 @@ public class AccessoriesActivity extends SelectionListener {
     }
 
     private void setButtonOnClick() {
-        /*Button continueButton = findViewById(R.id.continueToPaymentButton);
+        TextView continueButton = findViewById(R.id.buttonContinue);
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +97,7 @@ public class AccessoriesActivity extends SelectionListener {
                 startActivity(accessoriesActivity);
                 finish();
             }
-        });*/
+        });
     }
 
     private void setAccessoriesList() {
@@ -105,12 +106,14 @@ public class AccessoriesActivity extends SelectionListener {
         bundle.putParcelableArrayList("accessories", mAccessories);
         accessoriesFragment = new AccessoriesFragment();
         accessoriesFragment.setArguments(bundle);
+
         fm.beginTransaction().replace(R.id.accessoriesListContainer, accessoriesFragment).commit();
     }
 
     @Override
     public void onAccessorySelected(Accessory accessory) {
-
+        mCart.addAccessoryToCart(accessory);
+        Log.d("Access", accessory.toString());
     }
 
     @Override
