@@ -137,10 +137,11 @@ public class CartActivity extends CurrentActivity {
             productName.put(tourID, tours.get(i).getName());
             Integer count = quantity.get(tourID);
             if (count == null) {
-                quantity.put(tourID, 1);
-                priceList.put(tourID, tours.get(i).getPrice());
+                Integer numPax = tours.get(i).getNumberOfTravelers().intValue();
+                quantity.put(tourID, numPax);
+                priceList.put(tourID, tours.get(i).getPrice() * numPax);
             } else {
-                count += 1;
+                count += tours.get(i).getNumberOfTravelers().intValue();
                 quantity.put(tourID, count);
                 priceList.put(tourID, count * tours.get(i).getPrice());
             }
