@@ -11,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
@@ -90,6 +91,9 @@ public class CartListFragment extends Fragment {
             mProduct = itemView.findViewById(R.id.product);
             mQuantity = itemView.findViewById(R.id.quantity);
             mPrice = itemView.findViewById(R.id.price);
+            mPrice.setWidth(100);
+            mProduct.setWidth(250);
+            mQuantity.setWidth(100);
         }
     }
 
