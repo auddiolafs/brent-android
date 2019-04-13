@@ -26,7 +26,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:elevation="13dp"
-        app:cardCornerRadius="40dp"
+        app:cardCornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
         tools:layout_editor_absoluteX="10dp">

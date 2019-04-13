@@ -148,7 +148,7 @@ public class BookingListFragment extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             FrameLayout layout = (FrameLayout) LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.viewholder_card_booking, viewGroup, false);
+                    .inflate(R.layout.viewholder_card, viewGroup, false);
             ViewHolder viewHolder = new ViewHolder(layout, viewGroup.getMeasuredHeight(), mListener);
             return viewHolder;
         }
@@ -179,37 +179,12 @@ public class BookingListFragment extends Fragment {
                 viewHolder.mCardInfo3.setText(accessory.getPrice().toString());
             }
             final ImageButton button = viewHolder.mLayout.findViewById(R.id.card_delete_item);
-            setListeners(button, mData, i);
         }
 
         @Override
         public int getItemCount() {
             return mData.size();
         }
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private void setListeners(final ImageButton button, final MultiMap<String,Object> multiMap, final int index) {
-        button.setOnTouchListener( new View.OnTouchListener()
-        {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction())
-                {
-                    case MotionEvent.ACTION_DOWN:
-                        button.setBackgroundColor(Color.GRAY);
-                        multiMap.delete(index);
-                        mAdapter.notifyDataSetChanged();
-                        break;
-                    case MotionEvent.ACTION_UP:
-
-                        button.setBackgroundColor(Color.WHITE);
-                        break;
-                }
-                return true;
-            }
-
-        });
     }
 
 

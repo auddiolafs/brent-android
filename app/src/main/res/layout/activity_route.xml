@@ -18,17 +18,15 @@
             layout="@layout/toolbar" />
     </FrameLayout>
 
-    <android.support.v7.widget.CardView
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:card_view="http://schemas.android.com/tools"
         android:id="@+id/card_view_id"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:card_view="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_margin="10dp"
-        app:cardCornerRadius="20dp"
         android:elevation="13dp"
-        >
+        app:cardCornerRadius="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,11 +34,11 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/route_image"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:id="@+id/route_image"
                 android:scaleType="centerCrop"
-                android:src="@drawable/place_golden"/>
+                android:src="@drawable/place_golden" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,23 +50,24 @@
                     android:id="@+id/place_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
                     android:text="Specification"
                     android:textColor="#44566C"
                     android:textSize="24sp"
-                    android:paddingBottom="10dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Icon"
+                        android:gravity="left"
                         android:src="@drawable/ic_integration"
-                        android:gravity="left"/>
+                        android:text="Icon" />
 
                     <TextView
                         android:id="@+id/place_info_1"
@@ -78,14 +77,15 @@
                         android:minWidth="100dp"
                         android:text="info1"
                         android:textSize="18sp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="60dp"
-                        android:text="Icon"
+                        android:gravity="left"
                         android:src="@drawable/ic_show_the_love"
-                        android:gravity="left"/>
+                        android:text="Icon" />
 
                     <TextView
                         android:id="@+id/place_info_2"
@@ -96,17 +96,19 @@
                         android:text="info2"
                         android:textSize="18sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Icon"
+                        android:gravity="left"
                         android:src="@drawable/ic_help_center"
-                        android:gravity="left"/>
+                        android:text="Icon" />
 
                     <TextView
                         android:id="@+id/place_info_3"
@@ -116,14 +118,15 @@
                         android:minWidth="100dp"
                         android:text="info3"
                         android:textSize="18sp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Icon"
-                        android:src="@drawable/ic_team"
                         android:layout_marginLeft="60dp"
-                        android:gravity="left"/>
+                        android:gravity="left"
+                        android:src="@drawable/ic_team"
+                        android:text="Icon" />
 
                     <TextView
                         android:id="@+id/place_info_4"
@@ -134,27 +137,30 @@
                         android:text="info4"
                         android:textSize="18sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/place_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="18"
+                        android:gravity="left"
                         android:inputType="textMultiLine"
-                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
-                        android:gravity="left"/>
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam." />
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
                 android:layout_weight="1"
                 android:gravity="center|bottom"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/button1"

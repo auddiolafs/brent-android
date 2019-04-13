@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,8 +25,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import is.hi.hbv601g.brent.Cart;
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.activities.BikeActivity;
+import is.hi.hbv601g.brent.activities.CancelBookingActivity;
+import is.hi.hbv601g.brent.activities.CartActivity;
 import is.hi.hbv601g.brent.fragments.BookingListFragment;
 import is.hi.hbv601g.brent.fragments.SelectionListener;
 import is.hi.hbv601g.brent.models.Accessory;
@@ -33,6 +37,7 @@ import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Booking;
 import is.hi.hbv601g.brent.models.Route;
 import is.hi.hbv601g.brent.models.Tour;
+import is.hi.hbv601g.brent.services.BookingService;
 
 public class BookingActivity extends SelectionListener {
 
@@ -42,6 +47,8 @@ public class BookingActivity extends SelectionListener {
     private TextView mBookingEndDate;
     private TextView mBookingDuration;
     private TextView mBookingPrice;
+    private TextView mCancelBookingButton;
+    private TextView mChangeBookingButton;
     private BookingListFragment mBookingFragment;
     private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private ArrayList<Route> mRoutes;
@@ -51,6 +58,8 @@ public class BookingActivity extends SelectionListener {
     private Map<String, Integer> mItemCounters = new HashMap<>();
     private ArrayList<Accessory> mAccessories;
     private ArrayList<Tour> mTours;
+    private Cart mCart;
+    private BookingService mBookingService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +89,25 @@ public class BookingActivity extends SelectionListener {
             mBookingPrice = findViewById(R.id.booking_price);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
             mBookingTitle.setText("Booking Title");
-            Date startDate = mBooking.getStartDate();
+            final Date startDate = mBooking.getStartDate();
             mBookingStartDate.setText(dateFormat.format(startDate));
             Date endDate = mBooking.getEndDate();
             mBookingEndDate.setText(dateFormat.format(endDate));
             mBookingDuration.setText(getDuration(startDate, endDate));
             mBookingPrice.setText("" + mBooking.getPrice());
             setList();
+            mCart = Cart.getCart();
+            mBookingService = new BookingService();
+            mCancelBookingButton = findViewById(R.id.booking_cancel_booking);
+            mCancelBookingButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), CancelBookingActivity.class);
+                    intent.putExtra("booking", mBooking);
+                    startActivity(intent);
+                }
+            });
+
         }
     }
 

@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activities.CancelBookingActivity"></activity>
         <activity android:name=".activities.user.BookingActivity" />
         <activity android:name=".activities.AccessoriesActivity" />
         <activity android:name=".activities.user.BookingsActivity" />

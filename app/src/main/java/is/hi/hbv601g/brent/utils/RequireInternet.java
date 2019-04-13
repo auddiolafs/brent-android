@@ -12,7 +12,6 @@ import is.hi.hbv601g.brent.activities.CurrentActivity;
 public class RequireInternet extends DialogFragment {
     private CurrentActivity currentActivity;
 
-    // Method called when instance of this class is created with reference of the activity
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

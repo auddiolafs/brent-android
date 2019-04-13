@@ -24,7 +24,7 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp"
         android:elevation="13dp"
-        app:cardCornerRadius="40dp">
+        app:cardCornerRadius="0dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -169,17 +169,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/buttonBooking3"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/colorAccent"
-                        android:gravity="center"
-                        android:text="Change booking"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="20dp" />
-
-                    <TextView
+                        android:id="@+id/booking_cancel_booking"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@color/colorAccent"

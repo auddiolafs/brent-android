@@ -106,4 +106,20 @@ public class Cart {
     public void addTourToCart(Tour tour) {
         mTours.add(tour);
     }
+
+    public void addAccessoryToCart(ArrayList<Accessory> accessories) {
+        for (Accessory accessory : accessories) {
+            mAccessories.add(accessory);
+        }
+    }
+    public void addBikeToCart(ArrayList<Bike> bikes) {
+        for (Bike bike : bikes) {
+            mBikes.add(bike);
+        }
+    }
+    public void addTourToCart(ArrayList<Tour> tours) {
+        for (Tour tour : tours) {
+            mTours.add(tour);
+        }
+    }
 }

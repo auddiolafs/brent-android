@@ -11,6 +11,7 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firestore.v1.WriteResult;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -90,6 +91,22 @@ public class BookingService {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d(mTAG, "Error posting booking");
+            }
+        });
+    }
+
+    public void deleteBooking(String id) {
+        Task<Void> task = mDB.collection("bookings").document(id).delete();
+        task.addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(mTAG, "Booking deleted");
+            }
+        });
+        task.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(mTAG, "Error trying deleting booking");
             }
         });
     }
