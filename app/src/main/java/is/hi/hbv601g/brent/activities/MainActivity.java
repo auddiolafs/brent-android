@@ -10,6 +10,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.activities.model.BikesActivity;
+import is.hi.hbv601g.brent.activities.model.RoutesActivity;
+import is.hi.hbv601g.brent.activities.model.ToursActivity;
 
 public class MainActivity extends CurrentActivity {
 

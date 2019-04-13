@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent.activities;
+package is.hi.hbv601g.brent.activities.model;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;

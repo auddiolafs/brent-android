@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent.activities;
+package is.hi.hbv601g.brent.activities.model;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import java.util.Date;
 
+import is.hi.hbv601g.brent.activities.CurrentActivity;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Cart;
 import is.hi.hbv601g.brent.R;

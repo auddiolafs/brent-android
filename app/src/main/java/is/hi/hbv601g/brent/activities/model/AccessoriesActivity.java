@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent.activities;
+package is.hi.hbv601g.brent.activities.model;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import is.hi.hbv601g.brent.activities.PaymentActivity;
 import is.hi.hbv601g.brent.models.Cart;
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.fragments.ItemListFragment;

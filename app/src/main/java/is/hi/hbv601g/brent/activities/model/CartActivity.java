@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent.activities;
+package is.hi.hbv601g.brent.activities.model;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,8 @@ import java.util.Map;
 
 import java.util.List;
 
+import is.hi.hbv601g.brent.activities.CurrentActivity;
+import is.hi.hbv601g.brent.activities.MainActivity;
 import is.hi.hbv601g.brent.models.Cart;
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.fragments.CartListFragment;

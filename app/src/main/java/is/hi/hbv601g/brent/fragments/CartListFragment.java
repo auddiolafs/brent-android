@@ -1,33 +1,21 @@
 package is.hi.hbv601g.brent.fragments;
 
 
-import android.content.Context;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.activities.CartActivity;
+import is.hi.hbv601g.brent.activities.model.CartActivity;
 import is.hi.hbv601g.brent.models.Tour;
 
 public class CartListFragment extends Fragment {

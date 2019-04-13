@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent.activities;
+package is.hi.hbv601g.brent.activities.user;
 
 import android.Manifest;
 import android.content.Intent;
@@ -30,7 +30,8 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.activities.user.BookingsActivity;
+import is.hi.hbv601g.brent.activities.CurrentActivity;
+import is.hi.hbv601g.brent.activities.MainActivity;
 
 public class UserActivity extends CurrentActivity {
 

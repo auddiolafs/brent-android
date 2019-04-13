@@ -21,8 +21,8 @@ import java.util.Map;
 
 import is.hi.hbv601g.brent.models.Cart;
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.activities.BikeActivity;
-import is.hi.hbv601g.brent.activities.BikesActivity;
+import is.hi.hbv601g.brent.activities.model.BikeActivity;
+import is.hi.hbv601g.brent.activities.model.BikesActivity;
 import is.hi.hbv601g.brent.activities.CancelBookingActivity;
 import is.hi.hbv601g.brent.fragments.ItemListFragment;
 import is.hi.hbv601g.brent.fragments.ItemListListener;

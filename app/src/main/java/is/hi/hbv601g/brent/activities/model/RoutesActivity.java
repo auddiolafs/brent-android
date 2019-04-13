@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent.activities;
+package is.hi.hbv601g.brent.activities.model;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.activities.model.RouteActivity;
 import is.hi.hbv601g.brent.fragments.ItemListFragment;
 import is.hi.hbv601g.brent.fragments.ItemListListener;
 import is.hi.hbv601g.brent.holders.ViewHolder;
