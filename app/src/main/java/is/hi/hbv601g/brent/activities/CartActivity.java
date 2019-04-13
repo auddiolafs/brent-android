@@ -18,7 +18,7 @@ import java.util.Map;
 
 import java.util.List;
 
-import is.hi.hbv601g.brent.Cart;
+import is.hi.hbv601g.brent.models.Cart;
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.fragments.CartListFragment;
 import is.hi.hbv601g.brent.models.Bike;

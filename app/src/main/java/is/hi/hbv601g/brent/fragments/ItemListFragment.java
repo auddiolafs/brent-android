@@ -25,7 +25,7 @@ import is.hi.hbv601g.brent.R;
 public class ItemListFragment extends Fragment {
 
     private RecyclerView mRecycleView = null;
-    private SelectionListener mListener;
+    private ItemListListener mListener;
     private ArrayList<Parcelable> mData;
     private ListAdapter mAdapter;
     private static String DATA_KEY = "data";
@@ -42,7 +42,7 @@ public class ItemListFragment extends Fragment {
         } else {
             mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
-        mListener = (SelectionListener) getActivity();
+        mListener = (ItemListListener) getActivity();
         Bundle bundle = getArguments();
         mData = bundle.getParcelableArrayList(DATA_KEY);
         mAdapter = new ListAdapter();

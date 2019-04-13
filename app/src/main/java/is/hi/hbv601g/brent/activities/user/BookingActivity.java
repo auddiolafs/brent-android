@@ -19,13 +19,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import is.hi.hbv601g.brent.Cart;
+import is.hi.hbv601g.brent.models.Cart;
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.activities.BikeActivity;
 import is.hi.hbv601g.brent.activities.BikesActivity;
 import is.hi.hbv601g.brent.activities.CancelBookingActivity;
 import is.hi.hbv601g.brent.fragments.ItemListFragment;
-import is.hi.hbv601g.brent.fragments.SelectionListener;
+import is.hi.hbv601g.brent.fragments.ItemListListener;
 import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Accessory;
 import is.hi.hbv601g.brent.models.Bike;
@@ -35,7 +35,7 @@ import is.hi.hbv601g.brent.models.Tour;
 import is.hi.hbv601g.brent.services.BookingService;
 import is.hi.hbv601g.brent.utils.Pair;
 
-public class BookingActivity extends SelectionListener {
+public class BookingActivity extends ItemListListener {
 
     private Booking mBooking;
     private TextView mBookingTitle;

@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import java.util.Map;
 
-import is.hi.hbv601g.brent.activities.AccessoriesActivity;
 
 public class Accessory implements Parcelable {
 
@@ -17,13 +16,6 @@ public class Accessory implements Parcelable {
 
     public Accessory() { }
 
-    public Accessory(String type, String name, Long price, String id, String image) {
-        mType = type;
-        mName = name;
-        mPrice = price;
-        mID = id;
-        mImage = image;
-    }
 
     protected Accessory(Parcel in) {
         mID = in.readString();
@@ -79,15 +71,6 @@ public class Accessory implements Parcelable {
     }
 
     public String getImage() { return mImage; }
-
-    public void setImage(String image) { this.mImage = image; }
-
-    public boolean isEmpty() {
-        if (mID == null) {
-            return true;
-        }
-        return false;
-    }
 
     public static Accessory toEntity(String id, Map<String, Object> data) {
         Accessory a = new Accessory();

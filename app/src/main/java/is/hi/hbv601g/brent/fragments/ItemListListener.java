@@ -9,7 +9,7 @@ import is.hi.hbv601g.brent.models.Booking;
 import is.hi.hbv601g.brent.models.Route;
 import is.hi.hbv601g.brent.models.Tour;
 
-public class SelectionListener extends CurrentActivity {
+public class ItemListListener extends CurrentActivity {
     public void onRouteSelected(Route Route) {
 
     }

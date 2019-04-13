@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.fragments.SelectionListener;
+import is.hi.hbv601g.brent.fragments.ItemListListener;
 import is.hi.hbv601g.brent.models.Bike;
 
 public class ViewHolder extends RecyclerView.ViewHolder {
@@ -19,9 +19,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public ImageView mCardImage;
     public FrameLayout mLayout;
     public Bike mBike;
-    public SelectionListener mListener;
+    public ItemListListener mListener;
 
-    public ViewHolder(@NonNull View itemView, SelectionListener listener) {
+    public ViewHolder(@NonNull View itemView, ItemListListener listener) {
         super(itemView);
         mLayout = (FrameLayout) itemView;
         mCardTitle = mLayout.findViewById(R.id.card_title);

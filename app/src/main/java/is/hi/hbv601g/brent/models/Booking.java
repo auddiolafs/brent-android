@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import com.google.firebase.Timestamp;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +13,6 @@ public class Booking implements Parcelable {
 
     private String mId;
     private String mUserID;
-    private List<Bike> mBikes;
-    private List<Accessory> mAccessories;
     private List<Tour> mTours;
     private Date mStartDate;
     private Date mEndDate;
@@ -23,27 +20,6 @@ public class Booking implements Parcelable {
     private int mPrice;
 
     public Booking() {}
-
-    public Booking(Date startDate, Date endDate, String pickupLocation, List<Bike> bikes, List<Accessory> accessories, List<Tour> tours,
-                   User user, String userId, int price) {
-        mBikes = bikes;
-        mAccessories = accessories;
-        mTours = tours;
-        mStartDate = startDate;
-        mEndDate = endDate;
-        mPickupLocation = pickupLocation;
-        mUserID= userId;
-        mPrice = price;
-    }
-
-    public Booking(Date startDate, Date endDate) {
-        mStartDate = startDate;
-        mEndDate = endDate;
-        mBikes = new ArrayList<>();
-        mTours = new ArrayList<>();
-        mPickupLocation = "";
-        mPrice = 0;
-    }
 
     protected Booking(Parcel in) {
         mId = in.readString();
@@ -81,31 +57,9 @@ public class Booking implements Parcelable {
         }
     };
 
-
-    public boolean isEmpty() {
-        if (mStartDate == null) {
-            return true;
-        }
-        return false;
-    }
-
     public String getId() { return mId; }
 
     public void setId(String id) { mId = id; }
-
-    public List<Bike> getBikes() { return mBikes; }
-
-    public void setBikes(List<Bike> bikes) {
-        mBikes = bikes;
-    }
-
-    public List<Accessory> getAccessories() {
-        return mAccessories;
-    }
-
-    public void setAccessories(List<Accessory> accessories) {
-        mAccessories = accessories;
-    }
 
     public List<Tour> getTours() {
         return mTours;
@@ -131,16 +85,8 @@ public class Booking implements Parcelable {
         mEndDate = endDate;
     }
 
-    public String getPickupLocation() {
-        return mPickupLocation;
-    }
-
     public void setPickupLocation(String pickupLocation) {
         mPickupLocation = pickupLocation;
-    }
-
-    public String getUserId() {
-        return mUserID;
     }
 
     public void setUserId(String userId) {
@@ -153,10 +99,6 @@ public class Booking implements Parcelable {
 
     public int getPrice() {
         return mPrice;
-    }
-
-    public void addBike(Bike bike) {
-        mBikes.add(bike);
     }
 
     @Override

@@ -9,9 +9,8 @@ import android.widget.TextView;
 import java.util.Date;
 
 import is.hi.hbv601g.brent.models.Bike;
-import is.hi.hbv601g.brent.Cart;
+import is.hi.hbv601g.brent.models.Cart;
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.models.Booking;
 
 public class BikeActivity extends CurrentActivity {
 

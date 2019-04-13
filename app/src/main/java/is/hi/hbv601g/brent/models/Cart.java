@@ -1,18 +1,12 @@
-package is.hi.hbv601g.brent;
+package is.hi.hbv601g.brent.models;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import is.hi.hbv601g.brent.models.Accessory;
-import is.hi.hbv601g.brent.models.Bike;
-import is.hi.hbv601g.brent.models.Booking;
-import is.hi.hbv601g.brent.models.Tour;
 
 public class Cart {
 
@@ -24,7 +18,6 @@ public class Cart {
     private Long mTotalPrice = new Long(0);
 
     private static Cart sCart = new Cart();
-    private static Long mCartID = new Long(1);
     private static final String TAG = "CartActivity";
 
     private static final FirebaseFirestore mDB = FirebaseFirestore.getInstance();
@@ -38,33 +31,14 @@ public class Cart {
         return sCart;
     }
 
-    public boolean contains(Date startDate, Date endDate) {
-        Iterator it = mBookings.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            String key = pair.getKey().toString();
-            Booking booking = (Booking) pair.getValue();
-            if (booking.getStartDate() == startDate && booking.getEndDate() == endDate) return true;
-        }
-        return false;
-    }
-
     public void resetCart() {
         sCart = new Cart();
     }
 
     public List<Bike> getBikes() { return mBikes; }
 
-    public void setBikes(List<Bike> bikes) {
-        this.mBikes = bikes;
-    }
-
     public List<Accessory> getAccessories() {
         return mAccessories;
-    }
-
-    public void setAccessories(List<Accessory> accessories) {
-        this.mAccessories = accessories;
     }
 
     public List<Tour> getTours() {
@@ -107,19 +81,4 @@ public class Cart {
         mTours.add(tour);
     }
 
-    public void addAccessoryToCart(ArrayList<Accessory> accessories) {
-        for (Accessory accessory : accessories) {
-            mAccessories.add(accessory);
-        }
-    }
-    public void addBikeToCart(ArrayList<Bike> bikes) {
-        for (Bike bike : bikes) {
-            mBikes.add(bike);
-        }
-    }
-    public void addTourToCart(ArrayList<Tour> tours) {
-        for (Tour tour : tours) {
-            mTours.add(tour);
-        }
-    }
 }

@@ -18,14 +18,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import is.hi.hbv601g.brent.Cart;
+import is.hi.hbv601g.brent.models.Cart;
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.fragments.ItemListFragment;
-import is.hi.hbv601g.brent.fragments.SelectionListener;
+import is.hi.hbv601g.brent.fragments.ItemListListener;
 import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Accessory;
 
-public class AccessoriesActivity extends SelectionListener {
+public class AccessoriesActivity extends ItemListListener {
 
     private Cart mCart;
     private ArrayList<Accessory> mAccessories;

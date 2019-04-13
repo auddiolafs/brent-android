@@ -28,12 +28,12 @@ import java.util.Date;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import is.hi.hbv601g.brent.fragments.ItemListFragment;
-import is.hi.hbv601g.brent.fragments.SelectionListener;
+import is.hi.hbv601g.brent.fragments.ItemListListener;
 import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.R;
 
-public class BikesActivity extends SelectionListener {
+public class BikesActivity extends ItemListListener {
 
     private ArrayList<Bike> mBikes;
     private ArrayList<Bike> mDisplayedBikes;
@@ -384,16 +384,17 @@ public class BikesActivity extends SelectionListener {
     }
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int index) {
-        bindViewHolder(viewHolder, mDisplayedBikes.get(index));
-    }
-
-    public static void bindViewHolder(final ViewHolder viewHolder, final Bike bike) {
+        final Bike bike = mDisplayedBikes.get(index);
         viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewHolder.mListener.onBikeSelected(bike);
             }
         });
+        bindViewHolder(viewHolder, bike);
+    }
+
+    public static void bindViewHolder(final ViewHolder viewHolder, final Bike bike) {
         viewHolder.mCardTitle.setText(bike.getName() + " - " + bike.getBrand());
         viewHolder.mCardInfo3.setText(bike.getPrice().toString());
         if (bike.getType().equals("Hybrid")) {

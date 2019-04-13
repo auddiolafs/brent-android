@@ -104,10 +104,6 @@ public class Bike implements Parcelable {
         mSize = size;
     }
 
-    public String getSerial() {
-        return mSerial;
-    }
-
     public void setSerial(String serial) {
         mSerial = serial;
     }
@@ -123,20 +119,6 @@ public class Bike implements Parcelable {
     public String getType() { return mType; }
 
     public void setType(String type) { mType = type; }
-
-    public boolean isEmpty() {
-        if (mID == null) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean equals(Bike bike) {
-        if (bike.getSerial() == mSerial) {
-            return true;
-        }
-        return false;
-    }
 
     @Override
     public int describeContents() {

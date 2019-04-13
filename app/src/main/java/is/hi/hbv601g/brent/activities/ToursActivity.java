@@ -18,11 +18,11 @@ import java.util.ArrayList;
 
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.fragments.ItemListFragment;
-import is.hi.hbv601g.brent.fragments.SelectionListener;
+import is.hi.hbv601g.brent.fragments.ItemListListener;
 import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Tour;
 
-public class ToursActivity extends SelectionListener {
+public class ToursActivity extends ItemListListener {
 
     private static final String KEY_TOURS = "Tours";
     private ArrayList<Tour> mTours = new ArrayList<>();
