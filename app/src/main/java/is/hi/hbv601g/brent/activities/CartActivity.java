@@ -9,20 +9,17 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import static java.lang.Math.toIntExact;
 
 import java.util.List;
 
 import is.hi.hbv601g.brent.Cart;
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.fragments.BikeListFragment;
 import is.hi.hbv601g.brent.fragments.CartListFragment;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Tour;

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -12,21 +12,21 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.fragments.RoutesFragment;
+import is.hi.hbv601g.brent.fragments.ItemListFragment;
 import is.hi.hbv601g.brent.fragments.SelectionListener;
-import is.hi.hbv601g.brent.fragments.ToursFragment;
+import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Tour;
 
 public class ToursActivity extends SelectionListener {
 
     private static final String KEY_TOURS = "Tours";
     private ArrayList<Tour> mTours = new ArrayList<>();
-    private ToursFragment mTourFragment;
+    private ItemListFragment mItemListFragment;
     private static final FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private static final String mTAG = "ToursActivity";
     private boolean mDataFetched = false;
@@ -99,10 +99,11 @@ public class ToursActivity extends SelectionListener {
     private void setTourList() {
         FragmentManager fm = getSupportFragmentManager();
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("tours", mTours);
-        mTourFragment = new ToursFragment();
-        mTourFragment.setArguments(bundle);
-        fm.beginTransaction().replace(R.id.toursListContainer, mTourFragment).commit();
+        bundle.putParcelableArrayList(ItemListFragment.getArgumentKey(), mTours);
+        mItemListFragment = new ItemListFragment();
+        mItemListFragment.setArguments(bundle);
+        mItemListFragment.doubleInLandscapeMode(true);
+        fm.beginTransaction().replace(R.id.toursListContainer, mItemListFragment).commit();
     }
 
     @Override
@@ -116,17 +117,26 @@ public class ToursActivity extends SelectionListener {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        System.out.println(item);
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent i = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(i);
-                return true;
-            default:
-                System.out.println(item.getItemId());
-
-                return super.onOptionsItemSelected(item);
-        }
+    public void onBindViewHolder(ViewHolder viewHolder, int index) {
+        bindViewHolder(viewHolder, mTours.get(index));
     }
+
+    private void bindViewHolder(final ViewHolder viewHolder, final Tour tour) {
+        viewHolder.mCardTitle.setText(tour.getName());
+        viewHolder.mCardInfo1.setText(tour.getLocation());
+        viewHolder.mCardInfo2.setText(tour.getDuration().toString() + " hours");
+        viewHolder.mCardInfo3.setText(tour.getPrice().toString() + " ISK");
+        Picasso.get().load(tour.getImage())
+                .placeholder(R.drawable.menu_tour)
+                .centerInside()
+                .resize(200, 200)
+                .into(viewHolder.mCardImage);
+        viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.mListener.onTourSelected(tour);
+            }
+        });
+    }
+
 }

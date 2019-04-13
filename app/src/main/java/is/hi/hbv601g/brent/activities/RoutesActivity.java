@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -11,23 +12,24 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.fragments.RoutesFragment;
+import is.hi.hbv601g.brent.fragments.ItemListFragment;
 import is.hi.hbv601g.brent.fragments.SelectionListener;
-import is.hi.hbv601g.brent.models.Bike;
+import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Route;
 
 public class RoutesActivity extends SelectionListener {
 
-    private static final String KEY_ROUTES = "Routes";
-    private ArrayList<Route> mRoutes = new ArrayList<>();
-    private RoutesFragment mRouteFragment;
-    private static final String mTAG = "RoutesActivity";
+    private ArrayList<Route> mRoutes;
+    private ItemListFragment mItemListFragment;
     private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private boolean mDataFetched = false;
+    private static final String mTAG = "RoutesActivity";
+    private static final String KEY_ROUTES = "Routes";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,10 +105,12 @@ public class RoutesActivity extends SelectionListener {
     private void setRouteList() {
         FragmentManager fm = getSupportFragmentManager();
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("routes", mRoutes);
-        mRouteFragment = new RoutesFragment();
-        mRouteFragment.setArguments(bundle);
-        fm.beginTransaction().replace(R.id.routesListContainer, mRouteFragment).commit();
+        bundle.putParcelableArrayList(ItemListFragment.getArgumentKey(), mRoutes);
+        mItemListFragment = new ItemListFragment();
+        mItemListFragment.setArguments(bundle);
+        mItemListFragment.setViewHolderLayout(R.layout.viewholder_center_crop);
+        mItemListFragment.doubleInLandscapeMode(true);
+        fm.beginTransaction().replace(R.id.routesListContainer, mItemListFragment).commit();
     }
 
 
@@ -122,6 +126,27 @@ public class RoutesActivity extends SelectionListener {
         intent.putExtra("location", route.getLocation());
         intent.putExtra("length", route.getLength());
         startActivity(intent);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, int index) {
+        bindViewHolder(viewHolder, mRoutes.get(index));
+    }
+
+    private void bindViewHolder(final ViewHolder viewHolder, final Route route) {
+        viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.mListener.onRouteSelected(route);
+            }
+        });
+        viewHolder.mCardTitle.setText(route.getLocation());
+        viewHolder.mCardInfo3.setText(route.getLength() + " km");
+        Picasso.get().load(route.getImage())
+                .placeholder(R.drawable.menu_map)
+                .centerInside()
+                .resize(200, 200)
+                .into(viewHolder.mCardImage);
     }
 
 }

@@ -2,6 +2,7 @@ package is.hi.hbv601g.brent.fragments;
 
 
 import is.hi.hbv601g.brent.activities.CurrentActivity;
+import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Accessory;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Booking;
@@ -25,6 +26,10 @@ public class SelectionListener extends CurrentActivity {
     }
 
     public void onAccessorySelected(Accessory accessory) {
+
+    }
+
+    public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
     }
 }

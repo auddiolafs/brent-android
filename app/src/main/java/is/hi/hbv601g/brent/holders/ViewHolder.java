@@ -21,7 +21,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public Bike mBike;
     public SelectionListener mListener;
 
-    public ViewHolder(@NonNull View itemView, int parentHeight, SelectionListener listener) {
+    public ViewHolder(@NonNull View itemView, SelectionListener listener) {
         super(itemView);
         mLayout = (FrameLayout) itemView;
         mCardTitle = mLayout.findViewById(R.id.card_title);

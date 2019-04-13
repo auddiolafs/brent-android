@@ -1,14 +1,12 @@
 package is.hi.hbv601g.brent.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -16,21 +14,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import is.hi.hbv601g.brent.Cart;
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.fragments.AccessoriesFragment;
+import is.hi.hbv601g.brent.fragments.ItemListFragment;
 import is.hi.hbv601g.brent.fragments.SelectionListener;
+import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Accessory;
 
 public class AccessoriesActivity extends SelectionListener {
 
     private Cart mCart;
-    private ArrayList<Accessory> mAccessories = new ArrayList<>();
-    private AccessoriesFragment accessoriesFragment;
+    private ArrayList<Accessory> mAccessories;
+    private ItemListFragment mItemListFragment;
     private boolean mDataFetched = false;
     private static final FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private static final String mTAG = "AccessoriesActivity";
@@ -103,11 +102,10 @@ public class AccessoriesActivity extends SelectionListener {
     private void setAccessoriesList() {
         FragmentManager fm = getSupportFragmentManager();
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("accessories", mAccessories);
-        accessoriesFragment = new AccessoriesFragment();
-        accessoriesFragment.setArguments(bundle);
-
-        fm.beginTransaction().replace(R.id.accessoriesListContainer, accessoriesFragment).commit();
+        bundle.putParcelableArrayList(ItemListFragment.getArgumentKey(), mAccessories);
+        mItemListFragment = new ItemListFragment();
+        mItemListFragment.setArguments(bundle);
+        fm.beginTransaction().replace(R.id.accessoriesListContainer, mItemListFragment).commit();
     }
 
     @Override
@@ -117,11 +115,34 @@ public class AccessoriesActivity extends SelectionListener {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(this, item.getTitle(), Toast.LENGTH_LONG).show();
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
-        }
-        return super.onOptionsItemSelected(item);
+    public void onBindViewHolder(ViewHolder viewHolder, int index) {
+        bindViewHolder(viewHolder, mAccessories.get(index));
     }
+
+    public static void bindViewHolder(final ViewHolder viewHolder, final Accessory accessory) {
+        viewHolder.mCardTitle.setText(accessory.getName());
+        Picasso.get().load(accessory.getImage())
+                .placeholder(R.drawable.menu_tour)
+                .centerInside()
+                .resize(200, 200)
+                .into(viewHolder.mCardImage);
+        if (accessory.getType().equals("lock")) {
+            viewHolder.mCardImage.setImageResource(R.drawable.accessories_lock);
+        } else if (accessory.getType().equals("helmet")) {
+            viewHolder.mCardImage.setImageResource(R.drawable.accessories_helmet);
+        } else if (accessory.getType().equals("kit")) {
+            viewHolder.mCardImage.setImageResource(R.drawable.accessories_repair_kit);
+        } else if (accessory.getType().equals("lights")) {
+            viewHolder.mCardImage.setImageResource(R.drawable.accessories_lights);
+        }
+        viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.mListener.onAccessorySelected(accessory);
+                viewHolder.mLayout.setBackgroundColor(Color.GREEN);
+                Log.d("Fragment", accessory.getType());
+            }
+        });
+    }
+
 }
