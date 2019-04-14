@@ -3,18 +3,11 @@ package is.hi.hbv601g.brent.activities.user;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,14 +17,14 @@ import is.hi.hbv601g.brent.fragments.ItemListFragment;
 import is.hi.hbv601g.brent.utils.ItemListListener;
 import is.hi.hbv601g.brent.holders.ItemListViewHolder;
 import is.hi.hbv601g.brent.models.Booking;
+import is.hi.hbv601g.brent.services.BookingService;
 
 public class BookingsActivity extends ItemListListener {
 
 
     private ArrayList<Booking> mBookings = new ArrayList<>();
     private ItemListFragment mItemListFragment;
-    private static final String mTAG = "BookingsActivity";
-    private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
+    private BookingService bookingService = new BookingService(this);
     private boolean mDataFetched = false;
 
     private FirebaseApp mApp;
@@ -58,48 +51,17 @@ public class BookingsActivity extends ItemListListener {
         if (!mDataFetched) {
             setContentView(R.layout.activity_loading);
             super.setUp();
-            fetchBookings();
+            bookingService.fetchBookings(mUser);
         } else {
             setContentView(R.layout.activity_bookings);
             super.setUp();
+            mBookings = bookingService.getBookings();
             setBookingList();
         }
     }
 
-    /**
-     * Fetches all bookings from Firestore db, to be displayed in the bookings list.
-     */
-    private void fetchBookings() {
-        final ArrayList<Booking> bookings = new ArrayList<>();
-//        Log.d("USER", mUser.getUid());
-        final Task<QuerySnapshot> task = mDB.collection("bookings")
-                .whereEqualTo("userId", mUser.getUid())
-                .get();
-
-        task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    Booking booking = Booking.toEntity(document.getId(), document.getData());
-                    if (booking == null) {
-                        Log.d(mTAG, "error");
-                    } else {
-                        bookings.add(booking);
-                    }
-                    Log.d("TE", Integer.toString(bookings.size()));
-                    mBookings = bookings;
-                }
-                mDataFetched = true;
-                setUp();
-            }
-        });
-
-
-        task.addOnFailureListener(new OnFailureListener() {
-            public void onFailure(Exception e) {
-                Log.d(mTAG, "Error fetching bookings");
-            }
-        });
+    public void setIsDataFetched(boolean dataFetched) {
+        this.mDataFetched = dataFetched;
     }
 
     /**

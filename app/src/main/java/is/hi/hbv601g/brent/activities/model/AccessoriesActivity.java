@@ -8,12 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,6 +20,7 @@ import is.hi.hbv601g.brent.fragments.ItemListFragment;
 import is.hi.hbv601g.brent.utils.ItemListListener;
 import is.hi.hbv601g.brent.holders.ItemListViewHolder;
 import is.hi.hbv601g.brent.models.Accessory;
+import is.hi.hbv601g.brent.services.AccessoryService;
 
 public class AccessoriesActivity extends ItemListListener {
 
@@ -33,7 +28,7 @@ public class AccessoriesActivity extends ItemListListener {
     private ArrayList<Accessory> mAccessories;
     private ItemListFragment mItemListFragment;
     private boolean mDataFetched = false;
-    private static final FirebaseFirestore mDB = FirebaseFirestore.getInstance();
+    private AccessoryService accessoryService = new AccessoryService(this);
     private static final String mTAG = "AccessoriesActivity";
     private static HashMap<String, Boolean> items = new HashMap<>();
 
@@ -53,41 +48,18 @@ public class AccessoriesActivity extends ItemListListener {
         if (!mDataFetched) {
             setContentView(R.layout.activity_loading);
             super.setUp();
-            fetchAccessories();
+            accessoryService.fetchAccessories();
         } else {
             setContentView(R.layout.activity_accessories);
             super.setUp();
+            mAccessories = accessoryService.getAccessories();
             setAccessoriesList();
             setButtonOnClick();
         }
     }
 
-    /**
-     * Fetches all accessories from Firestore db, to be displayed in the accessories list.
-     */
-    private void fetchAccessories() {
-        final ArrayList<Accessory> accessories = new ArrayList<>();
-        final Task<QuerySnapshot> task = mDB.collection("accessories").get();
-
-        task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                setUp();
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    accessories.add(Accessory.toEntity(document.getId(), document.getData()));
-                }
-
-                mAccessories = accessories;
-                mDataFetched = true;
-            }
-        });
-
-        task.addOnFailureListener(new OnFailureListener() {
-            public void onFailure(Exception e) {
-                setUp();
-                Log.d(mTAG, "error");
-            }
-        });
+    public void setIsDataFetched(boolean dataFetched) {
+        this.mDataFetched = dataFetched;
     }
 
     private void setButtonOnClick() {
