@@ -19,14 +19,15 @@ import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 
-import is.hi.hbv601g.brent.holders.ViewHolder;
+import is.hi.hbv601g.brent.holders.ItemListViewHolder;
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.utils.ItemListListener;
 
 public class ItemListFragment extends Fragment {
 
     private RecyclerView mRecycleView = null;
     private ItemListListener mListener;
-    private ArrayList<Parcelable> mData;
+    private ArrayList<Parcelable> mData = new ArrayList<>();
     private ListAdapter mAdapter;
     private static String DATA_KEY = "data";
     private int mViewHolderLayout = R.layout.viewholder_center_crop;
@@ -73,27 +74,30 @@ public class ItemListFragment extends Fragment {
         mAdapter.notifyDataSetChanged();
     }
 
-    private class ListAdapter extends RecyclerView.Adapter<ViewHolder> {
+    private class ListAdapter extends RecyclerView.Adapter<ItemListViewHolder> {
         public ListAdapter() {
             super();
         }
         @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        public ItemListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
             FrameLayout layout = (FrameLayout) LayoutInflater.from(parent.getContext())
                     .inflate(mViewHolderLayout, parent, false);
-            ViewHolder viewHolder = new ViewHolder(layout, mListener);
-            return viewHolder;
+            ItemListViewHolder itemListViewHolder = new ItemListViewHolder(layout, mListener);
+            return itemListViewHolder;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-            mListener.onBindViewHolder(viewHolder, i);
+        public void onBindViewHolder(@NonNull ItemListViewHolder itemListViewHolder, int i) {
+            mListener.onBindViewHolder(itemListViewHolder, i);
         }
 
         @Override
         public int getItemCount() {
-            return mData.size();
+            if (mData != null) {
+                return mData.size();
+            }
+            return 0;
         }
     }
 }

@@ -163,7 +163,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/button1"
+                    android:id="@+id/see_on_map_button"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@color/colorAccent"

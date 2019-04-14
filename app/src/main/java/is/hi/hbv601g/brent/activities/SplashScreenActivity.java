@@ -27,6 +27,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         initFirebase();
+        Intent logInIntent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(logInIntent);
         finish();
     }
 
@@ -37,20 +39,18 @@ public class SplashScreenActivity extends AppCompatActivity {
         mApp = FirebaseApp.getInstance();
         mDatabase = FirebaseDatabase.getInstance(mApp);
         mAuth = FirebaseAuth.getInstance(mApp);
-
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = mAuth.getCurrentUser();
-
                 if (user != null) {
                     Log.e(mTAG, "AUTH SATE UPDATE : Valid User Login\0");
                     Intent homeIntent = new Intent(getApplicationContext(), MainActivity.class);
-                    homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(homeIntent);
                 } else {
                     Log.e(mTAG, "AUTH STATE UPDATE : No user logged in");
                     Intent logInIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                    logInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(logInIntent);
                 }
             }

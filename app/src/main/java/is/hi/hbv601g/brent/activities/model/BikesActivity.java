@@ -14,13 +14,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -28,10 +21,11 @@ import java.util.Date;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import is.hi.hbv601g.brent.fragments.ItemListFragment;
-import is.hi.hbv601g.brent.fragments.ItemListListener;
-import is.hi.hbv601g.brent.holders.ViewHolder;
+import is.hi.hbv601g.brent.utils.ItemListListener;
+import is.hi.hbv601g.brent.holders.ItemListViewHolder;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.services.BikeService;
 
 public class BikesActivity extends ItemListListener {
 
@@ -42,8 +36,7 @@ public class BikesActivity extends ItemListListener {
     private ItemListFragment mItemListFragment;
     private final Calendar mStartDate = Calendar.getInstance();
     private final Calendar mEndDate = Calendar.getInstance();
-    private static final String mTAG = "BikesActivity";
-    private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
+    private BikeService bikeService = new BikeService(this);
     private boolean mDataFetched = false;
     private final static String KEY_BIKES = "Bikes";
     private final static String KEY_TYPES = "Types";
@@ -84,10 +77,12 @@ public class BikesActivity extends ItemListListener {
             setContentView(R.layout.activity_loading);
             super.setUp();
             setSizes();
-            fetchData();
+            bikeService.fetchData();
         } else {
             setContentView(R.layout.activity_bikes);
             super.setUp();
+            mBikes = bikeService.getBikes();
+            mTypes = bikeService.getTypes();
             setSpinners();
             setDatePickers();
             setBikeList();
@@ -125,6 +120,14 @@ public class BikesActivity extends ItemListListener {
             mItemListFragment = (ItemListFragment) fragment;
         }
         mItemListFragment.setViewHolderLayout(R.layout.viewholder_center_inside);
+    }
+
+    public void setDisplayedBikes(ArrayList<Bike> bikes) {
+        this.mDisplayedBikes = bikes;
+    }
+
+    public void setIsDataFetched(boolean dataFetched) {
+        this.mDataFetched = dataFetched;
     }
 
 
@@ -258,68 +261,6 @@ public class BikesActivity extends ItemListListener {
     }
 
     /**
-     * Fetches types from Firestore and calls the function to fetch bikes.
-     */
-    private void fetchData() {
-        final ArrayList<String> types = new ArrayList<>();
-        final Task<QuerySnapshot> task = mDB.collection("types").get();
-
-        // Fetch types first and then bikes, both are asynchronous calls so both need to finish
-        // before setting the content view
-        task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    types.add(document.getData().get("type").toString());
-                }
-                mTypes = types;
-                fetchBikes();
-            }
-        });
-
-        task.addOnFailureListener(new OnFailureListener() {
-            public void onFailure(Exception e) {
-                Log.d(mTAG, "Error fetching types");
-            }
-        });
-    }
-
-    /**
-     * Fetches all bikes from Firestore db, to be displayed in the bikes list.
-     */
-    private void fetchBikes() {
-        final ArrayList<Bike> bikes = new ArrayList<>();
-        final Task<QuerySnapshot> task = mDB.collection("bikes")
-                .get();
-
-        task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    Bike bike = Bike.toEntity(document.getId(), document.getData());
-                    if (bike == null) {
-                        Log.d(mTAG, "error");
-                    } else {
-                        bikes.add(bike);
-                    }
-                }
-                mBikes = bikes;
-                mDisplayedBikes = (ArrayList<Bike>) bikes.clone();
-                mDataFetched = true;
-                setUp();
-            }
-        });
-        task.addOnFailureListener(new OnFailureListener() {
-            public void onFailure(Exception e) {
-                setUp();
-                Log.d(mTAG, "Error fetching bikes");
-            }
-        });
-    }
-
-
-    /**
      * Set sizes for the dropdown spinner used to filter by size.
      */
     private void setSizes() {
@@ -383,26 +324,26 @@ public class BikesActivity extends ItemListListener {
         mItemListFragment.updateList();
     }
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, int index) {
+    public void onBindViewHolder(final ItemListViewHolder itemListViewHolder, int index) {
         final Bike bike = mDisplayedBikes.get(index);
-        viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+        itemListViewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewHolder.mListener.onBikeSelected(bike);
+                itemListViewHolder.mListener.onBikeSelected(bike);
             }
         });
-        bindViewHolder(viewHolder, bike);
+        bindViewHolder(itemListViewHolder, bike);
     }
 
-    public static void bindViewHolder(final ViewHolder viewHolder, final Bike bike) {
-        viewHolder.mCardTitle.setText(bike.getName() + " - " + bike.getBrand());
-        viewHolder.mCardInfo3.setText("" + bike.getPrice());
+    public static void bindViewHolder(final ItemListViewHolder itemListViewHolder, final Bike bike) {
+        itemListViewHolder.mCardTitle.setText(bike.getName() + " - " + bike.getBrand());
+        itemListViewHolder.mCardInfo3.setText("" + bike.getPrice());
         if (bike.getType().equals("Hybrid")) {
-            viewHolder.mCardImage.setImageResource(R.drawable.bike_hybrid);
+            itemListViewHolder.mCardImage.setImageResource(R.drawable.bike_hybrid);
         } else if (bike.getType().equals("Racer")) {
-            viewHolder.mCardImage.setImageResource(R.drawable.bike_racer);
+            itemListViewHolder.mCardImage.setImageResource(R.drawable.bike_racer);
         } else if (bike.getType().equals("MTB")) {
-            viewHolder.mCardImage.setImageResource(R.drawable.bike_mbk);
+            itemListViewHolder.mCardImage.setImageResource(R.drawable.bike_mbk);
         }
     }
 }

@@ -2,12 +2,9 @@ package is.hi.hbv601g.brent.activities.model;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,13 +17,12 @@ import java.util.Map;
 import java.util.List;
 
 import is.hi.hbv601g.brent.activities.CurrentActivity;
-import is.hi.hbv601g.brent.activities.MainActivity;
 import is.hi.hbv601g.brent.models.Cart;
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.fragments.CartListFragment;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Tour;
-import is.hi.hbv601g.brent.utils.Triplet;
+import is.hi.hbv601g.brent.utils.CartListItem;
 
 public class CartActivity extends CurrentActivity {
 
@@ -58,7 +54,7 @@ public class CartActivity extends CurrentActivity {
         Map<String, Integer> priceList = new HashMap<>();
         Map<String, String> productList = new HashMap<>();
 
-        ArrayList<Triplet> listOfTriplets = new ArrayList<>();
+        ArrayList<CartListItem> listOfCartListItems = new ArrayList<>();
 
         if (bikes.size() != 0) {
             addBikes(bikes, quantityList, priceList, productList);
@@ -76,10 +72,10 @@ public class CartActivity extends CurrentActivity {
             totalPrice += price;
             String productName = productList.get(itemID);
             int quantity = quantityList.get(itemID).intValue();
-            listOfTriplets.add(new Triplet(productName, quantity, price));
+            listOfCartListItems.add(new CartListItem(productName, quantity, price));
         }
         mCart.setTotalPrice(totalPrice);
-        setList(listOfTriplets);
+        setList(listOfCartListItems);
         TextView mTotalPrice = findViewById(R.id.totalPriceValueText);
         mTotalPrice.setText(totalPrice + " kr.");
         TextView continueButton = findViewById(R.id.continueButton);
@@ -134,12 +130,12 @@ public class CartActivity extends CurrentActivity {
         }
     }
 
-    private void setList(ArrayList<Triplet> triplets) {
+    private void setList(ArrayList<CartListItem> cartListItems) {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.bikeListContainer);
         if (fragment == null) {
             Bundle bundle = new Bundle();
-            bundle.putParcelableArrayList("data", triplets);
+            bundle.putParcelableArrayList("data", cartListItems);
             mCartListFragment = new CartListFragment();
             mCartListFragment.setArguments(bundle);
             fm.beginTransaction().add(R.id.cart_list_container, mCartListFragment).commit();

@@ -1,8 +1,10 @@
 package is.hi.hbv601g.brent.activities.authentication;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,26 +12,29 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import is.hi.hbv601g.brent.activities.MainActivity;
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.services.AuthenticationService;
 
-public class LoginActivity extends AppCompatActivity {
+public class ForgotPasswordActivity extends AppCompatActivity {
 
     private EditText mUserEmail;
-    private EditText mUserPassword;
     private TextView mRegisterText;
     private TextView mForgotPassword;
     private ProgressBar mLoadingProgress;
     private Button mBtnLogin;
+    private FirebaseAuth firebaseAuth;
     private AuthenticationService authService = new AuthenticationService(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_forgot_password);
 
         initDisplayControls();
         initListeners();
@@ -40,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void initDisplayControls() {
         mUserEmail = findViewById(R.id.emailEdit);
-        mUserPassword = findViewById(R.id.passwordEdit);
         mLoadingProgress = findViewById(R.id.login_progress);
         mRegisterText = findViewById(R.id.registerText);
         mForgotPassword = findViewById(R.id.forgotPasswordText);
@@ -61,15 +65,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        mForgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent forgotpasswordActivity = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
-                startActivity(forgotpasswordActivity);
-                finish();
-            }
 
-        });
 
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,16 +73,9 @@ public class LoginActivity extends AppCompatActivity {
                 mLoadingProgress.setVisibility(View.VISIBLE);
                 mBtnLogin.setVisibility(View.INVISIBLE);
 
-                final String mail = mUserEmail.getText().toString();
-                final String password = mUserPassword.getText().toString();
+                Log.d("WOW", mUserEmail.getText().toString());
+                authService.forgotPassword(mUserEmail.getText().toString());
 
-                if (mail.isEmpty() || password.isEmpty()) {
-                    showMessage("Please verify all fields");
-                    mBtnLogin.setVisibility(View.VISIBLE);
-                    mLoadingProgress.setVisibility(View.INVISIBLE);
-                } else {
-                    authService.signIn(mail, password);
-                }
             }
         });
     }
@@ -107,20 +96,24 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser user = authService.getCurrentUser();
-
-        if (user != null) {
-            updateUI();
-        }
+//        FirebaseUser user = authService.getCurrentUser();
+//
+//        if (user != null) {
+//            updateUI();
+//        }
     }
 
-    public void onLoginSuccess() {
-        mLoadingProgress.setVisibility(View.INVISIBLE);
-        mBtnLogin.setVisibility(View.VISIBLE);
-        updateUI();
+    public void onPasswordSuccess() {
+        Log.d("WOW", "HELLO");
+        Intent homeIntent= new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(homeIntent);
+        finish();
+//        mLoadingProgress.setVisibility(View.INVISIBLE);
+//        mBtnLogin.setVisibility(View.VISIBLE);
+//        updateUI();
     }
 
-    public void onLoginError(String errorMessage) {
+    public void onPasswordFail(String errorMessage) {
         showMessage(errorMessage);
         mBtnLogin.setVisibility(View.VISIBLE);
         mLoadingProgress.setVisibility(View.INVISIBLE);

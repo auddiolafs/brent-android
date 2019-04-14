@@ -1,10 +1,8 @@
 package is.hi.hbv601g.brent.activities.authentication;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,19 +10,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import is.hi.hbv601g.brent.activities.MainActivity;
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.services.AuthenticationService;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -35,11 +24,8 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView mRegisterText;
     private ProgressBar mLoadingProgress;
     private Button mRegBtn;
-    private Map<String, Object> mUser = new HashMap<>();
 
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
-    private String mTAG = "Register >>";
+    private AuthenticationService authService = new AuthenticationService(this);
 
     /**
      * Initializes instance variables.
@@ -84,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
                     mRegBtn.setVisibility(View.VISIBLE);
                     mLoadingProgress.setVisibility(View.INVISIBLE);
                 } else {
-                    CreateUserAccount(email, name, password);
+                    authService.CreateUserAccount(email, name, password);
                 }
             }
         });
@@ -100,62 +86,21 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     /**
-     * Registers a user - saves the email, name and password in the Firebase db.
-     * @param email
-     * @param name
-     * @param password
-     */
-    private void CreateUserAccount(String email, final String name, String password) {
-
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    showMessage("Success");
-                    updateUserInfo(name, mAuth.getCurrentUser());
-                } else {
-                    showMessage("error " + task.getException().getMessage());
-                    mRegBtn.setVisibility(View.VISIBLE);
-                    mLoadingProgress.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
-
-    }
-
-    /**
-     * Updates the name of the currently logged in user
-     * @param name
-     * @param currentUser
-     */
-    private void updateUserInfo(String name, FirebaseUser currentUser) {
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(name)
-                .build();
-
-        currentUser.updateProfile(profileUpdates)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(mTAG, "SUCCESS");
-                            finish();
-                        }
-                    }
-                });
-
-        Log.e(mTAG, "User registration successful");
-        mUser.put("email", currentUser.getEmail());
-        mUser.put("displayName", name);
-        mDB.collection("users").document(currentUser.getUid()).set(mUser);
-    }
-
-
-    /**
      * Creates a toast message.
      * @param message
      */
     private void showMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    public void onRegisterSuccess(String name, FirebaseUser user) {
+        showMessage("Success");
+        authService.updateUserInfo(name, user);
+    }
+
+    public void onRegisterError(String errorMessage) {
+        showMessage("error " + errorMessage);
+        mRegBtn.setVisibility(View.VISIBLE);
+        mLoadingProgress.setVisibility(View.INVISIBLE);
     }
 }
