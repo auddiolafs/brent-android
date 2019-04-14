@@ -163,7 +163,15 @@ public class Tour implements Parcelable {
         /*if (mDate != null) {
             dest.writeString(mDate.toString());
         }*/
-        dest.writeLong(mPrice);
+        if (mPrice == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(mPrice);
+        }
+//        dest.writeLong(mPrice);
         //dest.writeLong(mNumberOfTravelers);
     }
+
+
 }
