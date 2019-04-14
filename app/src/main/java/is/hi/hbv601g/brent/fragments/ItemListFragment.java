@@ -26,7 +26,7 @@ public class ItemListFragment extends Fragment {
 
     private RecyclerView mRecycleView = null;
     private ItemListListener mListener;
-    private ArrayList<Parcelable> mData;
+    private ArrayList<Parcelable> mData = new ArrayList<>();
     private ListAdapter mAdapter;
     private static String DATA_KEY = "data";
     private int mViewHolderLayout = R.layout.viewholder_center_crop;
@@ -93,7 +93,10 @@ public class ItemListFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return mData.size();
+            if (mData != null) {
+                return mData.size();
+            }
+            return 0;
         }
     }
 }
