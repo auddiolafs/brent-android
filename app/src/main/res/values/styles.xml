@@ -4,8 +4,10 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/open_sans</item>
     </style>
 
     <!-- Android Splash Screen Example -->
@@ -16,6 +18,7 @@
     <style name = "NoActionBar" parent = "@style/Theme.AppCompat.Light.NoActionBar">
         <item name = "android:windowActionBar">false</item>
         <item name = "android:windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/open_sans</item>
     </style>
 
     <style name="H1DarkLeft">
@@ -98,6 +101,7 @@
         <item name="android:textSize">26sp</item>
         <item name="android:lineSpacingExtra">18sp</item>
         <item name="android:textColor">#44566c</item>
+        <item name="android:fontWeight">400</item>
     </style>
 
     <style name="H2WhiteRight">
@@ -250,6 +254,7 @@
         <item name="android:textSize">14sp</item>
         <item name="android:lineSpacingExtra">15sp</item>
         <item name="android:textColor">#44566c</item>
+        <item name="android:fontFamily">"@f"</item>
     </style>
 
     <style name="BodyText1LinkRight">
