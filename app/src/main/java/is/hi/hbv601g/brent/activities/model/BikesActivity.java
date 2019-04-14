@@ -270,7 +270,7 @@ public class BikesActivity extends ItemListListener {
         mSizes.add("M");
         mSizes.add("L");
     }
-    
+
     public void filterBikes(String selectedType, String selectedSize) throws InterruptedException {
         ArrayList<Bike> res = new ArrayList<>();
         for (Bike bike : mBikes) {
