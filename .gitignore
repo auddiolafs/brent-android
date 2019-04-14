@@ -78,3 +78,11 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+#vscode
+.project
+.settings/
+.vscode/
+app/.classpath
+app/.project
+app/.settings/

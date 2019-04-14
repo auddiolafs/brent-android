@@ -1,21 +1,29 @@
-# brent-android
-Example of android project
+# BRENT
+![](/app/src/main/res/drawable/main.png)
 
-### Að vinna með branches á git
 
-#### 1. Búa til nýtt branch
-```
-git checkout -b nafn-a-branchi
-```
-(sleppa -b ef farið er inn á branch sem er þegar búið að búa til)
+## Installation 
 
-#### 2. Þegar maður er tilbúinn að pusha á branchið sitt
 ```
-git add .
-git commit -m "Sutt message um hvað var gert"
-git pull origin master -> laga merge conflict ef það er til staðar
-git push origin nafn-a-branchi
+git clone https://github.com/auddiolafs/brent-android.git
 ```
-#### 3. Þegar branch er tilbúið til að fara á master
-Framkvæma skref 2 og svo fara inn á github repo-ið, inn á pull requests og velja þar 'New pull request' til að merge-a branchinu á master.
-Best er svo ef einhver annar í teyminu fer yfir kóðann/prófar áður en ýtt er á merge við master. Það er ekki 100% nauðsynlegt en það eru mjög góð vinnubrögð til að koma sem mest í veg fyrir að master brotni óvart.
+
+Import with Android Studio and Run.
+
+#### Tools
+* Android Studio
+* Google Firebase & Firestore
+* Sketch + Zeplin
+* Git
+
+#### Group 12
+<center>
+
+Auðunn Andri Ólafsson / [aao7](mailto:aao7@hi.is) / [Git](https://github.com/auddiolafs)
+
+Bjarki Freyr Rúnarsson / [??](mailto:) / [Git](https://github.com/bjarkirunars)
+
+Daníel Ingólfsson / [dai5](mailto:dai5@hi.is) / [Git](https://github.com/dingolfsson)
+
+Ragna Ólafsdóttir / [rao9](mailto:rao9@hi.is) / [Git](https://github.com/ragnaolafs)
+</center>
