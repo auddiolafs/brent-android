@@ -19,6 +19,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import is.hi.hbv601g.brent.activities.model.TourActivity;
+import is.hi.hbv601g.brent.activities.model.ToursActivity;
 import is.hi.hbv601g.brent.models.Cart;
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.activities.model.BikeActivity;
@@ -135,8 +137,8 @@ public class BookingActivity extends ItemListListener {
     }
 
     private String getDuration(Date startDate, Date endDate) {
-        long milliseconds = startDate.getTime() - endDate.getTime();
-        int days = (int)(milliseconds * 10 / (3600 * 24));
+        long milliseconds = endDate.getTime() - startDate.getTime();
+        int days = (int)(milliseconds/1000)/(3600 * 24);
         return days + " days";
     }
 
@@ -261,21 +263,19 @@ public class BookingActivity extends ItemListListener {
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int index) {
         Pair pair = mPairs.get(index);
-        String key = (String) pair.getKey();
+        String key = pair.getKey();
         if (key == "bike") {
             Bike bike = (Bike) pair.getVal();
             BikesActivity.bindViewHolder(viewHolder, bike);
         }
         else if (key == "tour") {
             final Tour tour = (Tour) pair.getVal();
-            viewHolder.mCardTitle.setText(tour.getName());
-            viewHolder.mCardInfo3.setText(tour.getPrice());
-
+            ToursActivity.bindViewHolder(viewHolder, tour);
         }
         else if(key == "accessory") {
             Accessory accessory = (Accessory) pair.getVal();
             viewHolder.mCardTitle.setText(accessory.getName());
-            viewHolder.mCardInfo3.setText(accessory.getPrice());
+            viewHolder.mCardInfo3.setText("" + accessory.getPrice());
         }
     }
 

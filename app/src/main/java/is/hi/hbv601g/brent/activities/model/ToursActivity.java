@@ -121,7 +121,7 @@ public class ToursActivity extends ItemListListener {
         bindViewHolder(viewHolder, mTours.get(index));
     }
 
-    private void bindViewHolder(final ViewHolder viewHolder, final Tour tour) {
+    public static void bindViewHolder(final ViewHolder viewHolder, final Tour tour) {
         viewHolder.mCardTitle.setText(tour.getName());
         viewHolder.mCardInfo1.setText(tour.getLocation());
         viewHolder.mCardInfo2.setText(tour.getDuration().toString() + " hours");

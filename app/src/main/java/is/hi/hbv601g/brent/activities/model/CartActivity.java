@@ -31,8 +31,6 @@ import is.hi.hbv601g.brent.utils.Triplet;
 public class CartActivity extends CurrentActivity {
 
     private Cart mCart;
-    private Bike mBikes;
-    private List aList = new ArrayList();
     private CartListFragment mCartListFragment;
 
     public static Intent newIntent(BikeActivity bikeActivity) {

@@ -38,7 +38,7 @@ public class Booking implements Parcelable {
             r.setPickupLocation(bookingData.get("pickupLocation").toString());
             r.setEndDate(((Timestamp)bookingData.get("endDate")).toDate());
             r.setStartDate(((Timestamp)bookingData.get("startDate")).toDate());
-            r.setPrice(35500);
+            r.setPrice(Integer.parseInt(bookingData.get("price").toString()));
             return r;
         } catch (Exception e) {
             return null;
