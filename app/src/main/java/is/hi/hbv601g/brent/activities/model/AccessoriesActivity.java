@@ -16,7 +16,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import is.hi.hbv601g.brent.activities.PaymentActivity;
 import is.hi.hbv601g.brent.models.Cart;
@@ -34,6 +37,7 @@ public class AccessoriesActivity extends ItemListListener {
     private boolean mDataFetched = false;
     private static final FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private static final String mTAG = "AccessoriesActivity";
+    private static HashMap<String, Boolean> items = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +120,14 @@ public class AccessoriesActivity extends ItemListListener {
     }
 
     @Override
+    public void onAccessoryRemoved(Accessory accessory) {
+        mCart.removeAccessoryToCart(accessory);
+        Log.d("Access", accessory.toString());
+    }
+
+
+
+    @Override
     public void onBindViewHolder(ViewHolder viewHolder, int index) {
         bindViewHolder(viewHolder, mAccessories.get(index));
     }
@@ -139,8 +151,18 @@ public class AccessoriesActivity extends ItemListListener {
         viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewHolder.mListener.onAccessorySelected(accessory);
-                viewHolder.mLayout.setBackgroundColor(Color.GREEN);
+                Log.d(mTAG, accessory.getName());
+                if (items.containsKey(accessory.getName())) {
+                    items.remove(accessory.getName());
+                    viewHolder.mLayout.setBackgroundColor(Color.WHITE);
+                    viewHolder.mListener.onAccessoryRemoved(accessory);
+                } else {
+                    items.put(accessory.getName(), true);
+                    viewHolder.mLayout.setBackgroundColor(Color.parseColor("#e1fde2"));
+                    viewHolder.mListener.onAccessorySelected(accessory);
+                }
+
+
                 Log.d("Fragment", accessory.getType());
             }
         });

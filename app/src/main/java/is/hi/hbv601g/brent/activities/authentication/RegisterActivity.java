@@ -71,9 +71,16 @@ public class RegisterActivity extends AppCompatActivity {
                 final String password2 = mUserPasswordConfirm.getText().toString();
                 final String name = mUserName.getText().toString();
 
-                if (email.isEmpty() || name.isEmpty() || password.isEmpty() || password2.isEmpty()
-                || !password.equals(password2)) {
+                if (email.isEmpty() || name.isEmpty() || password.isEmpty() || password2.isEmpty()) {
                     showMessage("Check fields");
+                    mRegBtn.setVisibility(View.VISIBLE);
+                    mLoadingProgress.setVisibility(View.INVISIBLE);
+                } else if (password.length() < 8) {
+                    showMessage("Passwords must be at least 8 chars!");
+                    mRegBtn.setVisibility(View.VISIBLE);
+                    mLoadingProgress.setVisibility(View.INVISIBLE);
+                } else if (!password.equals(password2)) {
+                    showMessage("Passwords don't match!");
                     mRegBtn.setVisibility(View.VISIBLE);
                     mLoadingProgress.setVisibility(View.INVISIBLE);
                 } else {

@@ -51,35 +51,46 @@
 
                 <TextView
                     android:id="@+id/textView8"
+                    style="@style/H3RegularLeft"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minWidth="150dp"
                     android:paddingLeft="5dp"
-                    android:text="Product" />
+                    android:text="Product"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView9"
+                    style="@style/H3RegularRight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:minWidth="100dp"
                     android:paddingRight="5dp"
-                    android:text="Quant." />
+                    android:text="Quant."
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView10"
+                    style="@style/H3RegularRight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal|right"
                     android:minWidth="120dp"
                     android:paddingRight="5dp"
-                    android:text="Price" />
-            </LinearLayout>
+                    android:text="Price"
+                    android:textStyle="bold" />
 
+            </LinearLayout>
+            <View
+                android:background="#AEB8C3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
                 android:layout_weight="1"
+                android:layout_marginTop="8dp"
                 android:gravity="center|bottom"
                 android:orientation="vertical" >
 
@@ -97,21 +108,31 @@
 
                     <TextView
                         android:id="@+id/textView11"
-                        style="@style/H2RegularRight"
+                        style="@style/H1DarkRight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:minWidth="100dp"
                         android:text="Total Price"
-                        android:textSize="24dp" />
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:background="#AEB8C3"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"/>
 
                     <TextView
                         android:id="@+id/totalPriceValueText"
+                        style="@style/H3RegularRight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:minWidth="100dp"
-                        android:text="Total Price" />
+                        android:text="Total Price"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
             </LinearLayout>
