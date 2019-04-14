@@ -81,4 +81,8 @@ public class Cart {
         mTours.add(tour);
     }
 
+    public boolean isEmpty() {
+        return mBikes.size() == 0 && mTours.size() == 0;
+    }
+
 }

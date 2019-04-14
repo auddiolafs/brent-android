@@ -87,9 +87,12 @@ public class CartActivity extends CurrentActivity {
             @Override
             public void onClick(View v) {
                 Intent accessoriesActivity = new Intent(getApplicationContext(), AccessoriesActivity.class);
-                startActivity(accessoriesActivity);
-                // saveCartButton.setClickable(false);
-                finish();
+                if (!mCart.isEmpty()) {
+                    startActivity(accessoriesActivity);
+                    finish();
+                } else {
+                    showMessage("Current cart is empty");
+                }
             }
         });
     }
@@ -145,4 +148,7 @@ public class CartActivity extends CurrentActivity {
         }
     }
 
+    private void showMessage(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
 }
