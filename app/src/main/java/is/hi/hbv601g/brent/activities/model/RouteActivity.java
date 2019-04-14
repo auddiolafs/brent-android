@@ -2,8 +2,10 @@ package is.hi.hbv601g.brent.activities.model;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -17,6 +19,7 @@ public class RouteActivity extends CurrentActivity {
     TextView mLength;
     TextView mLikes;
     TextView mDescription;
+    TextView mSeeOnMapButton;
     ImageView mImage;
 
     @Override
@@ -33,6 +36,13 @@ public class RouteActivity extends CurrentActivity {
         // Get toolbar in layout (defined in xml file)
         super.setUp();
         loadData();
+        mSeeOnMapButton = findViewById(R.id.see_on_map_button);
+        mSeeOnMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMessage("Coming soon");
+            }
+        });
     }
 
     private void loadData() {
@@ -48,5 +58,9 @@ public class RouteActivity extends CurrentActivity {
         mDescription.setText(route.getDescription());
         mLikes.setText(route.getLikes() + " likes");
         Picasso.get().load(route.getImage()).into(mImage);
+    }
+
+    private void showMessage(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 }

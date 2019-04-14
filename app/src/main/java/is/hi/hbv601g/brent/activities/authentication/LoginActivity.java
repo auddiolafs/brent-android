@@ -1,7 +1,6 @@
 package is.hi.hbv601g.brent.activities.authentication;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,14 +10,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import is.hi.hbv601g.brent.activities.MainActivity;
 import is.hi.hbv601g.brent.R;
+import is.hi.hbv601g.brent.services.AuthenticationService;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,8 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView mRegisterText;
     private ProgressBar mLoadingProgress;
     private Button mBtnLogin;
-
-    private FirebaseAuth mAuth;
+    private AuthenticationService authService = new AuthenticationService(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +32,6 @@ public class LoginActivity extends AppCompatActivity {
 
         initDisplayControls();
         initListeners();
-
-
-        mAuth = FirebaseAuth.getInstance();
     }
 
     /**
@@ -81,38 +73,10 @@ public class LoginActivity extends AppCompatActivity {
                     mBtnLogin.setVisibility(View.VISIBLE);
                     mLoadingProgress.setVisibility(View.INVISIBLE);
                 } else {
-                    signIn(mail, password);
+                    authService.signIn(mail, password);
                 }
             }
         });
-    }
-
-    /**
-     * Signs a user in with Firebase.
-     * @param mail
-     * @param password
-     */
-    private void signIn(String mail, String password) {
-        mAuth.signInWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                if (task.isSuccessful()) {
-                    mLoadingProgress.setVisibility(View.INVISIBLE);
-                    mBtnLogin.setVisibility(View.VISIBLE);
-                    updateUI();
-                } else {
-                    showMessage(task.getException().getMessage());
-                    mBtnLogin.setVisibility(View.VISIBLE);
-                    mLoadingProgress.setVisibility(View.INVISIBLE);
-                }
-
-            }
-        });
-    }
-
-    private void showMessage(String text) {
-        Toast.makeText(getApplicationContext(),text,Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -131,10 +95,26 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser user = mAuth.getCurrentUser();
+        FirebaseUser user = authService.getCurrentUser();
 
         if (user != null) {
             updateUI();
         }
+    }
+
+    public void onLoginSuccess() {
+        mLoadingProgress.setVisibility(View.INVISIBLE);
+        mBtnLogin.setVisibility(View.VISIBLE);
+        updateUI();
+    }
+
+    public void onLoginError(String errorMessage) {
+        showMessage(errorMessage);
+        mBtnLogin.setVisibility(View.VISIBLE);
+        mLoadingProgress.setVisibility(View.INVISIBLE);
+    }
+
+    private void showMessage(String text) {
+        Toast.makeText(getApplicationContext(),text,Toast.LENGTH_LONG).show();
     }
 }
