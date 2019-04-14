@@ -11,23 +11,27 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+import is.hi.hbv601g.brent.activities.model.ToursActivity;
 import is.hi.hbv601g.brent.models.Tour;
 
 public class TourService {
 
+    private ToursActivity toursActivity;
     private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private static final String mTAG = "TourService";
-    private static boolean dataFetched = false;
     private static ArrayList<Tour> mTours;
+
+    public TourService(ToursActivity toursActivity) {
+        this.toursActivity = toursActivity;
+    }
 
     public ArrayList<Tour> getTours() {
         return mTours;
     }
 
-    public boolean isDataFetched() {
-        return dataFetched;
-    }
-
+    /**
+     * Fetches all tours from Firestore db, to be displayed in the tours list.
+     */
     public void fetchTours() {
         final ArrayList<Tour> tours = new ArrayList<>();
         final Task<QuerySnapshot> task = mDB.collection("tours").get();
@@ -40,7 +44,8 @@ public class TourService {
                 }
 
                 mTours = tours;
-                dataFetched = true;
+                toursActivity.setIsDataFetched(true);
+                toursActivity.setUp();
             }
         });
 

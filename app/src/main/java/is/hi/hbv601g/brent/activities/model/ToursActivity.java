@@ -3,15 +3,7 @@ package is.hi.hbv601g.brent.activities.model;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.View;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -28,9 +20,7 @@ public class ToursActivity extends ItemListListener {
     private static final String KEY_TOURS = "Tours";
     private ArrayList<Tour> mTours = new ArrayList<>();
     private ItemListFragment mItemListFragment;
-    private static final FirebaseFirestore mDB = FirebaseFirestore.getInstance();
-    private static final String mTAG = "ToursActivity";
-    private TourService tourService = new TourService();
+    private TourService tourService = new TourService(this);
     private boolean mDataFetched = false;
 
     @Override
@@ -56,7 +46,7 @@ public class ToursActivity extends ItemListListener {
      */
     @Override
     public void setUp() {
-        if (!tourService.isDataFetched()) {
+        if (!mDataFetched) {
             setContentView(R.layout.activity_loading);
             super.setUp();
             tourService.fetchTours();
@@ -68,32 +58,8 @@ public class ToursActivity extends ItemListListener {
         }
     }
 
-    /**
-     * Fetches all tours from Firestore db, to be displayed in the tours list.
-     */
-    private void fetchTours() {
-        final ArrayList<Tour> tours = new ArrayList<>();
-        final Task<QuerySnapshot> task = mDB.collection("tours").get();
-
-        task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    tours.add(Tour.toEntity(document.getId(), document.getData()));
-                }
-
-                mTours = tours;
-                mDataFetched = true;
-                setUp();
-            }
-        });
-
-        task.addOnFailureListener(new OnFailureListener() {
-            public void onFailure(Exception e) {
-                setUp();
-                Log.d(mTAG, "error");
-            }
-        });
+    public void setIsDataFetched(boolean dataFetched) {
+        this.mDataFetched = dataFetched;
     }
 
     /**
@@ -115,7 +81,6 @@ public class ToursActivity extends ItemListListener {
                 TourActivity.class);
         intent.putExtra("tour", tour);
         intent.putExtra("location", tour.getLocation());
-        // intent.putExtra("length", route.getLength());
         startActivity(intent);
     }
 
@@ -141,5 +106,4 @@ public class ToursActivity extends ItemListListener {
             }
         });
     }
-
 }
