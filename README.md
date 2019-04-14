@@ -1,3 +1,4 @@
+
 # BRENT
 ![](/app/src/main/res/drawable/main.png)
 
@@ -27,3 +28,4 @@ Daníel Ingólfsson / [dai5](mailto:dai5@hi.is) / [Git](https://github.com/dingo
 
 Ragna Ólafsdóttir / [rao9](mailto:rao9@hi.is) / [Git](https://github.com/ragnaolafs)
 </center>
+
