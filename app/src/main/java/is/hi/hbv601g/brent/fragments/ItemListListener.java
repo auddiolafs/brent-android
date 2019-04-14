@@ -29,6 +29,10 @@ public class ItemListListener extends CurrentActivity {
 
     }
 
+    public void onAccessoryRemoved(Accessory accessory) {
+
+    }
+
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
     }

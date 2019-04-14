@@ -77,6 +77,10 @@ public class Cart {
         mAccessories.add(accessory);
     }
 
+    public void removeAccessoryToCart(Accessory accessory) {
+        mAccessories.add(accessory);
+    }
+
     public void addTourToCart(Tour tour) {
         mTours.add(tour);
     }
