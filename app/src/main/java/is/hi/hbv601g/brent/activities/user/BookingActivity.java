@@ -22,7 +22,6 @@ import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Accessory;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Booking;
-import is.hi.hbv601g.brent.models.Route;
 import is.hi.hbv601g.brent.models.Tour;
 import is.hi.hbv601g.brent.services.BookingService;
 import is.hi.hbv601g.brent.utils.Pair;
