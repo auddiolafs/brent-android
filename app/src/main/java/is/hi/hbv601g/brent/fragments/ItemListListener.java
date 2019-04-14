@@ -2,13 +2,14 @@ package is.hi.hbv601g.brent.fragments;
 
 
 import is.hi.hbv601g.brent.activities.CurrentActivity;
+import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Accessory;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Booking;
 import is.hi.hbv601g.brent.models.Route;
 import is.hi.hbv601g.brent.models.Tour;
 
-public class SelectionListener extends CurrentActivity {
+public class ItemListListener extends CurrentActivity {
     public void onRouteSelected(Route Route) {
 
     }
@@ -25,6 +26,14 @@ public class SelectionListener extends CurrentActivity {
     }
 
     public void onAccessorySelected(Accessory accessory) {
+
+    }
+
+    public void onAccessoryRemoved(Accessory accessory) {
+
+    }
+
+    public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
     }
 }

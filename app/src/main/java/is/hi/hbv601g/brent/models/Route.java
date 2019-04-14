@@ -15,15 +15,6 @@ public class Route implements Parcelable {
 
     public Route() { }
 
-    public Route(String id, String location, String length, String description, String likes, String image) {
-        this.mID = id;
-        this.mLocation = location;
-        this.mLength = length;
-        this.mDescription = description;
-        this.mLikes = likes;
-        this.mImage = image;
-    }
-
     protected Route(Parcel in) {
         mID = in.readString();
         mLocation = in.readString();

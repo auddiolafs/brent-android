@@ -17,9 +17,9 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".activities.CancelBookingActivity"></activity>
         <activity android:name=".activities.user.BookingActivity" />
-        <activity android:name=".activities.AccessoriesActivity" />
+        <activity android:name=".activities.model.AccessoriesActivity" />
         <activity android:name=".activities.user.BookingsActivity" />
-        <activity android:name=".activities.RouteActivity" /> <!-- <activity android:name=".fragments.RoutesFragment" /> -->
+        <activity android:name=".activities.model.RouteActivity" /> <!-- <activity android:name=".fragments.RoutesFragment" /> -->
         <activity android:name=".activities.authentication.LoginActivity" />
         <activity android:name=".activities.authentication.RegisterActivity" />
         <activity
@@ -33,25 +33,25 @@
         </activity>
         <activity android:name=".activities.MainActivity" />
         <activity
-            android:name=".activities.BikeActivity"
+            android:name=".activities.model.BikeActivity"
             android:label="Bike" />
         <activity
-            android:name=".activities.BikesActivity"
+            android:name=".activities.model.BikesActivity"
             android:label="Bikes" />
         <activity
-            android:name=".activities.TourActivity"
+            android:name=".activities.model.TourActivity"
             android:label="Tour" />
         <activity
-            android:name=".activities.ToursActivity"
+            android:name=".activities.model.ToursActivity"
             android:label="Tours" />
         <activity
-            android:name=".activities.RoutesActivity"
+            android:name=".activities.model.RoutesActivity"
             android:label="Routes" />
         <activity
-            android:name=".activities.UserActivity"
+            android:name=".activities.user.UserActivity"
             android:label="Profile" />
         <activity
-            android:name=".activities.CartActivity"
+            android:name=".activities.model.CartActivity"
             android:label="Cart" />
         <activity
             android:name=".activities.PaymentActivity"

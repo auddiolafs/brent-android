@@ -40,7 +40,7 @@ public class BookingService {
      * @param pickupLocation
      */
     public void saveBooking(final List<Bike> bikes, final List<Accessory> accessories, final List<Tour> tours,
-                            Date startDate, Date endDate, String pickupLocation) {
+                            Date startDate, Date endDate, String pickupLocation, int price) {
 
         Map<String, Object> booking = new HashMap<>();
         if (startDate != null) {
@@ -51,11 +51,9 @@ public class BookingService {
             Timestamp endDateTimestamp = new Timestamp(endDate);
             booking.put("endDate", endDateTimestamp);
         }
-
         booking.put("userId", mUserId);
-
-
         booking.put("pickupLocation", pickupLocation);
+        booking.put("price", price);
 
         Task<DocumentReference> bookingTask =  mDB.collection("bookings").add(booking);
 

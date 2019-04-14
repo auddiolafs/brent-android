@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent.activities;
+package is.hi.hbv601g.brent.activities.model;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -22,21 +22,24 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.ArrayBlockingQueue;
 
-import is.hi.hbv601g.brent.fragments.SelectionListener;
+import is.hi.hbv601g.brent.fragments.ItemListFragment;
+import is.hi.hbv601g.brent.fragments.ItemListListener;
+import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Bike;
-import is.hi.hbv601g.brent.fragments.BikeListFragment;
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.models.Route;
 
-public class BikesActivity extends SelectionListener {
+public class BikesActivity extends ItemListListener {
 
-    private ArrayList<Bike> mBikes = new ArrayList<>();
-    private ArrayList<String> mTypes = new ArrayList<>();
-    private ArrayList<String> mSizes = new ArrayList<>();
-    private BikeListFragment mBikeListFragment;
+    private ArrayList<Bike> mBikes;
+    private ArrayList<Bike> mDisplayedBikes;
+    private ArrayList<String> mTypes;
+    private ArrayList<String> mSizes;
+    private ItemListFragment mItemListFragment;
     private final Calendar mStartDate = Calendar.getInstance();
     private final Calendar mEndDate = Calendar.getInstance();
     private static final String mTAG = "BikesActivity";
@@ -45,6 +48,7 @@ public class BikesActivity extends SelectionListener {
     private final static String KEY_BIKES = "Bikes";
     private final static String KEY_TYPES = "Types";
     private final static String KEY_SIZES = "Sizes";
+    private final static String KEY_DISPLAYED_BIKES = "Displayed Bikes";
 
 
     @Override
@@ -54,6 +58,7 @@ public class BikesActivity extends SelectionListener {
             mBikes = savedInstanceState.getParcelableArrayList(KEY_BIKES);
             mTypes = savedInstanceState.getStringArrayList(KEY_TYPES);
             mSizes = savedInstanceState.getStringArrayList(KEY_SIZES);
+            mDisplayedBikes = savedInstanceState.getParcelableArrayList(KEY_DISPLAYED_BIKES);
             mDataFetched = true;
         }
         if (this.connected) {
@@ -67,6 +72,7 @@ public class BikesActivity extends SelectionListener {
         savedInstanceState.putParcelableArrayList(KEY_BIKES, mBikes);
         savedInstanceState.putStringArrayList(KEY_SIZES, mSizes);
         savedInstanceState.putStringArrayList(KEY_TYPES, mTypes);
+        savedInstanceState.putParcelableArrayList(KEY_DISPLAYED_BIKES, mDisplayedBikes);
     }
 
     /**
@@ -79,8 +85,7 @@ public class BikesActivity extends SelectionListener {
             super.setUp();
             setSizes();
             fetchData();
-        }
-        else {
+        } else {
             setContentView(R.layout.activity_bikes);
             super.setUp();
             setSpinners();
@@ -92,6 +97,7 @@ public class BikesActivity extends SelectionListener {
 
     /**
      * Start the BikeActivity to see bike details for the selected bike and/or book the bike.
+     *
      * @param bike - The selected Bike to see more details for and/or book.
      */
     @Override
@@ -111,13 +117,14 @@ public class BikesActivity extends SelectionListener {
         Fragment fragment = fm.findFragmentById(R.id.bikeListContainer);
         if (fragment == null) {
             Bundle bundle = new Bundle();
-            bundle.putParcelableArrayList(BikeListFragment.BIKES_KEY, (ArrayList<Bike>) mBikes.clone());
-            mBikeListFragment = new BikeListFragment();
-            mBikeListFragment.setArguments(bundle);
-            fm.beginTransaction().add(R.id.bikeListContainer, mBikeListFragment).commit();
+            bundle.putParcelableArrayList(ItemListFragment.getArgumentKey(), mDisplayedBikes);
+            mItemListFragment = new ItemListFragment();
+            mItemListFragment.setArguments(bundle);
+            fm.beginTransaction().add(R.id.bikeListContainer, mItemListFragment).commit();
         } else {
-            mBikeListFragment = (BikeListFragment) fragment;
+            mItemListFragment = (ItemListFragment) fragment;
         }
+        mItemListFragment.setViewHolderLayout(R.layout.viewholder_center_inside);
     }
 
 
@@ -126,19 +133,19 @@ public class BikesActivity extends SelectionListener {
      * Sets an onClickListener for both datepickers - startDate and endDate.
      */
     private void setDatePickers() {
+        final EditText startDateText = findViewById(R.id.startDateText);
+        final EditText endDateText = findViewById(R.id.endDateText);
         final Calendar cldr = Calendar.getInstance();
         int day = cldr.get(Calendar.DAY_OF_MONTH);
         int month = cldr.get(Calendar.MONTH);
         int year = cldr.get(Calendar.YEAR);
-        final EditText startDateText = findViewById(R.id.startDateText);
-        final EditText endDateText = findViewById(R.id.endDateText);
+        mStartDate.setTime(cldr.getTime());
         startDateText.setInputType(InputType.TYPE_NULL);
-        endDateText.setInputType(InputType.TYPE_NULL);
-        mStartDate.setTime(new Date());
-        mEndDate.setTime(new Date());
         startDateText.setText(day + "/" + (month + 1) + "/" + year);
         cldr.add(Calendar.DAY_OF_YEAR, 1);
+        mEndDate.setTime(cldr.getTime());
         day = cldr.get(Calendar.DAY_OF_MONTH);
+        endDateText.setInputType(InputType.TYPE_NULL);
         endDateText.setText(day + "/" + (month + 1) + "/" + year);
 
         startDateText.setOnClickListener(
@@ -194,7 +201,7 @@ public class BikesActivity extends SelectionListener {
         final Spinner sizes = findViewById(R.id.sizes);
         ArrayAdapter<String> adapter;
 
-        adapter= new ArrayAdapter<String>
+        adapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_spinner_item, this.mTypes);
         adapter.setDropDownViewResource(
                 android.R.layout
@@ -203,7 +210,7 @@ public class BikesActivity extends SelectionListener {
         types.setAdapter(adapter);
         types.setSelection(adapter.getPosition("All"));
 
-        adapter= new ArrayAdapter<String>
+        adapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_spinner_item, this.mSizes);
         adapter.setDropDownViewResource(
                 android.R.layout
@@ -219,7 +226,7 @@ public class BikesActivity extends SelectionListener {
                 String selectedType = types.getSelectedItem().toString();
                 String selectedSize = sizes.getSelectedItem().toString();
                 try {
-                    mBikeListFragment.filterBikes(selectedType, selectedSize);
+                    filterBikes(selectedType, selectedSize);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -237,7 +244,7 @@ public class BikesActivity extends SelectionListener {
                 String selectedType = types.getSelectedItem().toString();
                 String selectedSize = sizes.getSelectedItem().toString();
                 try {
-                    mBikeListFragment.filterBikes(selectedType, selectedSize);
+                    filterBikes(selectedType, selectedSize);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -298,6 +305,7 @@ public class BikesActivity extends SelectionListener {
                     }
                 }
                 mBikes = bikes;
+                mDisplayedBikes = (ArrayList<Bike>) bikes.clone();
                 mDataFetched = true;
                 setUp();
             }
@@ -315,9 +323,86 @@ public class BikesActivity extends SelectionListener {
      * Set sizes for the dropdown spinner used to filter by size.
      */
     private void setSizes() {
+        mSizes = new ArrayList<>();
         mSizes.add("All");
         mSizes.add("S");
         mSizes.add("M");
         mSizes.add("L");
+    }
+
+    public void filterBikes(String selectedType, String selectedSize) throws InterruptedException {
+        ArrayList<Bike> res = new ArrayList<>();
+        for (Bike bike : mBikes) {
+            Log.d("ItemListFragment", "Bike added");
+            if (bike.getType() != null &&
+                    (bike.getType().equals(selectedType) && bike.getSize().equals(selectedSize))) {
+                res.add(bike);
+            } else if (bike.getType() != null &&
+                    (bike.getType().equals(selectedType) && selectedSize.equals("All"))) {
+                res.add(bike);
+            } else if (selectedType.equals("All") && bike.getSize().equals(selectedSize)) {
+                res.add(bike);
+            } else if (selectedType.equals("All") && selectedSize.equals("All")) {
+                res.add(bike);
+            }
+        }
+        Boolean[] initVals = new Boolean[mDisplayedBikes.size()];
+        for (int i = 0; i < initVals.length; i += 1) {
+            initVals[i] = new Boolean(false);
+        }
+        ArrayBlockingQueue<Boolean> shouldBeInList = new ArrayBlockingQueue<>(mBikes.size(), true, Arrays.asList(initVals));
+        int n = res.size() - 1;
+        while (!(n < 0)) {
+            Bike bikeInRes = res.get(n);
+            boolean bikePresent = false;
+            for (int i = 0; i < mDisplayedBikes.size(); i += 1) {
+                Bike bike = mDisplayedBikes.get(i);
+                if (bike == bikeInRes) {
+                    bikePresent = true;
+                    Object[] array = shouldBeInList.toArray();
+                    Boolean[] vals = Arrays.copyOf(array, array.length, Boolean[].class);
+                    vals[i] = new Boolean(true);
+                    shouldBeInList = new ArrayBlockingQueue<>(mBikes.size(), true, Arrays.asList(vals));
+                    break;
+                }
+            }
+            if (!bikePresent) {
+                mDisplayedBikes.add(bikeInRes);
+                shouldBeInList.add(new Boolean(true));
+            }
+            n -= 1;
+        }
+        n = 0;
+        while (shouldBeInList.size() != 0) {
+            if (!shouldBeInList.take()) {
+                mDisplayedBikes.remove(n);
+            } else {
+                n += 1;
+            }
+        }
+        mItemListFragment.updateList();
+    }
+    @Override
+    public void onBindViewHolder(final ViewHolder viewHolder, int index) {
+        final Bike bike = mDisplayedBikes.get(index);
+        viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.mListener.onBikeSelected(bike);
+            }
+        });
+        bindViewHolder(viewHolder, bike);
+    }
+
+    public static void bindViewHolder(final ViewHolder viewHolder, final Bike bike) {
+        viewHolder.mCardTitle.setText(bike.getName() + " - " + bike.getBrand());
+        viewHolder.mCardInfo3.setText("" + bike.getPrice());
+        if (bike.getType().equals("Hybrid")) {
+            viewHolder.mCardImage.setImageResource(R.drawable.bike_hybrid);
+        } else if (bike.getType().equals("Racer")) {
+            viewHolder.mCardImage.setImageResource(R.drawable.bike_racer);
+        } else if (bike.getType().equals("MTB")) {
+            viewHolder.mCardImage.setImageResource(R.drawable.bike_mbk);
+        }
     }
 }

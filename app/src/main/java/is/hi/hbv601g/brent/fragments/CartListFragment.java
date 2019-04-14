@@ -1,34 +1,23 @@
 package is.hi.hbv601g.brent.fragments;
 
 
-import android.content.Context;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.activities.CartActivity;
+import is.hi.hbv601g.brent.activities.model.CartActivity;
 import is.hi.hbv601g.brent.models.Tour;
+import is.hi.hbv601g.brent.utils.Triplet;
 
 public class CartListFragment extends Fragment {
 
@@ -38,7 +27,7 @@ public class CartListFragment extends Fragment {
     private int MarginTopAndBot = 0;
     private CartListFragment.CartListAdapter mAdapter;
     private boolean mLandscapeMode = false;
-    private ArrayList<CartActivity.Triplet> mData;
+    private ArrayList<Triplet> mData;
 
 
     @Override
@@ -68,7 +57,7 @@ public class CartListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-            CartActivity.Triplet triplet = mData.get(i);
+            Triplet triplet = mData.get(i);
             viewHolder.mProduct.setText(triplet.getProduct());
             viewHolder.mQuantity.setText(triplet.getQuantity());
             viewHolder.mPrice.setText(triplet.getPrice());
@@ -87,7 +76,7 @@ public class CartListFragment extends Fragment {
         public TextView mPrice;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            mLayout = (LinearLayout) itemView.findViewById(R.id.layout);
+            mLayout = itemView.findViewById(R.id.layout);
             mProduct = itemView.findViewById(R.id.product);
             mQuantity = itemView.findViewById(R.id.quantity);
             mPrice = itemView.findViewById(R.id.price);

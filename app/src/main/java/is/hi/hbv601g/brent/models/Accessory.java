@@ -5,35 +5,23 @@ import android.os.Parcelable;
 
 import java.util.Map;
 
-import is.hi.hbv601g.brent.activities.AccessoriesActivity;
 
 public class Accessory implements Parcelable {
 
     private String mID;
     private String mType;
     private String mName;
-    private Long mPrice;
+    private int mPrice;
     private String mImage;
 
     public Accessory() { }
 
-    public Accessory(String type, String name, Long price, String id, String image) {
-        mType = type;
-        mName = name;
-        mPrice = price;
-        mID = id;
-        mImage = image;
-    }
 
     protected Accessory(Parcel in) {
         mID = in.readString();
         mType = in.readString();
         mName = in.readString();
-        if (in.readByte() == 0) {
-            mPrice = null;
-        } else {
-            mPrice = in.readLong();
-        }
+        mPrice = in.readInt();
     }
 
     public static final Creator<Accessory> CREATOR = new Creator<Accessory>() {
@@ -70,24 +58,15 @@ public class Accessory implements Parcelable {
         mName = name;
     }
 
-    public Long getPrice() {
+    public int getPrice() {
         return mPrice;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(int price) {
         mPrice = price;
     }
 
     public String getImage() { return mImage; }
-
-    public void setImage(String image) { this.mImage = image; }
-
-    public boolean isEmpty() {
-        if (mID == null) {
-            return true;
-        }
-        return false;
-    }
 
     public static Accessory toEntity(String id, Map<String, Object> data) {
         Accessory a = new Accessory();
@@ -95,7 +74,7 @@ public class Accessory implements Parcelable {
             a.setId(id);
             a.setName(data.get("name").toString());
             a.setType(data.get("type").toString());
-            a.setPrice(Long.parseLong(data.get("price").toString()));
+            a.setPrice(Integer.parseInt(data.get("price").toString()));
             return a;
         } catch (Exception e) {
             return null;
@@ -112,6 +91,6 @@ public class Accessory implements Parcelable {
         dest.writeString(mID);
         dest.writeString(mType);
         dest.writeString(mName);
-        dest.writeLong(mPrice);
+        dest.writeInt(mPrice);
     }
 }

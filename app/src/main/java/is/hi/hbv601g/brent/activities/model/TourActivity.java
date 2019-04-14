@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent.activities;
+package is.hi.hbv601g.brent.activities.model;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -16,7 +16,8 @@ import com.squareup.picasso.Picasso;
 import java.util.Calendar;
 import java.util.Date;
 
-import is.hi.hbv601g.brent.Cart;
+import is.hi.hbv601g.brent.activities.CurrentActivity;
+import is.hi.hbv601g.brent.models.Cart;
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.models.Tour;
 
@@ -63,7 +64,7 @@ public class TourActivity extends CurrentActivity {
         mImage = findViewById(R.id.tour_image);
         mTitle.setText(tour.getName());
         mLocation.setText(tour.getLocation());
-        mPrice.setText(tour.getPrice().toString() + " ISK");
+        mPrice.setText(tour.getPrice() + " ISK");
         mDuration.setText(tour.getDuration().toString() + " hours");
         mDepartureTime.setText(tour.getDepartureTime());
         mDescription.setText(tour.getDescription());
@@ -118,10 +119,6 @@ public class TourActivity extends CurrentActivity {
                     tour.setDate(mDate.getTime());
                     tour.setNumberOfTravelers(numberOfTravelers);
                     cart.addTourToCart(tour);
-                    for (int i = 0; i < numberOfTravelers; i++) {
-                        cart.setTotalPrice(cart.getTotalPrice() + tour.getPrice());
-                    }
-
                     Intent cartIntent = new Intent(getApplicationContext(), CartActivity.class);
                     startActivity(cartIntent);
                 }

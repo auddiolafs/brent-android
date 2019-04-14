@@ -6,10 +6,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
-import is.hi.hbv601g.brent.Cart;
+import is.hi.hbv601g.brent.models.Cart;
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.services.BookingService;
 
@@ -49,7 +48,7 @@ public class PaymentActivity extends CurrentActivity {
             public void onClick(View v) {
                 if (true) {
                     bookingService.saveBooking(mCart.getBikes(), mCart.getAccessories(), mCart.getTours(), mCart.getStartDate(),
-                            mCart.getEndDate(), "Reykjavik");
+                            mCart.getEndDate(), "Reykjavik", mCart.getTotalPrice());
                     mCart.resetCart();
                     showMessage("Payment successful");
                     Intent homeIntent = new Intent(getApplicationContext(), MainActivity.class);

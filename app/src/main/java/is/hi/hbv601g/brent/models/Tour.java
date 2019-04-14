@@ -12,7 +12,7 @@ public class Tour implements Parcelable {
     private String mID;
     private String mName;
     private String mLocation;
-    private Long mPrice;
+    private int mPrice;
     private Date mDate;
     private String mImage;
     private Long mDuration;
@@ -22,7 +22,7 @@ public class Tour implements Parcelable {
 
     public Tour() { }
 
-    public Tour(String id, String name, String location, Long price, Date date, String image,
+    public Tour(String id, String name, String location, int price, Date date, String image,
                 Long duration, String description, Long travelers, String departureTime) {
         mID = id;
         mName = name;
@@ -47,11 +47,7 @@ public class Tour implements Parcelable {
         //mDate = new Date(in.readString());
         //mStartDate = new Date(in.readString());
         //mEndDate = new Date(in.readString());
-        if (in.readByte() == 0) {
-            mPrice = null;
-        } else {
-            mPrice = in.readLong();
-        }
+        mPrice = in.readInt();
         //mNumberOfTravelers = in.readLong();
     }
 
@@ -73,7 +69,7 @@ public class Tour implements Parcelable {
             t.setId(tourId);
             t.setName(tourData.get("name").toString());
             t.setLocation(tourData.get("location").toString());
-            t.setPrice(Long.parseLong(tourData.get("price").toString()));
+            t.setPrice(Integer.parseInt(tourData.get("price").toString()));
             t.setImage(tourData.get("image").toString());
             t.setDuration(Long.parseLong(tourData.get("durationHours").toString()));
             t.setDescription(tourData.get("description").toString());
@@ -110,11 +106,11 @@ public class Tour implements Parcelable {
         mLocation = location;
     }
 
-    public Long getPrice() {
+    public int getPrice() {
         return mPrice;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(int price) {
         mPrice = price;
     }
 
@@ -163,12 +159,9 @@ public class Tour implements Parcelable {
         /*if (mDate != null) {
             dest.writeString(mDate.toString());
         }*/
-        if (mPrice == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeLong(mPrice);
-        }
+        dest.writeInt(mPrice);
         //dest.writeLong(mNumberOfTravelers);
     }
+
+
 }

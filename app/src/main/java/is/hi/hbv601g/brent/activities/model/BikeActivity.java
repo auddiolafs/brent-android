@@ -1,4 +1,4 @@
-package is.hi.hbv601g.brent.activities;
+package is.hi.hbv601g.brent.activities.model;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +8,10 @@ import android.widget.TextView;
 
 import java.util.Date;
 
+import is.hi.hbv601g.brent.activities.CurrentActivity;
 import is.hi.hbv601g.brent.models.Bike;
-import is.hi.hbv601g.brent.Cart;
+import is.hi.hbv601g.brent.models.Cart;
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.models.Booking;
 
 public class BikeActivity extends CurrentActivity {
 
@@ -56,7 +56,6 @@ public class BikeActivity extends CurrentActivity {
                 cart.setStartDate(startDate);
                 cart.setEndDate(endDate);
                 cart.addBikeToCart(bike);
-                cart.setTotalPrice(cart.getTotalPrice() + bike.getPrice());
                 startActivity(cartActivity_intent);
             }
         });
@@ -73,7 +72,7 @@ public class BikeActivity extends CurrentActivity {
         mTitle.setText(bike.getName() + " - " + bike.getBrand());
         mBrand.setText(bike.getBrand());
         mType.setText(bike.getType());
-        mPrice.setText(bike.getPrice().toString() + " ISK");
+        mPrice.setText(bike.getPrice() + " ISK");
         mName.setText(bike.getName());
         mSize.setText(bike.getSize());
         if (bike.getType().equals("Hybrid")) {

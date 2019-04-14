@@ -1,6 +1,31 @@
-# Brent
-### Android project
 
-Brent is a bike rental application for people who are interested in biking around Iceland and don’t have their own bike for use. Users can book a bike and bike accessories (helmets, locks, lights or fix kits) for rent during a chosen period of time, and users can also book a guided tour with all necessary equipment included.
+# BRENT
+![](/app/src/main/res/drawable/main.png)
 
-#### Installation instructions
+
+## Installation 
+
+```
+git clone https://github.com/auddiolafs/brent-android.git
+```
+
+Import with Android Studio and Run.
+
+#### Tools
+* Android Studio
+* Google Firebase & Firestore
+* Sketch + Zeplin
+* Git
+
+#### Group 12
+<center>
+
+Auðunn Andri Ólafsson / [aao7](mailto:aao7@hi.is) / [Git](https://github.com/auddiolafs)
+
+Bjarki Freyr Rúnarsson / [??](mailto:) / [Git](https://github.com/bjarkirunars)
+
+Daníel Ingólfsson / [dai5](mailto:dai5@hi.is) / [Git](https://github.com/dingolfsson)
+
+Ragna Ólafsdóttir / [rao9](mailto:rao9@hi.is) / [Git](https://github.com/ragnaolafs)
+</center>
+

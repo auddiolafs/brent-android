@@ -13,20 +13,9 @@ public class Bike implements Parcelable {
     private String mSize;
     private String mType;
     private String mSerial;
-    private Long mPrice;
+    private int mPrice;
 
     public Bike() { }
-
-    public Bike(String brand, String name, String size, String serial, Long price, String type,
-                String id) {
-        mBrand = brand;
-        mName = name;
-        mSize = size;
-        mSerial = serial;
-        mPrice = price;
-        mType = type;
-        mID = id;
-    }
 
 
     protected Bike(Parcel in) {
@@ -36,12 +25,7 @@ public class Bike implements Parcelable {
         mSize = in.readString();
         mType = in.readString();
         mSerial = in.readString();
-        mPrice = in.readLong();
-        if (in.readByte() == 0) {
-            mPrice = null;
-        } else {
-            mPrice = in.readLong();
-        }
+        mPrice = in.readInt();
     }
 
     public static final Creator<Bike> CREATOR = new Creator<Bike>() {
@@ -65,7 +49,7 @@ public class Bike implements Parcelable {
             b.setSize(bikeData.get("size").toString());
             b.setType(bikeData.get("type").toString());
             b.setSerial(bikeData.get("serial").toString());
-            b.setPrice(Long.parseLong(bikeData.get("ppd").toString()));
+            b.setPrice(Integer.parseInt(bikeData.get("ppd").toString()));
             return b;
         } catch (Exception e) {
             return null;
@@ -104,39 +88,21 @@ public class Bike implements Parcelable {
         mSize = size;
     }
 
-    public String getSerial() {
-        return mSerial;
-    }
-
     public void setSerial(String serial) {
         mSerial = serial;
     }
 
-    public Long getPrice() {
+    public int getPrice() {
         return mPrice;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(int price) {
         mPrice = price;
     }
 
     public String getType() { return mType; }
 
     public void setType(String type) { mType = type; }
-
-    public boolean isEmpty() {
-        if (mID == null) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean equals(Bike bike) {
-        if (bike.getSerial() == mSerial) {
-            return true;
-        }
-        return false;
-    }
 
     @Override
     public int describeContents() {
@@ -151,12 +117,6 @@ public class Bike implements Parcelable {
         dest.writeString(mSize);
         dest.writeString(mType);
         dest.writeString(mSerial);
-        dest.writeLong(mPrice);
-        if (mPrice == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeLong(mPrice);
-        }
+        dest.writeInt(mPrice);
     }
 }
