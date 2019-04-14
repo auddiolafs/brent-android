@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/booking"
+        android:text="@string/user_bookings"
         android:textColor="#44566C"
         android:textSize="24sp"
         android:textStyle="bold"

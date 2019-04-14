@@ -112,7 +112,7 @@ public class CartActivity extends CurrentActivity {
         List<Tour> tours = mCart.getTours();
 
         Map<String, Integer> quantity = new HashMap<>();
-        Map<String, Long> priceList = new HashMap<>();
+        Map<String, Integer> priceList = new HashMap<>();
         Map<String, String> productName = new HashMap<>();
 
         ArrayList<Triplet> listOfTriplets = new ArrayList<>();
@@ -146,7 +146,7 @@ public class CartActivity extends CurrentActivity {
             }
         }
 
-        for (Map.Entry<String, Long> entry : priceList.entrySet()) {
+        for (Map.Entry<String, Integer> entry : priceList.entrySet()) {
             String bikeID = entry.getKey();
             Log.d("Cart", bikeID + " / " + entry.getValue());
             listOfTriplets.add(new Triplet(productName.get(bikeID), quantity.get(bikeID).intValue(), priceList.get(bikeID).intValue()));
@@ -159,7 +159,8 @@ public class CartActivity extends CurrentActivity {
         setList(listOfTriplets);
 
         TextView mTotalPrice = findViewById(R.id.totalPriceValueText);
-        mTotalPrice.setText(mCart.getTotalPrice().toString() + " kr.");
+//        mTotalPrice.setText(mCart.getTotalPrice().toString() + " kr.");
+        mTotalPrice.setText("kr.");
 
         TextView continueButton = findViewById(R.id.continueButton);
         continueButton.setOnClickListener(new View.OnClickListener() {

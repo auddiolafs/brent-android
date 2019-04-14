@@ -134,7 +134,8 @@ public class BookingsActivity extends ItemListListener {
     }
 
     public static void bindViewHolder(final ViewHolder viewHolder, final Booking booking, int index) {
-        viewHolder.mCardTitle.setText("Booking title");
+        viewHolder.mCardTitle.setText("#"+booking.getId());
+        Log.d(mTAG, String.valueOf(booking.getPrice()));
         viewHolder.mCardInfo3.setText(booking.getPrice() + " kr");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         String startDateString = dateFormat.format(booking.getStartDate());
