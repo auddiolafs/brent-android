@@ -21,6 +21,7 @@
         <activity android:name=".activities.user.BookingsActivity" />
         <activity android:name=".activities.model.RouteActivity" /> <!-- <activity android:name=".fragments.RoutesFragment" /> -->
         <activity android:name=".activities.authentication.LoginActivity" />
+        <activity android:name=".activities.authentication.ForgotPasswordActivity" />
         <activity android:name=".activities.authentication.RegisterActivity" />
         <activity
             android:name=".activities.SplashScreenActivity"

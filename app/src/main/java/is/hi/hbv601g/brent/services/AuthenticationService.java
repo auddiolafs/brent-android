@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import is.hi.hbv601g.brent.activities.authentication.ForgotPasswordActivity;
 import is.hi.hbv601g.brent.activities.authentication.LoginActivity;
 import is.hi.hbv601g.brent.activities.authentication.RegisterActivity;
 
@@ -22,6 +23,7 @@ public class AuthenticationService {
 
     private LoginActivity loginActivity;
     private RegisterActivity registerActivity;
+    private ForgotPasswordActivity forgotPasswordActivity;
     private Map<String, Object> mUser = new HashMap<>();
     private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();;
@@ -33,6 +35,10 @@ public class AuthenticationService {
 
     public AuthenticationService(RegisterActivity registerActivity) {
         this.registerActivity = registerActivity;
+    }
+
+    public AuthenticationService(ForgotPasswordActivity forgotPasswordActivity) {
+        this.forgotPasswordActivity = forgotPasswordActivity;
     }
 
     public FirebaseUser getCurrentUser() {
@@ -73,6 +79,24 @@ public class AuthenticationService {
                     registerActivity.onRegisterSuccess(name, mAuth.getCurrentUser());
                 } else {
                     registerActivity.onRegisterError(task.getException().getMessage());
+                }
+            }
+        });
+    }
+
+    /**
+     * Reset a password - send a reset link to the email.
+     * @param email
+     */
+    public void forgotPassword(String email) {
+
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(forgotPasswordActivity, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    forgotPasswordActivity.onPasswordSuccess();
+                } else {
+                    forgotPasswordActivity.onPasswordFail(task.getException().getMessage());
                 }
             }
         });
