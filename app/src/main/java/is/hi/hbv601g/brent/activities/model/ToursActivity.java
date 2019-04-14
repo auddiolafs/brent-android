@@ -21,6 +21,7 @@ import is.hi.hbv601g.brent.fragments.ItemListFragment;
 import is.hi.hbv601g.brent.fragments.ItemListListener;
 import is.hi.hbv601g.brent.holders.ViewHolder;
 import is.hi.hbv601g.brent.models.Tour;
+import is.hi.hbv601g.brent.services.TourService;
 
 public class ToursActivity extends ItemListListener {
 
@@ -29,6 +30,7 @@ public class ToursActivity extends ItemListListener {
     private ItemListFragment mItemListFragment;
     private static final FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private static final String mTAG = "ToursActivity";
+    private TourService tourService = new TourService();
     private boolean mDataFetched = false;
 
     @Override
@@ -54,13 +56,14 @@ public class ToursActivity extends ItemListListener {
      */
     @Override
     public void setUp() {
-        if (!mDataFetched) {
+        if (!tourService.isDataFetched()) {
             setContentView(R.layout.activity_loading);
             super.setUp();
-            fetchTours();
+            tourService.fetchTours();
         } else {
             setContentView(R.layout.activity_tours);
             super.setUp();
+            mTours = tourService.getTours();
             setTourList();
         }
     }
