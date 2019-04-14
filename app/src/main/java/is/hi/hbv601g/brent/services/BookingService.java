@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,8 +23,10 @@ import java.util.List;
 import java.util.Map;
 
 import is.hi.hbv601g.brent.activities.user.BookingActivity;
+import is.hi.hbv601g.brent.activities.user.BookingsActivity;
 import is.hi.hbv601g.brent.models.Accessory;
 import is.hi.hbv601g.brent.models.Bike;
+import is.hi.hbv601g.brent.models.Booking;
 import is.hi.hbv601g.brent.models.Tour;
 
 public class BookingService {
@@ -32,10 +35,12 @@ public class BookingService {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance(mApp);
     private FirebaseFirestore mDB = FirebaseFirestore.getInstance();
     private String mUserId = mAuth.getCurrentUser().getUid();
+    private ArrayList<Booking> mBookings;
     private ArrayList<Bike> mBikes;
     private ArrayList<Tour> mTours;
     private ArrayList<Accessory> mAccessories;
     private BookingActivity bookingActivity;
+    private BookingsActivity bookingsActivity;
     private Map<String, Integer> mItemCounters = new HashMap<>();
     private static final String mTAG = "BookingService";
 
@@ -43,6 +48,14 @@ public class BookingService {
 
     public BookingService(BookingActivity bookingActivity) {
         this.bookingActivity = bookingActivity;
+    }
+
+    public BookingService(BookingsActivity bookingsActivity) {
+        this.bookingsActivity = bookingsActivity;
+    }
+
+    public ArrayList<Booking> getBookings() {
+        return mBookings;
     }
 
     /**
@@ -128,6 +141,45 @@ public class BookingService {
         });
     }
 
+    /**
+     * Fetches all bookings for a user from Firestore db, to be displayed in the bookings list.
+     */
+    public void fetchBookings(FirebaseUser user) {
+        final ArrayList<Booking> bookings = new ArrayList<>();
+        final Task<QuerySnapshot> task = mDB.collection("bookings")
+                .whereEqualTo("userId", user.getUid())
+                .get();
+
+        task.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Booking booking = Booking.toEntity(document.getId(), document.getData());
+                    if (booking == null) {
+                        Log.d(mTAG, "error");
+                    } else {
+                        bookings.add(booking);
+                    }
+                    Log.d("TE", Integer.toString(bookings.size()));
+                    mBookings = bookings;
+                }
+                bookingsActivity.setIsDataFetched(true);
+                bookingsActivity.setUp();
+            }
+        });
+
+
+        task.addOnFailureListener(new OnFailureListener() {
+            public void onFailure(Exception e) {
+                Log.d(mTAG, "Error fetching bookings");
+            }
+        });
+    }
+
+    /**
+     * Fetches one booking from Firestore by id.
+     * @param bookingId
+     */
     public void fetchBooking(String bookingId) {
         fetchTours(bookingId);
         fetchBikes(bookingId);

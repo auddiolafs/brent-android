@@ -2,12 +2,9 @@ package is.hi.hbv601g.brent.activities.model;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +17,6 @@ import java.util.Map;
 import java.util.List;
 
 import is.hi.hbv601g.brent.activities.CurrentActivity;
-import is.hi.hbv601g.brent.activities.MainActivity;
 import is.hi.hbv601g.brent.models.Cart;
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.fragments.CartListFragment;
