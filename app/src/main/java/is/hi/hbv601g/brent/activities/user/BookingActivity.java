@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import is.hi.hbv601g.brent.activities.model.TourActivity;
 import is.hi.hbv601g.brent.activities.model.ToursActivity;
 import is.hi.hbv601g.brent.models.Cart;
 import is.hi.hbv601g.brent.R;
@@ -27,8 +26,8 @@ import is.hi.hbv601g.brent.activities.model.BikeActivity;
 import is.hi.hbv601g.brent.activities.model.BikesActivity;
 import is.hi.hbv601g.brent.activities.CancelBookingActivity;
 import is.hi.hbv601g.brent.fragments.ItemListFragment;
-import is.hi.hbv601g.brent.fragments.ItemListListener;
-import is.hi.hbv601g.brent.holders.ViewHolder;
+import is.hi.hbv601g.brent.utils.ItemListListener;
+import is.hi.hbv601g.brent.holders.ItemListViewHolder;
 import is.hi.hbv601g.brent.models.Accessory;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Booking;
@@ -261,21 +260,21 @@ public class BookingActivity extends ItemListListener {
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, int index) {
+    public void onBindViewHolder(final ItemListViewHolder itemListViewHolder, int index) {
         Pair pair = mPairs.get(index);
         String key = pair.getKey();
         if (key == "bike") {
             Bike bike = (Bike) pair.getVal();
-            BikesActivity.bindViewHolder(viewHolder, bike);
+            BikesActivity.bindViewHolder(itemListViewHolder, bike);
         }
         else if (key == "tour") {
             final Tour tour = (Tour) pair.getVal();
-            ToursActivity.bindViewHolder(viewHolder, tour);
+            ToursActivity.bindViewHolder(itemListViewHolder, tour);
         }
         else if(key == "accessory") {
             Accessory accessory = (Accessory) pair.getVal();
-            viewHolder.mCardTitle.setText(accessory.getName());
-            viewHolder.mCardInfo3.setText("" + accessory.getPrice());
+            itemListViewHolder.mCardTitle.setText(accessory.getName());
+            itemListViewHolder.mCardInfo3.setText("" + accessory.getPrice());
         }
     }
 

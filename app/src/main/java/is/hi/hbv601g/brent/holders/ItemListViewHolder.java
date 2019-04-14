@@ -8,10 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.fragments.ItemListListener;
+import is.hi.hbv601g.brent.utils.ItemListListener;
 import is.hi.hbv601g.brent.models.Bike;
 
-public class ViewHolder extends RecyclerView.ViewHolder {
+public class ItemListViewHolder extends RecyclerView.ViewHolder {
     public TextView mCardTitle;
     public TextView mCardInfo1;
     public TextView mCardInfo2;
@@ -21,7 +21,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public Bike mBike;
     public ItemListListener mListener;
 
-    public ViewHolder(@NonNull View itemView, ItemListListener listener) {
+    public ItemListViewHolder(@NonNull View itemView, ItemListListener listener) {
         super(itemView);
         mLayout = (FrameLayout) itemView;
         mCardTitle = mLayout.findViewById(R.id.card_title);

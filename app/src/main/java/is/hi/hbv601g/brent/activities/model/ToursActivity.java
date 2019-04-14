@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.fragments.ItemListFragment;
-import is.hi.hbv601g.brent.fragments.ItemListListener;
-import is.hi.hbv601g.brent.holders.ViewHolder;
+import is.hi.hbv601g.brent.utils.ItemListListener;
+import is.hi.hbv601g.brent.holders.ItemListViewHolder;
 import is.hi.hbv601g.brent.models.Tour;
 
 public class ToursActivity extends ItemListListener {
@@ -117,24 +117,24 @@ public class ToursActivity extends ItemListListener {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int index) {
-        bindViewHolder(viewHolder, mTours.get(index));
+    public void onBindViewHolder(ItemListViewHolder itemListViewHolder, int index) {
+        bindViewHolder(itemListViewHolder, mTours.get(index));
     }
 
-    public static void bindViewHolder(final ViewHolder viewHolder, final Tour tour) {
-        viewHolder.mCardTitle.setText(tour.getName());
-        viewHolder.mCardInfo1.setText(tour.getLocation());
-        viewHolder.mCardInfo2.setText(tour.getDuration().toString() + " hours");
-        viewHolder.mCardInfo3.setText(tour.getPrice() + " ISK");
+    public static void bindViewHolder(final ItemListViewHolder itemListViewHolder, final Tour tour) {
+        itemListViewHolder.mCardTitle.setText(tour.getName());
+        itemListViewHolder.mCardInfo1.setText(tour.getLocation());
+        itemListViewHolder.mCardInfo2.setText(tour.getDuration().toString() + " hours");
+        itemListViewHolder.mCardInfo3.setText(tour.getPrice() + " ISK");
         Picasso.get().load(tour.getImage())
                 .placeholder(R.drawable.menu_tour)
                 .centerInside()
                 .resize(200, 200)
-                .into(viewHolder.mCardImage);
-        viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+                .into(itemListViewHolder.mCardImage);
+        itemListViewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewHolder.mListener.onTourSelected(tour);
+                itemListViewHolder.mListener.onTourSelected(tour);
             }
         });
     }

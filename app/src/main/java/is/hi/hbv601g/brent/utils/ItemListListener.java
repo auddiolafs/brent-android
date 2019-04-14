@@ -1,8 +1,8 @@
-package is.hi.hbv601g.brent.fragments;
+package is.hi.hbv601g.brent.utils;
 
 
 import is.hi.hbv601g.brent.activities.CurrentActivity;
-import is.hi.hbv601g.brent.holders.ViewHolder;
+import is.hi.hbv601g.brent.holders.ItemListViewHolder;
 import is.hi.hbv601g.brent.models.Accessory;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.models.Booking;
@@ -33,7 +33,7 @@ public class ItemListListener extends CurrentActivity {
 
     }
 
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(ItemListViewHolder itemListViewHolder, int i) {
 
     }
 }

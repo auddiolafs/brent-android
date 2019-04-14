@@ -17,10 +17,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.activities.model.RouteActivity;
 import is.hi.hbv601g.brent.fragments.ItemListFragment;
-import is.hi.hbv601g.brent.fragments.ItemListListener;
-import is.hi.hbv601g.brent.holders.ViewHolder;
+import is.hi.hbv601g.brent.utils.ItemListListener;
+import is.hi.hbv601g.brent.holders.ItemListViewHolder;
 import is.hi.hbv601g.brent.models.Route;
 
 public class RoutesActivity extends ItemListListener {
@@ -130,24 +129,24 @@ public class RoutesActivity extends ItemListListener {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int index) {
-        bindViewHolder(viewHolder, mRoutes.get(index));
+    public void onBindViewHolder(ItemListViewHolder itemListViewHolder, int index) {
+        bindViewHolder(itemListViewHolder, mRoutes.get(index));
     }
 
-    private void bindViewHolder(final ViewHolder viewHolder, final Route route) {
-        viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+    private void bindViewHolder(final ItemListViewHolder itemListViewHolder, final Route route) {
+        itemListViewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewHolder.mListener.onRouteSelected(route);
+                itemListViewHolder.mListener.onRouteSelected(route);
             }
         });
-        viewHolder.mCardTitle.setText(route.getLocation());
-        viewHolder.mCardInfo3.setText(route.getLength() + " km");
+        itemListViewHolder.mCardTitle.setText(route.getLocation());
+        itemListViewHolder.mCardInfo3.setText(route.getLength() + " km");
         Picasso.get().load(route.getImage())
                 .placeholder(R.drawable.menu_map)
                 .centerInside()
                 .resize(200, 200)
-                .into(viewHolder.mCardImage);
+                .into(itemListViewHolder.mCardImage);
     }
 
 }

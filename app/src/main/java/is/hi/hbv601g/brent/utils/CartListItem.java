@@ -3,18 +3,18 @@ package is.hi.hbv601g.brent.utils;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Triplet implements Parcelable {
+public class CartListItem implements Parcelable {
     String mProductName;
     int mQuantity;
     int mPrice;
 
-    public Triplet(String productName, int quantity, int price) {
+    public CartListItem(String productName, int quantity, int price) {
         mProductName = productName;
         mQuantity = quantity;
         mPrice = price;
     }
 
-    protected Triplet(Parcel in) {
+    protected CartListItem(Parcel in) {
         mProductName = in.readString();
         mQuantity = in.readInt();
         mPrice = in.readInt();
@@ -28,15 +28,15 @@ public class Triplet implements Parcelable {
         mPrice = price;
     }
 
-    public final Creator<Triplet> CREATOR = new Creator<Triplet>() {
+    public final Creator<CartListItem> CREATOR = new Creator<CartListItem>() {
         @Override
-        public Triplet createFromParcel(Parcel in) {
-            return new Triplet(in);
+        public CartListItem createFromParcel(Parcel in) {
+            return new CartListItem(in);
         }
 
         @Override
-        public Triplet[] newArray(int size) {
-            return new Triplet[size];
+        public CartListItem[] newArray(int size) {
+            return new CartListItem[size];
         }
     };
 

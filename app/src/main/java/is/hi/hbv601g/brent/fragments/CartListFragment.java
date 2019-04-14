@@ -15,19 +15,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import is.hi.hbv601g.brent.R;
-import is.hi.hbv601g.brent.activities.model.CartActivity;
+import is.hi.hbv601g.brent.holders.CartListViewHolder;
 import is.hi.hbv601g.brent.models.Tour;
-import is.hi.hbv601g.brent.utils.Triplet;
+import is.hi.hbv601g.brent.utils.CartListItem;
 
 public class CartListFragment extends Fragment {
 
     private RecyclerView mRecycleView = null;
-    private ArrayList<Tour> mTours;
-    private int MarginLeftAndRight = 0;
-    private int MarginTopAndBot = 0;
     private CartListFragment.CartListAdapter mAdapter;
-    private boolean mLandscapeMode = false;
-    private ArrayList<Triplet> mData;
+    private ArrayList<CartListItem> mData;
 
 
     @Override
@@ -42,25 +38,25 @@ public class CartListFragment extends Fragment {
         return view;
     }
 
-    private class CartListAdapter extends RecyclerView.Adapter<ViewHolder> {
+    private class CartListAdapter extends RecyclerView.Adapter<CartListViewHolder> {
         public CartListAdapter() {
             super();
         }
         @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        public CartListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             LinearLayout layout = (LinearLayout) LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.viewholder_cart, viewGroup, false);
-            ViewHolder viewHolder = new ViewHolder(layout);
+            CartListViewHolder viewHolder = new CartListViewHolder(layout);
             return viewHolder;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-            Triplet triplet = mData.get(i);
-            viewHolder.mProduct.setText(triplet.getProduct());
-            viewHolder.mQuantity.setText(triplet.getQuantity());
-            viewHolder.mPrice.setText(triplet.getPrice());
+        public void onBindViewHolder(@NonNull CartListViewHolder viewHolder, int i) {
+            CartListItem cartListItem = mData.get(i);
+            viewHolder.mProduct.setText(cartListItem.getProduct());
+            viewHolder.mQuantity.setText(cartListItem.getQuantity());
+            viewHolder.mPrice.setText(cartListItem.getPrice());
         }
 
         @Override
@@ -69,22 +65,6 @@ public class CartListFragment extends Fragment {
         }
     }
 
-    private class ViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout mLayout;
-        public TextView mProduct;
-        public TextView mQuantity;
-        public TextView mPrice;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            mLayout = itemView.findViewById(R.id.layout);
-            mProduct = itemView.findViewById(R.id.product);
-            mQuantity = itemView.findViewById(R.id.quantity);
-            mPrice = itemView.findViewById(R.id.price);
-            mPrice.setWidth(100);
-            mProduct.setWidth(250);
-            mQuantity.setWidth(100);
-        }
-    }
 
 
 }

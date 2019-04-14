@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 import is.hi.hbv601g.brent.R;
 import is.hi.hbv601g.brent.fragments.ItemListFragment;
-import is.hi.hbv601g.brent.fragments.ItemListListener;
-import is.hi.hbv601g.brent.holders.ViewHolder;
+import is.hi.hbv601g.brent.utils.ItemListListener;
+import is.hi.hbv601g.brent.holders.ItemListViewHolder;
 import is.hi.hbv601g.brent.models.Booking;
 
 public class BookingsActivity extends ItemListListener {
@@ -129,37 +129,37 @@ public class BookingsActivity extends ItemListListener {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int index) {
-        bindViewHolder(viewHolder, mBookings.get(index), index);
+    public void onBindViewHolder(ItemListViewHolder itemListViewHolder, int index) {
+        bindViewHolder(itemListViewHolder, mBookings.get(index), index);
     }
 
-    public static void bindViewHolder(final ViewHolder viewHolder, final Booking booking, int index) {
-        viewHolder.mCardTitle.setText("Booking title");
-        viewHolder.mCardInfo3.setText(booking.getPrice() + " kr");
+    public static void bindViewHolder(final ItemListViewHolder itemListViewHolder, final Booking booking, int index) {
+        itemListViewHolder.mCardTitle.setText("Booking title");
+        itemListViewHolder.mCardInfo3.setText(booking.getPrice() + " kr");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         String startDateString = dateFormat.format(booking.getStartDate());
         String endDateString = dateFormat.format(booking.getEndDate());
-        viewHolder.mCardInfo2.setText(startDateString + " to " + endDateString);
+        itemListViewHolder.mCardInfo2.setText(startDateString + " to " + endDateString);
         switch (index % 5) {
             case 0:
-                viewHolder.mCardImage.setImageResource(R.drawable.booking_img1);
+                itemListViewHolder.mCardImage.setImageResource(R.drawable.booking_img1);
                 break;
             case 1:
-                viewHolder.mCardImage.setImageResource(R.drawable.booking_img2);
+                itemListViewHolder.mCardImage.setImageResource(R.drawable.booking_img2);
                 break;
             case 2:
-                viewHolder.mCardImage.setImageResource(R.drawable.booking_img3);
+                itemListViewHolder.mCardImage.setImageResource(R.drawable.booking_img3);
                 break;
             case 3:
-                viewHolder.mCardImage.setImageResource(R.drawable.booking_img4);
+                itemListViewHolder.mCardImage.setImageResource(R.drawable.booking_img4);
                 break;
             default:
-                viewHolder.mCardImage.setImageResource(R.drawable.booking_img5);
+                itemListViewHolder.mCardImage.setImageResource(R.drawable.booking_img5);
         }
-        viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+        itemListViewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewHolder.mListener.onBookingSelected(booking);
+                itemListViewHolder.mListener.onBookingSelected(booking);
             }
         });
     }

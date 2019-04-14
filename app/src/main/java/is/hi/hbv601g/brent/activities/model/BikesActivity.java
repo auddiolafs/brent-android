@@ -28,8 +28,8 @@ import java.util.Date;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import is.hi.hbv601g.brent.fragments.ItemListFragment;
-import is.hi.hbv601g.brent.fragments.ItemListListener;
-import is.hi.hbv601g.brent.holders.ViewHolder;
+import is.hi.hbv601g.brent.utils.ItemListListener;
+import is.hi.hbv601g.brent.holders.ItemListViewHolder;
 import is.hi.hbv601g.brent.models.Bike;
 import is.hi.hbv601g.brent.R;
 
@@ -383,26 +383,26 @@ public class BikesActivity extends ItemListListener {
         mItemListFragment.updateList();
     }
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, int index) {
+    public void onBindViewHolder(final ItemListViewHolder itemListViewHolder, int index) {
         final Bike bike = mDisplayedBikes.get(index);
-        viewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+        itemListViewHolder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewHolder.mListener.onBikeSelected(bike);
+                itemListViewHolder.mListener.onBikeSelected(bike);
             }
         });
-        bindViewHolder(viewHolder, bike);
+        bindViewHolder(itemListViewHolder, bike);
     }
 
-    public static void bindViewHolder(final ViewHolder viewHolder, final Bike bike) {
-        viewHolder.mCardTitle.setText(bike.getName() + " - " + bike.getBrand());
-        viewHolder.mCardInfo3.setText("" + bike.getPrice());
+    public static void bindViewHolder(final ItemListViewHolder itemListViewHolder, final Bike bike) {
+        itemListViewHolder.mCardTitle.setText(bike.getName() + " - " + bike.getBrand());
+        itemListViewHolder.mCardInfo3.setText("" + bike.getPrice());
         if (bike.getType().equals("Hybrid")) {
-            viewHolder.mCardImage.setImageResource(R.drawable.bike_hybrid);
+            itemListViewHolder.mCardImage.setImageResource(R.drawable.bike_hybrid);
         } else if (bike.getType().equals("Racer")) {
-            viewHolder.mCardImage.setImageResource(R.drawable.bike_racer);
+            itemListViewHolder.mCardImage.setImageResource(R.drawable.bike_racer);
         } else if (bike.getType().equals("MTB")) {
-            viewHolder.mCardImage.setImageResource(R.drawable.bike_mbk);
+            itemListViewHolder.mCardImage.setImageResource(R.drawable.bike_mbk);
         }
     }
 }
