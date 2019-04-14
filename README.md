@@ -22,7 +22,7 @@ Import with Android Studio and Run.
 
 Auðunn Andri Ólafsson / [aao7](mailto:aao7@hi.is) / [Git](https://github.com/auddiolafs)
 
-Bjarki Freyr Rúnarsson / [??](mailto:) / [Git](https://github.com/bjarkirunars)
+Bjarki Freyr Rúnarsson / [bfr2](mailto:) / [Git](https://github.com/bjarkirunars)
 
 Daníel Ingólfsson / [dai5](mailto:dai5@hi.is) / [Git](https://github.com/dingolfsson)
 
